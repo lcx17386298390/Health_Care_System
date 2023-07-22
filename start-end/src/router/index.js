@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import Login from '../components/Login.vue'
+import Password from '../components/Password.vue'
+import Register from '../components/Register.vue'
+import PatientView from '../views/patients/PatientView.vue'
+import Example from '../views/patients/Example.vue'
 
 Vue.use(VueRouter)
 
@@ -18,24 +22,32 @@ const routes = [
     name: 'Homeview',
     component: HomeView
   },
-
-
-
   {
-    path: '/home/login',
+    path: '/patient',
+    name: 'Patientview',
+    component: PatientView
+  },
+  
+  {
+    path: '/login',
     name: 'Login',
     component: Login
   },
-  // {
-  //   path: '/home',
-  //   name: '',
-  //   component: 
-  // },
-  // {
-  //   path: '/home',
-  //   name: '',
-  //   component: 
-  // },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/password',
+    name: 'Password',
+    component: Password
+  },
+  {
+    path: '/example',
+    name: 'Example',
+    component: Example
+  },
 
 
 

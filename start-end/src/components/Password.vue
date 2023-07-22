@@ -7,9 +7,14 @@
             <div class="col-lg-5">
               <div class="card shadow-lg border-0 rounded-lg mt-5">
                 <div class="card-header">
-                  <h3 class="text-center font-weight-light my-4">登录</h3>
+                  <h3 class="text-center font-weight-light my-4">
+                    密码重置
+                  </h3>
                 </div>
                 <div class="card-body">
+                  <div class="small mb-3 text-muted">
+                    输入您的邮箱地址,我们将给您一个链接...
+                  </div>
                   <form>
                     <div class="form-floating mb-3">
                       <input
@@ -18,38 +23,16 @@
                         type="email"
                         placeholder="name@example.com"
                       />
-                      <label for="inputEmail">请输入你的邮箱...</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                      <input
-                        class="form-control"
-                        id="inputPassword"
-                        type="password"
-                        placeholder="Password"
-                      />
-                      <label for="inputPassword">请输入密码...</label>
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        class="form-check-input"
-                        id="inputRememberPassword"
-                        type="checkbox"
-                        value=""
-                      />
-                      <label
-                        class="form-check-label"
-                        for="inputRememberPassword"
-                        >记住密码</label
-                      >
+                      <label for="inputEmail">请输入您的邮箱...</label>
                     </div>
                     <div
                       class="d-flex align-items-center justify-content-between mt-4 mb-0"
                     >
-                      <router-link class="small" to="/password"
-                        >忘记密码?</router-link
+                      <router-link class="small" to="/login"
+                        >返回登录</router-link
                       >
-                      <router-link class="btn btn-primary" to="/patient"
-                        >登录</router-link
+                      <router-link class="btn btn-primary" to="/login"
+                        >重置密码</router-link
                       >
                     </div>
                   </form>
@@ -57,7 +40,7 @@
                 <div class="card-footer text-center py-3">
                   <div class="small">
                     <router-link to="/register"
-                      >新用户? 注册一个账号!</router-link
+                      >还没有账号? 去注册!</router-link
                     >
                   </div>
                 </div>
@@ -74,9 +57,9 @@
             >
               <div class="text-muted">Copyright &copy; Your Website 2023</div>
               <div>
-                <router-link href="/#">Privacy Policy</router-link>
+                <router-link to="/#">Privacy Policy</router-link>
                 &middot;
-                <router-link href="/#">Terms &amp; Conditions</router-link>
+                <router-link to="/#">Terms &amp; Conditions</router-link>
               </div>
             </div>
           </div>
@@ -85,10 +68,10 @@
     </div>
   </div>
 </template>
- 
+
 <script>
 export default {};
 </script>
- 
+
 <style scoped>
 </style>

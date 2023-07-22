@@ -1,48 +1,54 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div>
+  <header class="p-3 text-bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">HGNU医疗健康系统</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">主页</a>
+      <div class="d-flex align-items-center justify-content-between">
+        <router-link class="navbar-brand fs-4" to="/"
+          >HGNUACM医疗健康系统</router-link
+        >
+        <ul class="nav col-12 col-lg-auto mb-2 justify-content-center mb-md-0">
+          <li>
+            <router-link to="/home" class="nav-link px-2 mx-4 text-secondary"
+              >首页</router-link
+            >
           </li>
-          <li class="nav-item"><a class="nav-link" href="#">链接🔗</a></li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              >菜单栏</a
+          <li>
+            <router-link to="/#" class="nav-link px-2 mx-4 text-white"
+              >XXX</router-link
             >
-            <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdown"
+          </li>
+          <li>
+            <router-link to="/#" class="nav-link px-2 mx-4 text-white"
+              >XXX</router-link
             >
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+          </li>
+          <li>
+            <router-link to="/#" class="nav-link px-2 mx-4 text-white"
+              >XXX</router-link
+            >
+          </li>
+          <li>
+            <router-link to="/#" class="nav-link px-2 mx-4 text-white"
+              >XXX</router-link
+            >
           </li>
         </ul>
+        <div class="text-end">
+          <router-link to="/#" class="btn btn-outline-light me-4"
+            >联系我们</router-link
+          >
+          <router-link to="/login" class="btn btn-warning">登录</router-link>
+        </div>
       </div>
     </div>
-  </nav>
+  </header>
+  <el-carousel indicator-position="outside">
+    <el-carousel-item v-for="item in 4" :key="item">
+      <h3>{{ item }}</h3>
+    </el-carousel-item>
+  </el-carousel>
+</div>
+  
 </template>
 
 <script>
@@ -55,7 +61,26 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+/* .el-carousel{
+  padding-top: 20%;
+  height: 500px;
+} */
+.el-carousel__item h3 {
+    color: #727f90;
+    font-size: 18px;
+    opacity: 0.75;
+    line-height: 300px;
+    margin: 0;
+  }
+  
+  .el-carousel__item:nth-child(2n) {
+    background-color: #484d53;
+  }
+  
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #666b70;
+  }
 @media (min-width: 992px) {
   .navbar-expand-lg {
     flex-wrap: nowrap;
@@ -79,5 +104,4 @@ export default {
     flex-basis: auto;
   }
 }
-
 </style>
