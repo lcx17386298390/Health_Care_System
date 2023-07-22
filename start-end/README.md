@@ -16,19 +16,15 @@ views下有三个系统文件夹，先做病人的
     5/处方单    prescription
     6/买药品  buyDrug
 
-## Project setup
+## 项目启动事项！；拉取完后严格执行
 ```
-yarn install
+yarn install +yarn serve + yarn build
 ```
+添加额外依赖是使用 yarn add + 依赖名
 
 ### Compiles and hot-reloads for development !!!
 ```
-yarn serve  ！使用yarn启动项目而不是npm ！
-```
-
-### Compiles and minifies for production
-```
-yarn build
+ ！使用yarn启动项目而不是npm ！
 ```
 
 ### Lints and fixes files
