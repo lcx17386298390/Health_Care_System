@@ -1,0 +1,95 @@
+<template>
+  <div
+    class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
+    style="width: 280px"
+  >
+    <router-link
+      to="/"
+      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+    >
+      <svg class="bi pe-none me-2" width="40" height="32">
+        <use xlink:to="/#"></use>
+      </svg>
+      <span class="fs-4">Sidebar</span>
+    </router-link>
+    <hr />
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <router-link to="/#" class="nav-link active" aria-current="page">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="/patient"></use>
+          </svg>
+          Home
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/#" class="nav-link text-white">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#speedometer2"></use>
+          </svg>
+          Dashboard
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/#" class="nav-link text-white">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="/#table"></use>
+          </svg>
+          Orders
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/#" class="nav-link text-white">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#grid"></use>
+          </svg>
+          Products
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/#" class="nav-link text-white">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#people-circle"></use>
+          </svg>
+          Customers
+        </router-link>
+      </li>
+    </ul>
+    <hr />
+    <div class="dropdown">
+      <router-link
+        to="/#"
+        class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <img
+          src="https://github.com/mdo.png"
+          alt=""
+          width="32"
+          height="32"
+          class="rounded-circle me-2"
+        />
+        <strong>mdo</strong>
+      </router-link>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+        <li><router-link class="dropdown-item" to="/theam">切换主题</router-link></li>
+        <li><router-link class="dropdown-item" to="/settings">设置</router-link></li>
+        <li><router-link class="dropdown-item" to="/self">个人中心</router-link></li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><router-link class="dropdown-item" to="/login">退出登录</router-link></li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style scoped>
+.d-flex.flex-column.flex-shrink-0.p-3.text-bg-dark{
+  height: 100vh;
+}
+
+</style>
