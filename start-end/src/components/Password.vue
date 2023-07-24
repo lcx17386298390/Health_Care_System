@@ -7,9 +7,7 @@
             <div class="col-lg-5">
               <div class="card shadow-lg border-0 rounded-lg mt-5">
                 <div class="card-header">
-                  <h3 class="text-center font-weight-light my-4">
-                    密码重置
-                  </h3>
+                  <h3 class="text-center font-weight-light my-4">密码重置</h3>
                 </div>
                 <div class="card-body">
                   <div class="small mb-3 text-muted">
@@ -48,22 +46,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div id="layoutAuthentication_footer">
-        <footer class="py-4 bg-light mt-auto">
-          <div class="container-fluid px-4">
-            <div
-              class="d-flex align-items-center justify-content-between small"
-            >
-              <div class="text-muted">Copyright &copy; Your Website 2023</div>
-              <div>
-                <router-link to="/#">Privacy Policy</router-link>
-                &middot;
-                <router-link to="/#">Terms &amp; Conditions</router-link>
-              </div>
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
   </div>
