@@ -21,6 +21,7 @@
                             id="inputFirstName"
                             type="text"
                             placeholder="Enter your first name"
+                            v-model="inputUserName"
                           />
                           <label for="inputFirstName">请输入您的账号...</label>
                         </div>
@@ -32,6 +33,7 @@
                             id="inputLastName"
                             type="text"
                             placeholder="Enter your last name"
+                            v-model="inputRealName"
                           />
                           <label for="inputLastName">请输入您的姓名...</label>
                         </div>
@@ -43,6 +45,7 @@
                         id="inputEmail"
                         type="email"
                         placeholder="name@example.com"
+                        v-model="inputEmail"
                       />
                       <label for="inputEmail">请输入您的邮箱进行验证...</label>
                     </div>
@@ -54,6 +57,7 @@
                             id="inputPassword"
                             type="password"
                             placeholder="Create a password"
+                            v-model="inputPassword"
                           />
                           <label for="inputPassword">请输入您的密码...</label>
                         </div>
@@ -65,6 +69,7 @@
                             id="inputPasswordConfirm"
                             type="password"
                             placeholder="Confirm password"
+                            v-model="repeatPassword"
                           />
                           <label for="inputPasswordConfirm"
                             >再次确认密码...</label
@@ -74,11 +79,12 @@
                     </div>
                     <div class="mt-4 mb-0">
                       <div class="d-grid">
-                        <router-link
+                        <el-button
                           class="btn btn-primary btn-block"
-                          to="/login"
-                          >注册账号</router-link
+                          @click="registerForPatient"
+                          >注册账号</el-button
                         >
+                                <!-- /login-->
                       </div>
                     </div>
                   </form>
@@ -95,28 +101,88 @@
           </div>
         </div>
       </div>
-      <div id="layoutAuthentication_footer">
-        <footer class="py-4 bg-light mt-auto">
-          <div class="container-fluid px-4">
-            <div
-              class="d-flex align-items-center justify-content-between small"
-            >
-              <div class="text-muted">Copyright &copy; Your Website 2023</div>
-              <div>
-                <router-link to="/#">Privacy Policy</router-link>
-                &middot;
-                <router-link to="/#">Terms &amp; Conditions</router-link>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data(){
+    return {
+      repeatPassword: "",
+      inputPassword: "",
+      inputEmail: "",
+      inputRealName: "",
+      inputUserName: ""
+    }
+  },
+  methods:{
+    registerForPatient(){
+          if(this.inputUserName === ""){
+            this.$message({
+              message: '用户名不能为空!',
+              type: 'warning'
+            });
+            return;
+          }
+          if(this.inputRealName === ""){
+            this.$message({
+              message: '姓名不能为空!',
+              type: 'warning'
+            });
+            return;
+          }
+          if(this.inputEmail === ""){
+            this.$message({
+              message: '邮箱不能为空!',
+              type: 'warning'
+            });
+            return;
+          }
+          if(this.inputPassword === ""){
+            this.$message({
+              message: '密码不能为空!',
+              type: 'warning'
+            });
+            return;
+          }
+          if(this.repeatPassword === ""){
+            this.$message({
+              message: '请重复输入密码!',
+              type: 'warning'
+            });
+            return;
+          }
+          if(this.repeatPassword !== this.inputPassword){
+            this.$message({
+              message: '第二次输入密码与第一次不相同!',
+              type: 'warning'
+            });
+            return;
+          }
+          axios({
+            url: 'http://localhost:8001/user/register',
+            method: 'post',
+            params:{
+              email: this.inputEmail,
+              username: this.inputUserName,
+              realname:this.inputRealName,
+              password:this.inputPassword
+            }
+          }).then(resp => {
+            if(resp.data.code == 200){
+              this.$router.push({
+                path: '/login',
+                query: resp.data.data
+              })
+            }else{
+              this.$message.error("注册失败!用户名已经存在")
+            }
+          })
+    }
+  }
+};
 </script>
 
 <style scoped>

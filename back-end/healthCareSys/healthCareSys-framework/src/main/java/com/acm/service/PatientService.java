@@ -1,7 +1,6 @@
 package com.acm.service;
 
 import com.acm.entity.Patient;
-import com.acm.vo.ResponseResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 
@@ -13,5 +12,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PatientService extends IService<Patient> {
 
-    ResponseResult register(Patient patient);
 }

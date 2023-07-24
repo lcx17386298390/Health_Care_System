@@ -17,8 +17,9 @@
                         id="inputEmail"
                         type="email"
                         placeholder="name@example.com"
+                        v-model="inputUserName"
                       />
-                      <label for="inputEmail">请输入你的邮箱...</label>
+                      <label for="inputEmail">请输入你的用户名...</label>
                     </div>
                     <div class="form-floating mb-3">
                       <input
@@ -26,6 +27,7 @@
                         id="inputPassword"
                         type="password"
                         placeholder="Password"
+                        v-model="inputPassword"
                       />
                       <label for="inputPassword">请输入密码...</label>
                     </div>
@@ -34,7 +36,7 @@
                         class="form-check-input"
                         id="inputRememberPassword"
                         type="checkbox"
-                        value=""
+                        :value="isRememberPwd"
                       />
                       <label
                         class="form-check-label"
@@ -48,8 +50,8 @@
                       <router-link class="small" to="/password"
                         >忘记密码?</router-link
                       >
-                      <router-link class="btn btn-primary" to="/patient"
-                        >登录</router-link
+                      <el-button class="btn btn-primary" @click="loginPatient"
+                      >登录</el-button>
                       >
                     </div>
                   </form>
@@ -87,7 +89,54 @@
 </template>
  
 <script>
-export default {};
+
+import axios from "axios";
+
+export default {
+  data(){
+    return {
+      inputUserName: "",
+      inputPassword: "",
+      isRememberPwd: false
+    };
+  },
+  methods:{
+    loginPatient(){
+        if(this.inputUserName.trim() === ""){
+          this.$message({
+            message: '用户名不能为空!',
+            type: 'warning'
+          });
+          return;
+        }
+        if(this.inputPassword.trim() === ""){
+          this.$message({
+            message: '密码不能为空!',
+            type: 'warning'
+          });
+          return;
+        }
+        axios({
+          url:'http://localhost:8001/login',
+          method:'post',
+          params:{
+            username:this.inputUserName,
+            password:this.inputPassword
+          }
+        }).then(resp => {
+          if(resp.data.code == 200){
+            this.$router.push({
+              path: '/patient',
+              query: resp.data.data
+            })
+            //console.log(resp.data.data.patientInfoVo);
+          }else{
+            this.$message.error("登录失败!请检查用户名或密码是否正确")
+          }
+        })
+    }
+  }
+};
 </script>
  
 <style scoped>

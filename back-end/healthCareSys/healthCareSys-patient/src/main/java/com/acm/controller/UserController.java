@@ -22,7 +22,7 @@ public class UserController {
 //    }
 
     @PostMapping("/register")
-    public ResponseResult register(@RequestBody Patient patient){
+    public ResponseResult register(Patient patient){
         return patientService.register(patient);
     }
 }
