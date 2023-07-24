@@ -18,7 +18,7 @@ public class patientLoginController {
     private PatientLoginService patientLoginService;
 
     @PostMapping("/login")
-    public ResponseResult login(@RequestBody Patient patient){
+    public ResponseResult login(Patient patient){
       if(!StringUtils.hasText(patient.getUsername())){
             throw new SystemException(AppHttpCodeEnum.REQUIRE_USERNAME);
         }
