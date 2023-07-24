@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acm.mapper.DepartmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.acm.entity.Department">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="dname" column="dname" jdbcType="VARCHAR"/>
+            <result property="did" column="did" jdbcType="VARCHAR"/>
+            <result property="orders" column="orders" jdbcType="INTEGER"/>
+            <result property="aid" column="aid" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,dname,
+        did,orders,aid
+    </sql>
+</mapper>

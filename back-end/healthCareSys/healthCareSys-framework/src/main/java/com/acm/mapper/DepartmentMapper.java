@@ -1,4 +1,4 @@
-package mapper;
+package com.acm.mapper;
 
 import com.acm.entity.Department;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
