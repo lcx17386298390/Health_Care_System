@@ -52,7 +52,7 @@
 </template>
 
 <script>
-// import patientView from './patients/patientView.vue'
+// import patientView from './patients/PatientView.vue'
 export default {
   name: "HomeView",
   components: {

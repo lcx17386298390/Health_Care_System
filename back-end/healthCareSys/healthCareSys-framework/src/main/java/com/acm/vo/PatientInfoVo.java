@@ -1,28 +1,15 @@
-package com.acm.entity;
+package com.acm.vo;
 
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-/**
- * (Patient)表实体类
- *
- * @author makejava
- * @since 2023-07-21 15:10:56
- */
-@SuppressWarnings("serial")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("sys_patient")
-public class Patient  {
-    //患者id@TableId
-    @TableId(type = IdType.ASSIGN_UUID)
+public class PatientInfoVo {
+
     private String id;
 
     //患者邮箱
@@ -35,16 +22,9 @@ public class Patient  {
     private String address;
     //患者性别
     private String sex;
-    //患者用户密码
-    private String password;
-    //患者年龄
     private Integer age;
     //患者身份证号
     private String identityinfo;
     //患者真实姓名
     private String realname;
-
-
-
 }
-
