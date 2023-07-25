@@ -55,6 +55,14 @@ public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient> impl
     //存入数据库
     save(patient);
     return ResponseResult.okResult();
+
+
+
+
+
+
+
+
     }
 
     private boolean userNameExist(String userName) {

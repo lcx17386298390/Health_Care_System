@@ -43,5 +43,9 @@ public class PatientLoginServiceImpl implements PatientLoginService {
         PatientInfoVo patientInfoVo = BeanCopyUtils.copyBean(loginUser.getPatient(), PatientInfoVo.class);
         PatientLoginInfoVo patientLoginInfoVo = new PatientLoginInfoVo(patientInfoVo,jwt);
         return ResponseResult.okResult(patientLoginInfoVo);
+
+
+
+
     }
 }
