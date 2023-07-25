@@ -1,6 +1,7 @@
 package com.acm.service;
 
 import com.acm.entity.Appointment;
+import com.acm.vo.ResponseResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 
@@ -12,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface AppointmentService extends IService<Appointment> {
 
+    ResponseResult appointRegister(Appointment appointment);
 }
