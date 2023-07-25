@@ -84,12 +84,3 @@
 <script>
 export default {};
 </script>
-
-<style scoped>
-.d-flex.flex-column.flex-shrink-0.p-3.text-bg-dark{
-  height: 100vh;
-}
-.sidebar{
-  width: 15%;
-}
-</style>

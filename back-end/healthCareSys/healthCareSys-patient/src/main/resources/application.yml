@@ -11,16 +11,14 @@ spring:
         max-file-size: 2MB
         max-request-size: 5MB
 mybatis-plus:
-    configuration:
+  configuration:
       # 日志
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    global-config:
+  global-config:
       db-config:
         logic-delete-field: delFlag
         logic-delete-value: 1
         logic-not-delete-value: 0
         id-type: auto
-#oss:
-#  accessKey: xxxx
-#  secretKey: xxxx
-#  bucket: sg-blog
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.acm.entity
