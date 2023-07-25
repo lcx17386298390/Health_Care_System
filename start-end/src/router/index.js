@@ -7,6 +7,7 @@ import Password from '../components/Password.vue'
 import Register from '../components/Register.vue'
 import PatientView from '../views/patients/PatientView.vue'
 import Example from '../views/patients/Example.vue'
+import buyDrug from '../views/patients/buyDrug/index.vue'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,11 @@ const routes = [
     path: '/example',
     name: 'Example',
     component: Example
+  },
+  {
+    path: '/patient/buy',
+    name: 'buyDrug',
+    component: buyDrug
   },
 
 
