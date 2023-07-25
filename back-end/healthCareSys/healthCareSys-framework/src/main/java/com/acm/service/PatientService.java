@@ -15,4 +15,6 @@ public interface PatientService extends IService<Patient> {
 
 
     ResponseResult register(Patient patient);
+
+
 }

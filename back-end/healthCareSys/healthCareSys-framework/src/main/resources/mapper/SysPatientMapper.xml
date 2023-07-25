@@ -23,4 +23,35 @@
         password,age,identityinfo,
         realname
     </sql>
+
+
+    <insert id="insert">
+        INSERT INTO  sys_patient(
+            id,email,username,
+            phonenumber,address,sex,
+            password,age,identityinfo,
+            realname
+        )VALUES {
+            #{id},#{email},#{username},
+            #{phonenumber},#{address},#{sex},
+            #{password},#{age},#{identityinfo},
+            #{realname}
+            }
+    </insert>
+
+    <select id="findBypname" resultMap="BaseResultMap">
+        SELECT  *FROM sys_patient WHERE pname=#{pname}
+    </select>
+
+    <update id="updateInfoByrealname">
+        UPDATE sys_patient
+        SET
+           <if test="email!=null">email= #{email},</if>
+           <if test="username!=null"> username= #{uername},</if>
+           <if test="phonenumber!=null">phonenumber=#{phonenumber}, </if>
+           <if test="address!=null">address= #{address},</if>
+        WHERE realname=#{realname}
+
+
+    </update>
 </mapper>
