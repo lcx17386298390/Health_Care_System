@@ -8,11 +8,13 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+import axios from './http/axios-config.js';
 
 // import http from "./http";
 // Vue.prototype.$http = http;
 
 Vue.config.productionTip = false
+
 Vue.use(ElementUI);
 
 new Vue({
@@ -20,3 +22,5 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.prototype.$axios = axios;
