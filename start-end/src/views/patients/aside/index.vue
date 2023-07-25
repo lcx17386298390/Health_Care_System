@@ -1,29 +1,27 @@
 <template>
   <div
-    class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-    style="width: 280px"
-  >
+    class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
     <router-link
-      to="/"
+      to="/patient"
       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
     >
       <svg class="bi pe-none me-2" width="40" height="32">
-        <use xlink:to="/#"></use>
+        <use xlink:to="/patient"></use>
       </svg>
       <span class="fs-4">Sidebar</span>
     </router-link>
     <hr />
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <router-link to="/#" class="nav-link active" aria-current="page">
+        <router-link to="/regisProcess" class="nav-link active" aria-current="page">
           <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:to="/patient"></use>
+            <use xlink:to="/regisProcess"></use>
           </svg>
           Home
         </router-link>
       </li>
       <li>
-        <router-link to="/#" class="nav-link text-white">
+        <router-link to="/patient/buy" class="nav-link text-white">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#speedometer2"></use>
           </svg>
@@ -86,10 +84,3 @@
 <script>
 export default {};
 </script>
-
-<style scoped>
-.d-flex.flex-column.flex-shrink-0.p-3.text-bg-dark{
-  height: 100vh;
-}
-
-</style>
