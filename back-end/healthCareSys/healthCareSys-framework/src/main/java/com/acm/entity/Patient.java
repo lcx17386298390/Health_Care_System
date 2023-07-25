@@ -2,8 +2,6 @@ package com.acm.entity;
 
 
 import java.io.Serializable;
-
-import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +20,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @TableName("sys_patient")
 public class Patient  {
     //患者id@TableId
-    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
     //患者邮箱

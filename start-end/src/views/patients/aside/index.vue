@@ -1,29 +1,28 @@
 <template>
   <div
-    class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-    style="width: 280px"
-  >
+    class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark aaa">
     <router-link
-      to="/"
+      to="/patient"
       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
     >
       <svg class="bi pe-none me-2" width="40" height="32">
-        <use xlink:to="/#"></use>
+        <use xlink:to="/patient"></use>
       </svg>
       <span class="fs-4">Sidebar</span>
     </router-link>
     <hr />
-    <ul class="nav nav-pills flex-column mb-auto">
+    <!-- 侧边导航由此开始 -->
+    <ul class="nav nav-pills flex-column mb-auto flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       <li class="nav-item">
-        <router-link to="/#" class="nav-link active" aria-current="page">
+        <router-link to="/regisProcess" class="nav-link active" aria-current="page" id="v-pills-home-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-home" aria-selected="true">
           <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:to="/patient"></use>
+            <use xlink:to="/regisProcess"></use>
           </svg>
           Home
         </router-link>
       </li>
       <li>
-        <router-link to="/#" class="nav-link text-white">
+        <router-link to="/#" class="nav-link text-white"  id="v-pills-Dashboard-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-profile" aria-selected="false">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#speedometer2"></use>
           </svg>
@@ -31,7 +30,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/#" class="nav-link text-white">
+        <router-link to="/#" class="nav-link text-white"  id="v-pills-Orders-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="/#table"></use>
           </svg>
@@ -39,7 +38,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/#" class="nav-link text-white">
+        <router-link to="/#" class="nav-link text-white"  id="v-pills-Products-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#grid"></use>
           </svg>
@@ -47,14 +46,31 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/#" class="nav-link text-white">
+        <router-link to="/#" class="nav-link text-white"  id="v-pills-Customers-tab" data-toggle="pill" role="tab" aria-controls="v-pills-messages" aria-selected="false">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#people-circle"></use>
           </svg>
           Customers
         </router-link>
       </li>
+      <li>
+        <router-link to="/patient/buydrug" class="nav-link text-white"  id="v-pills-maiyao-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#people-circle"></use>
+          </svg>
+          买药
+        </router-link>
+      </li>
     </ul>
+    <div class="tab-content" id="v-pills-tabContent">
+      <div class="tab-pane fade show active blue" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
+      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-Dashboard-tab">...</div>
+      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-Orders-tab">...</div>
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-Products-tab">...</div>
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-Customers-tab">...</div>
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-maiyao-tab">...</div>
+    </div>
+
     <hr />
     <div class="dropdown">
       <router-link
@@ -88,8 +104,8 @@ export default {};
 </script>
 
 <style scoped>
-.d-flex.flex-column.flex-shrink-0.p-3.text-bg-dark{
+   .aaa{
   height: 100vh;
+  width: 16.15vw;
 }
-
 </style>

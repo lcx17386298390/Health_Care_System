@@ -37,6 +37,7 @@
 export default {};
 </script>
 
+
 <style>
 .foot_container {
   min-height: calc(100vh-20vh);

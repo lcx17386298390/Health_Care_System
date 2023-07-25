@@ -68,22 +68,6 @@
           </div>
         </div>
       </div>
-      <div id="layoutAuthentication_footer">
-        <footer class="py-4 bg-light mt-auto">
-          <div class="container-fluid px-4">
-            <div
-              class="d-flex align-items-center justify-content-between small"
-            >
-              <div class="text-muted">Copyright &copy; Your Website 2023</div>
-              <div>
-                <router-link href="/#">Privacy Policy</router-link>
-                &middot;
-                <router-link href="/#">Terms &amp; Conditions</router-link>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
     </div>
   </div>
 </template>
