@@ -1,7 +1,9 @@
 <template>
-  <div><p>
-    hahahhaaksudfhashdfkahsdfkjhaskjdfhkjshdf
-    </p></div>
+  <div>
+    <el-card>
+      hahahha
+    </el-card>
+  </div>
 </template>
 
 <script>

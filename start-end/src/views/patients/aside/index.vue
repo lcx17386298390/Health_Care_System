@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
+    class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark aaa">
     <router-link
       to="/patient"
       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
@@ -21,7 +21,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/patient/buy" class="nav-link text-white">
+        <router-link to="/#" class="nav-link text-white">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#speedometer2"></use>
           </svg>
@@ -50,6 +50,14 @@
             <use xlink:to="#people-circle"></use>
           </svg>
           Customers
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/patient/buydrug" class="nav-link text-white">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#people-circle"></use>
+          </svg>
+          买药
         </router-link>
       </li>
     </ul>
@@ -84,3 +92,10 @@
 <script>
 export default {};
 </script>
+
+<style scoped>
+   .aaa{
+  height: 100vh;
+  width: 16.15vw;
+}
+</style>

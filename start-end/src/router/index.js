@@ -26,7 +26,10 @@ const routes = [
   {
     path: '/patient',
     name: 'Patientview',
-    component: PatientView
+    component: PatientView,
+    children:[
+      {path:'buydrug',name:'buydrug',component:buyDrug}
+    ]
   },
   
   {
@@ -48,12 +51,7 @@ const routes = [
     path: '/example',
     name: 'Example',
     component: Example
-  },
-  {
-    path: '/patient/buy',
-    name: 'buyDrug',
-    component: buyDrug
-  },
+  }
 
 
 

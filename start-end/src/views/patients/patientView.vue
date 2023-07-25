@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <banner />
-    <div class="d-flex">
-      <sider />
-      <!-- content -->
-      <div class="flex-grow-1">
+  <div id="app container-fluid" style="height: 100vh">
+    <banner></banner>
+    <div class="row">
+      <div class="col-md-2">
+        <sider></sider>
+      </div>
+      <div class="main col-md-10">
         <router-view></router-view>
       </div>
     </div>
@@ -14,16 +15,20 @@
 <script>
 import banner from "./banner/index.vue";
 import sider from "./aside/index.vue";
-import buyDrug from "./buyDrug/index.vue";
 export default {
   name: "patient",
   components: {
     sider,
-    banner,
-    buyDrug,
+    banner
   },
 };
 </script>
 
-<style>
+<style scoped>
+.row{
+  margin-right:0;
+}
+.main{
+  background-color: #9999992c
+}
 </style>
