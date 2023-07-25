@@ -8,49 +8,41 @@
       <svg class="bi pe-none me-2" width="40" height="32">
         <use xlink:to="/patient"></use>
       </svg>
-      <span class="fs-4">Sidebar</span>
+      <span class="fs-4">手续导航</span>
     </router-link>
     <hr />
     <!-- 侧边导航由此开始 -->
     <ul class="nav nav-pills flex-column mb-auto flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       <li class="nav-item">
-        <router-link to="/regisProcess" class="nav-link active" aria-current="page" id="v-pills-home-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-home" aria-selected="true">
+        <router-link to="/patient/regis" class="nav-link active" aria-current="page" id="v-pills-home-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-home" aria-selected="true">
           <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:to="/regisProcess"></use>
+            <use xlink:to="#regisProcess"></use>
           </svg>
-          Home
+          排队挂号
         </router-link>
       </li>
       <li>
-        <router-link to="/#" class="nav-link text-white"  id="v-pills-Dashboard-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-profile" aria-selected="false">
+        <router-link to="/patient/prescription" class="nav-link text-white"  id="v-pills-Dashboard-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-profile" aria-selected="false">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#speedometer2"></use>
           </svg>
-          Dashboard
+          处方单
         </router-link>
       </li>
       <li>
-        <router-link to="/#" class="nav-link text-white"  id="v-pills-Orders-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
+        <router-link to="/patient/history" class="nav-link text-white"  id="v-pills-Orders-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="/#table"></use>
           </svg>
-          Orders
+          历史病例
         </router-link>
       </li>
       <li>
-        <router-link to="/#" class="nav-link text-white"  id="v-pills-Products-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
+        <router-link to="/patient/booking" class="nav-link text-white"  id="v-pills-Products-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#grid"></use>
           </svg>
-          Products
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/#" class="nav-link text-white"  id="v-pills-Customers-tab" data-toggle="pill" role="tab" aria-controls="v-pills-messages" aria-selected="false">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:to="#people-circle"></use>
-          </svg>
-          Customers
+          预约挂号
         </router-link>
       </li>
       <li>
@@ -59,6 +51,14 @@
             <use xlink:to="#people-circle"></use>
           </svg>
           买药
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/patient" class="nav-link text-white"  id="v-pills-Customers-tab" data-toggle="pill" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#people-circle"></use>
+          </svg>
+          Customers
         </router-link>
       </li>
     </ul>
