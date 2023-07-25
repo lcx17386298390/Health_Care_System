@@ -65,6 +65,8 @@ public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient> impl
 
     }
 
+
+
     private boolean userNameExist(String userName) {
         LambdaQueryWrapper<Patient> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Patient::getUsername,userName);

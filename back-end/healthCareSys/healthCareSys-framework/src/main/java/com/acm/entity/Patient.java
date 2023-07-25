@@ -2,11 +2,12 @@ package com.acm.entity;
 
 
 import java.io.Serializable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.Objects;
+
+import lombok.*;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 /**
  * (Patient)表实体类
  *
@@ -17,11 +18,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 @TableName("sys_patient")
 public class Patient  {
     //患者id@TableId
     private String id;
-
     //患者邮箱
     private String email;
     //患者用户名
