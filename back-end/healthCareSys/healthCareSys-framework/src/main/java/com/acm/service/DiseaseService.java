@@ -1,6 +1,7 @@
 package com.acm.service;
 
 import com.acm.entity.Disease;
+import com.acm.vo.ResponseResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 
@@ -11,5 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-07-21 15:10:56
  */
 public interface DiseaseService extends IService<Disease> {
+
+    ResponseResult diseaseInfo(Integer pageNo, Integer pageSize, String patientId);
 
 }

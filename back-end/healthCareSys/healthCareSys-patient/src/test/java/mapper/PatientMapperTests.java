@@ -2,7 +2,7 @@ package mapper;
 
 import com.acm.entity.Patient;
 import com.acm.mapper.PatientMapper;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 public class PatientMapperTests {
 
