@@ -5,6 +5,7 @@ import com.acm.mapper.PatientMapper;
 import org.junit.Test;
 
 public class PatientMapperTests {
+
     @Test
     public   void updateInfoByRealname(){
         Patient patient=new Patient();
