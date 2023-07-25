@@ -9,7 +9,7 @@
          购买药品
         </div> 
         <div class="buying">
-         <el-button type="success" plain @click="open(tableData)">去支付</el-button>
+         <el-button type="success" plain @click="open(tableData),dialogVisible=true">去支付</el-button>
         </div>
         </div>
         <el-input
@@ -88,6 +88,30 @@
     
     </div></el-col>
 </el-row>
+
+
+
+<el-dialog
+  title="药品清单"
+  :visible.sync="dialogVisible"
+  width="30%"
+  >
+  <!-- <ul>
+    <li v-for="item in buyList" :key="item.id">{{item.name}}</li>
+    <li>{{item.price}}</li>
+    <li>{{item.buyNum}}</li> 
+  </ul> -->
+  <el-table :data="tableData.filter(data=>data.buyNum>0)">
+    <el-table-column property="name" label="药品" width="150"></el-table-column>
+    <el-table-column property="price" label="价格" width="200"></el-table-column>
+    <el-table-column property="buyNum" label="数量"></el-table-column>
+  </el-table>
+  <span slot="footer" class="dialog-footer">
+    <span style="padding-right:10px;">共计{{this.allPrice}}人民币</span>
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+</el-dialog>
     </div>
 </template>
 
@@ -96,10 +120,12 @@ export default {
    data() {
       return {
         search:'',
+        dialogVisible:false,
+        allPrice:0,
         tableData: [{
           id: '111',
           name: '止咳片',
-          price:'50￥',
+          price:50,
           desc: '白色片剂，味微苦，无副作用（真）',
           amount:10,
           usage:'一日三次，一次两粒',
@@ -108,7 +134,7 @@ export default {
         {
           id: '112',
           name: '止疼片',
-          price:'50￥',
+          price:50,
           desc: '白色片剂，味微苦，无副作用（真）',
           amount:1,
           usage:'一日三次，一次两粒',
@@ -117,7 +143,7 @@ export default {
         {
           id: '113',
           name: '止血片',
-          price:'50￥',
+          price:40,
           desc: '白色片剂，味微苦，无副作用（真）',
           amount:1000,
           usage:'一日三次，一次两粒',
@@ -126,7 +152,7 @@ export default {
         {
           id: '114',
           name: '止片',
-          price:'50￥',
+          price:30,
           desc: '白色片剂，味微苦，无副作用（真）',
           amount:1000,
           usage:'一日三次，一次两粒',
@@ -135,7 +161,7 @@ export default {
         {
           id: '115',
           name: '止饿片',
-          price:'50￥',
+          price:30,
           desc: '白色片剂，味微苦，无副作用（真）',
           amount:1000,
           usage:'一日三次，一次两粒',
@@ -144,7 +170,25 @@ export default {
         {
           id: 'xxx',
           name: '？？片',
-          price:'99999999999999￥',
+          price:99999999999999,
+          desc: '无色无味，无副作用（真）',
+          amount:10,
+          usage:'一日三次，一次两粒',
+          buyNum:0
+        },
+         {
+          id: '115',
+          name: '止饿片',
+          price:50,
+          desc: '白色片剂，味微苦，无副作用（真）',
+          amount:1000,
+          usage:'一日三次，一次两粒',
+          buyNum:0
+        },
+        {
+          id: 'xxx',
+          name: '？？片',
+          price:999999999999999,
           desc: '无色无味，无副作用（真）',
           amount:10,
           usage:'一日三次，一次两粒',
@@ -166,7 +210,12 @@ export default {
       },
       open(data){
         data=data.filter(data=>data.buyNum>0)
-        
+        var aaa=0
+        data.forEach(function(item){
+          aaa+=item.price*item.buyNum
+        }
+          );
+        this.allPrice=aaa
       }
     }
 
