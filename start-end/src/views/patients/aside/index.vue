@@ -14,7 +14,7 @@
     <!-- 侧边导航由此开始 -->
     <ul class="nav nav-pills flex-column mb-auto flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       <li class="nav-item">
-        <router-link to="/patient/regis" class="nav-link active" aria-current="page" id="v-pills-home-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-home" aria-selected="true">
+        <router-link to="/patient/regis" class="nav-link text-white" aria-current="page" id="v-pills-home-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-home" aria-selected="true" :class="{ active: $route.path === '/patient/regis' }">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#regisProcess"></use>
           </svg>
@@ -22,7 +22,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/patient/prescription" class="nav-link text-white"  id="v-pills-Dashboard-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-profile" aria-selected="false">
+        <router-link to="/patient/prescription" class="nav-link text-white"  id="v-pills-Dashboard-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-profile" aria-selected="false" :class="{ active: $route.path === '/patient/prescription' }">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#speedometer2"></use>
           </svg>
@@ -30,7 +30,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/patient/history" class="nav-link text-white"  id="v-pills-Orders-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
+        <router-link to="/patient/history" class="nav-link text-white"  id="v-pills-Orders-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false" :class="{ active: $route.path === '/patient/history' }">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="/#table"></use>
           </svg>
@@ -38,7 +38,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/patient/booking" class="nav-link text-white"  id="v-pills-Products-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
+        <router-link to="/patient/booking" class="nav-link text-white"  id="v-pills-Products-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false" :class="{ active: $route.path === '/patient/booking' }">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#grid"></use>
           </svg>
@@ -46,7 +46,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/patient/buydrug" class="nav-link text-white"  id="v-pills-maiyao-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false">
+        <router-link to="/patient/buydrug" class="nav-link text-white"  id="v-pills-maiyao-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false" :class="{ active: $route.path === '/patient/buydrug' }">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#people-circle"></use>
           </svg>
@@ -54,7 +54,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/patient" class="nav-link text-white"  id="v-pills-Customers-tab" data-toggle="pill" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+        <router-link to="/patient" class="nav-link text-white"  id="v-pills-Customers-tab" data-toggle="pill" role="tab" aria-controls="v-pills-messages" aria-selected="false"  :class="{ active: $route.path === '/patient' }">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#people-circle"></use>
           </svg>
@@ -62,13 +62,19 @@
         </router-link>
       </li>
     </ul>
+    <!-- 排队挂号 -->
     <div class="tab-content" id="v-pills-tabContent">
-      <div class="tab-pane fade show active blue" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-Dashboard-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-Orders-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-Products-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-Customers-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-maiyao-tab">...</div>
+      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"  :class="{ 'show active': $route.path === '/patient/regis' }">...</div>
+      <!-- 处方单 -->
+      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-Dashboard-tab" :class="{ 'show active': $route.path === '/patient/prescription' }">...</div>
+      <!-- 历史病例 -->
+      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-Orders-tab" :class="{ active: $route.path === '/patient/history' }">...</div>
+      <!-- 预约挂号 -->
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-Products-tab" :class="{ active: $route.path === '/patient/booking' }">...</div>
+      <!-- 买药 -->
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-Customers-tab" :class="{ active: $route.path === '/patient/buydrug' }">...</div>
+      <!-- 顾客 -->
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-Customers-tab"  :class="{ active: $route.path === '/patient' }">...</div>
     </div>
 
     <hr />
