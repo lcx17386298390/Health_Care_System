@@ -31,19 +31,19 @@ const routes = [
   },
   {
     path: '/patient',
-    redirect:'/patient/nav',
+    redirect: '/patient/nav',
     name: 'Patientview',
     component: PatientView,
-    children:[
-      {path:'regis',name:'regisProcess',component:regisProcess},
-      {path:'prescription',name:'prescription',component:prescription},
-      {path:'history',name:'history',component:history},
-      {path:'buydrug',name:'buydrug',component:buyDrug},
-      {path:'self',name:'selfInfo',component:selfInfo},
-      {path:'nav',name:'nav',component:nav},
+    children: [
+      { path: 'regis', name: 'regisProcess', component: regisProcess },
+      { path: 'prescription', name: 'prescription', component: prescription },
+      { path: 'history', name: 'history', component: history },
+      { path: 'buydrug', name: 'buydrug', component: buyDrug },
+      { path: 'self', name: 'selfInfo', component: selfInfo },
+      { path: 'nav', name: 'nav', component: nav },
     ]
   },
-  
+
   {
     path: '/login',
     name: 'Login',
