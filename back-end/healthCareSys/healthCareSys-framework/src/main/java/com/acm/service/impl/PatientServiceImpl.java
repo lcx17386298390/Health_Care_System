@@ -29,6 +29,12 @@ public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient> impl
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    /**
+     * 用户注册
+     * @param patient
+     * @return
+     */
     @Override
     public ResponseResult register(Patient patient){ //对数据进行非空判断
         if(!StringUtils.hasText(patient.getUsername())){

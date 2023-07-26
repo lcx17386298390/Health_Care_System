@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Console;
 import com.acm.entity.AliPayResource;
 import com.acm.utils.DateUtil;
 import com.acm.utils.JsonResult;
+import com.acm.utils.UUIDUtils;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
@@ -23,7 +24,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("payment")
+@RequestMapping("/payment")
 public class AlipayController {
 
     @Autowired
@@ -49,7 +50,7 @@ public class AlipayController {
         alipayRequest.setNotifyUrl(aliPayResource.getNotifyUrl());
 
         // 商户订单号, 商户网站订单系统中唯一订单号, 必填
-        String out_trade_no = merchantOrderId;
+        String out_trade_no = merchantOrderId + UUIDUtils.createUUIDStr();
         // 付款金额, 必填 单位元
        String total_amount = "0.01";  // 测试用 1分钱
         // 订单名称, 必填

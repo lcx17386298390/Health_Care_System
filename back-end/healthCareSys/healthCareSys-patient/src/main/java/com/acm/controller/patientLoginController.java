@@ -24,4 +24,9 @@ public class patientLoginController {
         }
         return patientLoginService.login(patient);
     }
+
+    @PostMapping("/logout")
+    public ResponseResult logout(){
+        return patientLoginService.logout();
+    }
 }

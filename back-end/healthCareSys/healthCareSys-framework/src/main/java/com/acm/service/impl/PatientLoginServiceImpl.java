@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -28,6 +29,11 @@ public class PatientLoginServiceImpl implements PatientLoginService {
     @Autowired
     private RedisCache redisCache;
 
+    /**
+     * 用户登录
+     * @param patient
+     * @return
+     */
     @Override
     public ResponseResult login(Patient patient) {
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -43,9 +49,15 @@ public class PatientLoginServiceImpl implements PatientLoginService {
         PatientInfoVo patientInfoVo = BeanCopyUtils.copyBean(loginUser.getPatient(), PatientInfoVo.class);
         PatientLoginInfoVo patientLoginInfoVo = new PatientLoginInfoVo(patientInfoVo,jwt);
         return ResponseResult.okResult(patientLoginInfoVo);
+    }
 
 
-
-
+    @Override
+    public ResponseResult logout() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser principal = (LoginUser) authentication.getPrincipal();
+        Long userId = Long.valueOf(principal.getPatient().getId());
+        redisCache.deleteObject("patientlogin:" + userId);
+        return ResponseResult.okResult();
     }
 }

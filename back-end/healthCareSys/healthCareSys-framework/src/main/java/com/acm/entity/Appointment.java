@@ -1,8 +1,11 @@
 package com.acm.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,17 +21,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("sg_appointment")
+@TableName("sys_appointment")
 public class Appointment  {
     //预约id@TableId
+    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
-    //医生id
-    private String did;
-    //病人id
-    private String pid;
     //预约日期
-    private Date appointmentDate;
+    private String appointmentDate;
     //预约状态（是否通过）
     private String appointmentStatus;
     //医生姓名

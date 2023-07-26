@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
   data() {
     return {
@@ -36,6 +37,7 @@ export default {
       currentPage: 1, 
       pageSize: 10, //一页十行
       totalRows: 0, //总行数
+      patientId: 1
     };
   },
    created() {
@@ -135,10 +137,16 @@ export default {
   // },
   methods: {
     fetchData() {
-      axios
-        .get('/api/history_data')     //api地址接口
-        .then(response => {
-          this.tableData = response.data;
+      axios({
+        url: 'http://localhost:8001/diseaseInfo', //api地址接口
+        method: 'GET',
+        params: {
+          pageNo: this.currentPage,
+          pageSize: this.pageSize,
+          patientId: this.patientId
+        }
+      }).then(response => {
+          this.tableData = response.data.data;
           this.totalRows = this.tableData.length;
           this.updateTableData();
         })
@@ -157,6 +165,11 @@ export default {
       this.tableData = this.allData.slice(startIndex, endIndex);
     },
   },
+  mounted() {
+    this.currentPage = 1;
+    this.pageSize = 1;
+    this.fetchData();
+  }
 };
 </script>
 

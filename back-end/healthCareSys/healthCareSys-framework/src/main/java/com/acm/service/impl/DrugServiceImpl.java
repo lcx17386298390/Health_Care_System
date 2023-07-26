@@ -18,9 +18,16 @@ import java.util.List;
  */
 @Service("drugService")
 public class DrugServiceImpl extends ServiceImpl<DrugMapper, Drug> implements DrugService {
+    /**
+     * 药品列表展示
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
     public ResponseResult druglist(Integer pageNum, Integer pageSize) {
-        Page<Drug> page = new Page<>(pageNum, pageSize);
+        Page<Drug> page = new Page(pageNum, pageSize);
+        page(page);
         List<Drug> drugs = page.getRecords();
         return ResponseResult.okResult(drugs);
     }

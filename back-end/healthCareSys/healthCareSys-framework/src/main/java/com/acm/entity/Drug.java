@@ -2,6 +2,8 @@ package com.acm.entity;
 
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @TableName("sys_drug")
 public class Drug  {
     //药品id@TableId
+    @TableId(type= IdType.AUTO)
     private String id;
 
     

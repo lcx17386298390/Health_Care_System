@@ -128,6 +128,8 @@
 </template>
 
 <script>
+
+import axios from "axios"
 export default {
   data() {
     return {
@@ -135,7 +137,8 @@ export default {
       selectedDepartment: "",
       showStep2: false,
       selectedDoctor: "",
-      doctorOptions: ["医生1", "医生2", "医生3"],
+      patientName: "Sasigay",
+      doctorOptions: ["医生一","医生二","医生三"],
       formData: {
         selectedDoctor: "",
       },
@@ -194,19 +197,38 @@ export default {
         }
         this.showModal = true;
         // api接口写在这里
-        // 下面模拟带回的数据,一个对象放在modalDate里,下面这个模拟数据
-        this.modalData = [
-          {
-            aid: "1",
-            selectedTime: this.formData.selectedTime,
-            selectedTimeSlot: this.formData.selectedTimeSlot,
-            realname: "Naruto",
-            sex: "Male",
-            age: 21,
-            departmentname: this.selectedDepartment,
-            dname: this.formData.selectedDoctor,
-          },
-        ];
+        const date = this.formData.selectedTime
+        const time = this.formData.selectedTimeSlot.replace("至","-")
+        const datetime = date + " " + time
+        console.log(datetime)
+        axios({
+          url: 'http://localhost:8001/appoint',
+          method: 'get',
+          params:{
+            appointmentDate: datetime,
+            patientName: this.patientName,
+            doctorName: this.formData.selectedDoctor,
+          }
+        }).then(resp => {
+          if(resp.data.code === 200){
+            // 下面模拟带回的数据,一个对象放在modalDate里,下面这个模拟数据
+            this.modalData = [
+              {
+                aid: "1",//resp.count...
+                selectedTime: this.formData.selectedTime,
+                selectedTimeSlot: this.formData.selectedTimeSlot,
+                realname: this.patientName,
+                sex: "Male",//resp.data.data.patient.sex
+                age: 21,//resp.data.data.patient.age
+                departmentname: this.selectedDepartment,
+                dname: this.formData.selectedDoctor,
+              },
+            ];
+          }else{
+            this.$message.error("预订失败!请稍后再试")
+          }
+
+        })
       }
     },
 

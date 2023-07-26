@@ -26,45 +26,53 @@
       <template v-slot='props'>
         <el-form label-position="left" inline class="demo-table-expand" style="padding:0 10px;">
           <el-form-item label="药品名称">
-            <span>{{ props.row.name }}</span>
+            <span>{{ props.row.drugName }}</span>
           </el-form-item>
           <el-form-item label="价格">
-            <span>{{ props.row.price+' 元' }}</span>
+            <span>{{ props.row.drugPrice+' 元' }}</span>
           </el-form-item>
           <el-form-item label="药品 ID">
             <span>{{ props.row.id }}</span>
           </el-form-item>
           <el-form-item label="库存数量">
-            <span>{{ props.row.amount }}</span>
+            <span>{{ props.row.drugNums }}</span>
           </el-form-item>
           <el-form-item label="药品用法">
-            <span>{{ props.row.usage }}</span>
+            <span>{{ props.row.drugUsage }}</span>
           </el-form-item>
-          <el-form-item label="药品描述">
-            <span>{{ props.row.desc }}</span>
-          </el-form-item>
+<!--          id: "",-->
+<!--          drugName: "",-->
+<!--          drugPrice: "",-->
+<!--          drugNums: "",-->
+<!--          drugUsage:"",-->
+<!--          buyNum:0-->
           
         </el-form>
       </template>
     </el-table-column>
-
+        <!--          id: "",-->
+        <!--          drugName: "",-->
+        <!--          drugPrice: "",-->
+        <!--          drugNums: "",-->
+        <!--          drugUsage:"",-->
+        <!--          buyNum:0-->
     <el-table-column
       label="药品 ID"
       prop="id">
     </el-table-column>
     <el-table-column
       label="药品名称"
-      prop="name">
+      prop="drugName">
     </el-table-column>
     <el-table-column
       label="价格"
-      prop="price">
+      prop="drugPrice">
     </el-table-column>
     <el-table-column
       label="加入购物车"
       prop="buyNum">
       <template v-slot="scoped"> 
-         <el-input-number v-model="scoped.row.buyNum" @change="handleChange(scoped)" :min="0" :max="scoped.row.amount" label="药品数量" size="mini"></el-input-number>
+         <el-input-number v-model="scoped.row.buyNum" @change="handleChange(scoped)" :min="0" :max="scoped.row.max" label="药品数量" size="mini"></el-input-number>
       </template>
     </el-table-column>
     <el-table-column
@@ -99,127 +107,54 @@
   <!-- <ul>
     <li v-for="item in buyList" :key="item.id">{{item.name}}</li>
     <li>{{item.price}}</li>
-    <li>{{item.buyNum}}</li> 
+    <li>{{item.buyNum}}</li>
   </ul> -->
+  <!--          id: "",-->
+  <!--          drugName: "",-->
+  <!--          drugPrice: "",-->
+  <!--          drugNums: "",-->
+  <!--          drugUsage:"",-->
+  <!--          buyNum:0-->
   <el-table :data="tableData.filter(data=>data.buyNum>0)">
-    <el-table-column property="name" label="药品" width="150"></el-table-column>
-    <el-table-column property="price" label="价格" width="200"></el-table-column>
+    <el-table-column property="drugName" label="药品" width="150"></el-table-column>
+    <el-table-column property="drugPrice" label="价格" width="200"></el-table-column>
     <el-table-column property="buyNum" label="数量"></el-table-column>
   </el-table>
   <span slot="footer" class="dialog-footer">
     <span style="padding-right:10px;">共计{{this.allPrice}}人民币</span>
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false,clearBuyNum(tableData.filter(data=>data.buyNum>0))">确 定</el-button>
+    <el-button type="primary" @click="confirmPay">确 定</el-button>
   </span>
 </el-dialog>
     </div>
 </template>
 
 <script>
+import axios from "axios"
 export default {
    data() {
       return {
         search:'',
         dialogVisible:false,
+        pageNum: 1,
+        pageSize: 10,
         allPrice:0,
+        max: 10,
         tableData: [{
-          id: '111',
-          name: '止咳片',
-          price:50,
-          desc: '白色片剂，味微苦，无副作用（真）',
-          amount:10,
-          usage:'一日三次，一次两粒',
-          buyNum:0
-        },
-        {
-          id: '112',
-          name: '止疼片',
-          price:50,
-          desc: '白色片剂，味微苦，无副作用（真）',
-          amount:1,
-          usage:'一日三次，一次两粒',
-          buyNum:0
-        },
-        {
-          id: '113',
-          name: '止血片',
-          price:40,
-          desc: '白色片剂，味微苦，无副作用（真）',
-          amount:1000,
-          usage:'一日三次，一次两粒',
-          buyNum:0
-        },
-        {
-          id: '114',
-          name: '止片',
-          price:30,
-          desc: '白色片剂，味微苦，无副作用（真）',
-          amount:1000,
-          usage:'一日三次，一次两粒',
-          buyNum:0
-        },
-        {
-          id: '115',
-          name: '止饿片',
-          price:30,
-          desc: '白色片剂，味微苦，无副作用（真）',
-          amount:1000,
-          usage:'一日三次，一次两粒',
-          buyNum:0
-        },
-        {
-          id: 'xxx',
-          name: '？？片',
-          price:99999999999999,
-          desc: '无色无味，无副作用（真）',
-          amount:10,
-          usage:'一日三次，一次两粒',
-          buyNum:0
-        },
-         {
-          id: '115',
-          name: '止饿片',
-          price:50,
-          desc: '白色片剂，味微苦，无副作用（真）',
-          amount:1000,
-          usage:'一日三次，一次两粒',
-          buyNum:0
-        },
-        {
-          id: 'xxx',
-          name: '？？片',
-          price:999999999999999,
-          desc: '无色无味，无副作用（真）',
-          amount:10,
-          usage:'一日三次，一次两粒',
-          buyNum:0
-        }
-        ,
-         {
-          id: '115',
-          name: '止饿片',
-          price:50,
-          desc: '白色片剂，味微苦，无副作用（真）',
-          amount:1000,
-          usage:'一日三次，一次两粒',
-          buyNum:0
-        },
-        {
-          id: 'xxx',
-          name: '？？片',
-          price:999999999999999,
-          desc: '无色无味，无副作用（真）',
-          amount:10,
-          usage:'一日三次，一次两粒',
+          id: "",
+          drugName: "",
+          drugPrice: "",
+          drugNums: "",
+          drugUsage:"",
           buyNum:0
         }]
       }
     },
     methods: {
       handleChange(value) {
-        if(value.row.amount===value.row.buyNum){
+        if(value.row.max===value.row.buyNum){
           this.$message({
-            message:"没有库存了！！!",
+            message:"您不能一次性购买10个药品！！!",
             type:'warning'
           })
         }
@@ -231,14 +166,57 @@ export default {
         data=data.filter(data=>data.buyNum>0)
         var aaa=0
         data.forEach(function(item){
-          aaa+=item.price*item.buyNum
+          aaa+=item.drugPrice*item.buyNum
         }
           );
         this.allPrice=aaa
       },
       clearBuyNum(data){
         data.forEach(item=>{item.amount-=item.buyNum,item.buyNum=0});
+      },
+      confirmPay(){
+        this.dialogVisible = false
+        this.clearBuyNum(this.tableData.filter(data=>data.buyNum>0))
+        axios({
+          url: "http://localhost:8001/payment/goAlipay",
+          method: "get",
+          merchantUserId: this.uuid(),
+          //merchantUserId: "123456",
+          merchantOrderId: this.uuid()
+          //merchantOrderId: "654321"
+        }).then(resp => {
+          if(resp.data.status === 200){
+            //新打开一个页面（about:blank是打开浏览器空白页的命令）, _blank：打开一个新的窗口
+            var newPage = window.open("about:blank", "_blank");
+            //将后台传过来的html页面写到新打开的浏览器窗口中显示
+            newPage.document.write(resp.data.data);
+          }
+        })
+
+      },
+      uuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+          var r = (Math.random() * 16) | 0,
+              v = c == 'x' ? r : (r & 0x3) | 0x8;
+          return v.toString(16);
+        });
+      },
+      initDrugList(){
+            axios({
+              url: 'http://localhost:8001/druglist',
+              method: 'get',
+              params: {
+                pageNum: this.pageNum,
+                pageSize: this.pageSize
+              }
+            }).then(resp => {
+              console.log(resp.data.data)
+                this.tableData = resp.data.data;
+            })
       }
+    },
+    mounted() {
+     this.initDrugList()
     }
 
 }
