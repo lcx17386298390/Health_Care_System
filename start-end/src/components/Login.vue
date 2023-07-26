@@ -109,6 +109,8 @@ export default {
           }
         }).then(resp => {
           if(resp.data.code == 200){
+              // 将用户信息存储在sessionStorage中
+              sessionStorage.setItem("user", JSON.stringify(resp.data.data));
             this.$router.push({
               path: '/patient',
               query: resp.data.data
