@@ -1,3 +1,4 @@
+<!-- 首页完成，没有找具体图片 后续如果有时间再补-->
 <template>
   <div>
     <header class="p-3 text-bg-dark fixed-top">
@@ -182,7 +183,7 @@
   </div>
 
   <!-- 制作人员介绍 -->
-  <h1 style="margin: 40px 0 50px 130px;">队伍解释</h1>
+  <h1 style="margin: 40px 0 50px 130px;">队伍介绍</h1>
   <div class="timeline">
   <div class="timeline-item">
     <div class="left-content">
@@ -302,7 +303,23 @@
 
 </div>
 
-
+<!-- 回到最初 -->
+<!-- 该组件无法运行 -->
+<el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="100">
+    <div
+      style="{
+        height: 100%;
+        width: 100%;
+        background-color: #f2f5f6;
+        box-shadow: 0 0 6px rgba(0,0,0, .12);
+        text-align: center;
+        line-height: 40px;
+        color: #1989fa;
+      }"
+    >
+      UP
+    </div>
+  </el-backtop>
   </div>
 </template>
 <script>

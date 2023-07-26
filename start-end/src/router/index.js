@@ -35,18 +35,19 @@ const routes = [
   },
   {
     path: '/patient',
-    redirect:'/patient/nav',
+    redirect: '/patient/nav',
     name: 'Patientview',
     component: PatientView,
-    children:[
-      {path:'regis',name:'regisProcess',component:regisProcess},
-      {path:'prescription',name:'prescription',component:prescription},
-      {path:'history',name:'history',component:history},
-      {path:'buydrug',name:'buydrug',component:buyDrug},
-      {path:'self',name:'selfInfo',component:selfInfo},
-      {path:'nav',name:'nav',component:nav},
+    children: [
+      { path: 'regis', name: 'regisProcess', component: regisProcess },
+      { path: 'prescription', name: 'prescription', component: prescription },
+      { path: 'history', name: 'history', component: history },
+      { path: 'buydrug', name: 'buydrug', component: buyDrug },
+      { path: 'self', name: 'selfInfo', component: selfInfo },
+      { path: 'nav', name: 'nav', component: nav },
     ]
   },
+<<<<<<< HEAD
   {
     path: '/doc',
     redirect:'/doc/dnav',
@@ -60,6 +61,9 @@ const routes = [
   },
 
   
+=======
+
+>>>>>>> c72b59c11686cdec529e0ccc129697e24bfac8df
   {
     path: '/login',
     name: 'Login',
