@@ -115,13 +115,59 @@
   </div>
 
   <!-- 诊室导航 -->
+ <div style="margin-top: 40px;margin-left: 100px;">
+  <h2>诊室介绍</h2>
+  <el-tabs :tab-position="tabPosition" style="height: 200px; margin-top: 20px;">
+  <el-tab-pane  label="非手术科室">
+    <el-card class="box-card">
+      <el-row :gutter="20">
+        <el-col :span="8" v-for="(data, index) in ['内科', '外科', '妇产科', '儿科', '眼科', '皮肤科']"  :key="index">
+          <div class="text item">
+            {{ data }}
+          </div>
+        </el-col>
+      </el-row>
+    </el-card>
+  </el-tab-pane>
 
-  <el-tabs :tab-position="tabPosition" style="height: 200px;margin-top: 40px;">
-    <el-tab-pane label="用户管理">用户管理</el-tab-pane>
-    <el-tab-pane label="配置管理">配置管理</el-tab-pane>
-    <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-    <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
-  </el-tabs>
+  <el-tab-pane label="手术科室">
+    <el-card class="box-card">
+      <el-row :gutter="20">
+        <el-col :span="8" v-for="(data, index) in ['心脏科', '神经科', '呼吸科', '皮肤科', '消化科', '骨科']" :key="index">
+          <div class="text item">
+            {{ data }}
+          </div>
+        </el-col>
+      </el-row>
+    </el-card>
+  </el-tab-pane>
+
+  <el-tab-pane label="诊断相关科室">
+    <el-card class="box-card">
+      <el-row :gutter="20">
+        <el-col :span="8" v-for="(data, index) in ['肾脏科', '血液科', '内分泌科', '耳鼻喉科', '眼科', '口腔科']" :key="index">
+          <div class="text item">
+            {{ data }}
+          </div>
+        </el-col>
+      </el-row>
+    </el-card>
+  </el-tab-pane>
+
+  <el-tab-pane label="特色中医科室">
+    <el-card class="box-card">
+      <el-row :gutter="20">
+        <el-col :span="8" v-for="(data, index) in ['针灸科', '中药科', '推拿科', '经络科', '康复科', '气功科']" :key="index">
+          <div class="text item">
+            {{ data }}
+          </div>
+        </el-col>
+      </el-row>
+    </el-card>
+  </el-tab-pane>
+</el-tabs>
+
+ </div>
 
   </div>
 </template>
@@ -133,18 +179,32 @@ export default {
   },
   data(){
     return{
-      tabPosition: 'left'
+      tabPosition: 'left',
     };
   },
 };
 </script>
 
 <style scoped>
+.box-card {
+  width: 80%;
+  margin-top: 3px;
+  height: 180px;
+}
 
-/* .el-carousel{
-  padding-top: 20%;
-  height: 500px;
-} */
+.text.item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+}
+
+.el-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.el-col {
+  flex-basis: 33.33%;
+}
 body{
   padding-right: 0;
 }
