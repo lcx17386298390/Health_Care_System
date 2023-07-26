@@ -1,7 +1,7 @@
 <template>
   <div class="regis-container">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/patient' }"
+      <el-breadcrumb-item :to="{ path: '/patient/nav' }"
         >手续导航</el-breadcrumb-item
       >
       <el-breadcrumb-item>排队挂号</el-breadcrumb-item>
@@ -147,7 +147,6 @@ export default {
           { required: true, message: "请选择预约时间", trigger: "blur" },
         ],
       },
-      showCard2: false,
       showModal: false,
       modalData: [],
       disableTimePicker: true,

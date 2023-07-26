@@ -6,6 +6,7 @@ import Login from '../components/Login.vue'
 import Password from '../components/Password.vue'
 import Register from '../components/Register.vue'
 import PatientView from '../views/patients/PatientView.vue'
+import docView from '../views/doctors/DoctorView.vue'
 import Example from '../views/patients/Example.vue'
 
 import buyDrug from '../views/patients/buyDrug/index.vue'
@@ -14,6 +15,9 @@ import prescription from '../views/patients/prescription/index.vue'
 import history from '../views/patients/history/index.vue'
 import selfInfo from '../views/patients/selfInfo/index.vue'
 import nav from '../views/patients/navigate/index.vue'
+
+import dNav from '../views/doctors/dNav/index.vue'
+
 
 Vue.use(VueRouter)
 
@@ -43,6 +47,18 @@ const routes = [
       {path:'nav',name:'nav',component:nav},
     ]
   },
+  {
+    path: '/doc',
+    redirect:'/doc/dnav',
+    name: 'docView',
+    component: docView,
+    children:[
+      {path:'dnav',name:'dNav',component:dNav},
+      {path:'self',name:'selfInfo',component:selfInfo},
+
+    ]
+  },
+
   
   {
     path: '/login',

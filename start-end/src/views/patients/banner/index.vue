@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-dark fixd-top bg-dark">
     <div class="container">
-      <router-link class="navbar-brand fs-3 me-4" to="/patient/nav"
-        >ACM医护中心</router-link
+      <span class="navbar-brand fs-3 me-4"
+        >ACM医护中心</span
       >
       <div class="d-flex align-items-center flex-grow-1 justify-content-center">
         <form class="d-flex mt-6 me-5" role="search">
