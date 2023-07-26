@@ -1,8 +1,8 @@
 <template>
   <div class="buy-container" >
-    <el-row type="flex" class="row-bg" justify="space-around">
-  <el-col :span="14">
-    <div class="grid-content bg-purple-light flex column center">
+    <el-row type="flex" class="row-bg" justify="space-around"  style="overflow:auto;">
+  <el-col :span="16">
+    <div class="grid-content bg-purple-light flex column center ">
       <div class="flex column">
         <div class="flex jst">
           <div class="title1">
@@ -29,7 +29,7 @@
             <span>{{ props.row.name }}</span>
           </el-form-item>
           <el-form-item label="价格">
-            <span>{{ props.row.price }}</span>
+            <span>{{ props.row.price+' 元' }}</span>
           </el-form-item>
           <el-form-item label="药品 ID">
             <span>{{ props.row.id }}</span>
@@ -84,7 +84,7 @@
     </div>
 
     </el-col>
-  <el-col :span="8"><div class="grid-content bg-purple">
+  <el-col :span="6"><div class="grid-content bg-purple">
     
     </div></el-col>
 </el-row>
@@ -109,7 +109,7 @@
   <span slot="footer" class="dialog-footer">
     <span style="padding-right:10px;">共计{{this.allPrice}}人民币</span>
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="dialogVisible = false,clearBuyNum(tableData.filter(data=>data.buyNum>0))">确 定</el-button>
   </span>
 </el-dialog>
     </div>
@@ -193,6 +193,25 @@ export default {
           amount:10,
           usage:'一日三次，一次两粒',
           buyNum:0
+        }
+        ,
+         {
+          id: '115',
+          name: '止饿片',
+          price:50,
+          desc: '白色片剂，味微苦，无副作用（真）',
+          amount:1000,
+          usage:'一日三次，一次两粒',
+          buyNum:0
+        },
+        {
+          id: 'xxx',
+          name: '？？片',
+          price:999999999999999,
+          desc: '无色无味，无副作用（真）',
+          amount:10,
+          usage:'一日三次，一次两粒',
+          buyNum:0
         }]
       }
     },
@@ -216,6 +235,9 @@ export default {
         }
           );
         this.allPrice=aaa
+      },
+      clearBuyNum(data){
+        data.forEach(item=>{item.amount-=item.buyNum,item.buyNum=0});
       }
     }
 
