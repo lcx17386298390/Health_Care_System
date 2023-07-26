@@ -31,6 +31,7 @@ const routes = [
   },
   {
     path: '/patient',
+    redirect:'/patient/nav',
     name: 'Patientview',
     component: PatientView,
     children:[
