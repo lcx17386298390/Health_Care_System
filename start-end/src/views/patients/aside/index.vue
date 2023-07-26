@@ -18,7 +18,7 @@
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#regisProcess"></use>
           </svg>
-          排队挂号
+          预约挂号
         </router-link>
       </li>
       <li>
@@ -38,14 +38,6 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/patient/booking" class="nav-link text-white"  id="v-pills-Products-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false" :class="{ active: $route.path === '/patient/booking' }">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:to="#grid"></use>
-          </svg>
-          预约挂号
-        </router-link>
-      </li>
-      <li>
         <router-link to="/patient/buydrug" class="nav-link text-white"  id="v-pills-maiyao-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-messages" aria-selected="false" :class="{ active: $route.path === '/patient/buydrug' }">
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#people-circle"></use>
@@ -58,7 +50,7 @@
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#people-circle"></use>
           </svg>
-          Customers
+          个人中心
         </router-link>
       </li>
     </ul>

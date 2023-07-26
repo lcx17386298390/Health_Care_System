@@ -11,7 +11,6 @@ import buyDrug from '../views/patients/buyDrug/index.vue'
 import regisProcess from '../views/patients/regisProcess/index.vue'
 import prescription from '../views/patients/prescription/index.vue'
 import history from '../views/patients/history/index.vue'
-import bookingRegis from '../views/patients/bookingRegis/index.vue'
 
 
 Vue.use(VueRouter)
@@ -36,7 +35,6 @@ const routes = [
       {path:'regis',name:'regisProcess',component:regisProcess},
       {path:'prescription',name:'prescription',component:prescription},
       {path:'history',name:'history',component:history},
-      {path:'booking',name:'bookingRegis',component:bookingRegis},
       {path:'buydrug',name:'buydrug',component:buyDrug},
     ]
   },

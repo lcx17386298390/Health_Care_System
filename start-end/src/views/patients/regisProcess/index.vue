@@ -7,7 +7,11 @@
       <el-breadcrumb-item>排队挂号</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <el-card class="box-card mt-4 border-left-primary" shadow="hover">
+    <el-card
+      class="box-card mt-4 border-left-primary"
+      :class="{ 'show-card': showCard2 }"
+      shadow="hover"
+    >
       <div slot="header" class="clearfix">
         <span>挂号流程</span>
       </div>
@@ -36,11 +40,47 @@
     <el-card
       v-if="currentStep === 2"
       class="box-card mt-4 border-left-primary"
+      :class="{ 'show-card': showCard2 }"
       shadow="hover"
     >
       <hr />
       <el-form :model="formData" ref="form" :rules="formRules">
-        <el-form-item label="选择医生" prop="selectedDoctor">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="选择预约时间" prop="selectedTime">
+              <el-date-picker
+                v-model="formData.selectedTime"
+                type="date"
+                :picker-options="pickerOptions"
+                placeholder="选择预约时间"
+                @change="handleDateChange"
+                format="yyyy/MM/dd"
+                value-format="yyyy/MM/dd"
+              ></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" v-if="isDateSelected">
+            <el-form-item label="选择时间段" prop="selectedTimeSlot">
+              <el-select
+                v-model="formData.selectedTimeSlot"
+                placeholder="请选择时间段"
+              >
+                <el-option
+                  v-for="slot in availableTimeSlots"
+                  :key="slot"
+                  :label="slot"
+                  :value="slot"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-form-item
+          v-if="isDateSelected && formData.selectedTimeSlot"
+          label="此时间段空闲医生"
+          prop="selectedDoctor"
+        >
           <el-select v-model="formData.selectedDoctor" placeholder="请选择医生">
             <el-option
               v-for="doctor in doctorOptions"
@@ -63,11 +103,12 @@
       <ul>
         <li v-for="(item, index) in modalData" :key="index">
           <p>单号：{{ item.aid }}</p>
+          <p>预约时间：{{ item.selectedTime }} {{ item.selectedTimeSlot }}</p>
           <p>患者姓名：{{ item.realname }}</p>
           <p>性别：{{ item.sex }}</p>
           <p>年龄：{{ item.age }}</p>
-          <p>医生姓名：{{ item.dname }}</p>
           <p>科室名：{{ item.departmentname }}</p>
+          <p>医生姓名：{{ item.dname }}</p>
         </li>
       </ul>
     </el-dialog>
@@ -90,9 +131,27 @@ export default {
         selectedDoctor: [
           { required: true, message: "请选择医生", trigger: "blur" },
         ],
+        selectedTime: [
+          { required: true, message: "请选择预约时间", trigger: "blur" },
+        ],
       },
       showModal: false,
       modalData: [],
+      disableTimePicker: true,
+      pickerOptions: {
+        disabledDate: (time) => {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const oneWeekFromToday = new Date(today);
+          oneWeekFromToday.setDate(today.getDate() + 6);
+          return (
+            time.getTime() < today.getTime() ||
+            time.getTime() > oneWeekFromToday.getTime()
+          );
+        },
+      },
+      isDateSelected: false,
+      availableTimeSlots: [],
     };
   },
 
@@ -106,26 +165,38 @@ export default {
         this.showStep2 = true;
         this.currentStep = 2;
       } else if (this.currentStep === 2) {
-        this.$refs.form.validate((valid) => {
-          if (valid) {
-            this.showModal = true;
-            // api接口写在这里
-            // 带回的数据,一个对象放在modalDate里,下面这个模拟数据
-            this.modalData = [
-              {
-                aid: "1",
-                realname: "Naruto",
-                sex: "Male",
-                age: 21,
-                dname: this.formData.selectedDoctor,
-                departmentname: this.selectedDepartment,
-              },
-            ];
-          } else {
-            this.$message.error("请选择医生");
-          }
-        });
+        if (!this.formData.selectedTime) {
+          this.$message.error("请选择预约时间");
+          return;
+        }
+        if (!this.formData.selectedTimeSlot) {
+          this.$message.error("请选择时间段");
+          return;
+        }
+        if (!this.formData.selectedDoctor) {
+          this.$message.error("请选择医生");
+          return;
+        }
+        this.showModal = true;
+        // api接口写在这里
+        // 下面模拟带回的数据,一个对象放在modalDate里,下面这个模拟数据
+        this.modalData = [
+          {
+            aid: "1",
+            selectedTime: this.formData.selectedTime,
+            selectedTimeSlot: this.formData.selectedTimeSlot,
+            realname: "Naruto",
+            sex: "Male",
+            age: 21,
+            departmentname: this.selectedDepartment,
+            dname: this.formData.selectedDoctor,
+          },
+        ];
       }
+    },
+
+    handleDateChange() {
+      this.isDateSelected = !!this.formData.selectedTime;
     },
     handleModalClose() {
       this.showModal = false;
@@ -138,10 +209,76 @@ export default {
         },
       });
     },
+    handleDateChange() {
+      // Check if the date is selected
+      if (this.formData.selectedTime) {
+        this.isDateSelected = true;
+        this.getAvailableTimeSlots(); // Function to get available time slots based on selected date
+      } else {
+        this.isDateSelected = false;
+      }
+    },
+    getAvailableTimeSlots() {
+      this.availableTimeSlots = [
+        "8:00-9:00",
+        "9:00-10:00",
+        "10:00-11:00",
+        "13:00-14:00",
+        "14:00-15:00",
+        "15:00-16:00",
+        "16:00-17:00",
+      ];
+    },
+  },
+  computed: {
+    availableTimeSlots() {
+      if (!this.formData.selectedTime) return [];
+      const selectedDate = new Date(this.formData.selectedTime);
+      const availableSlots = [];
+
+      selectedDate.setHours(8, 0, 0, 0);
+
+      while (selectedDate.getHours() < 17) {
+        const startTime = selectedDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        selectedDate.setHours(selectedDate.getHours() + 1);
+
+        const endTime = selectedDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        availableSlots.push(`${startTime}至${endTime}`);
+      }
+
+      return availableSlots;
+    },
+  },
+
+  watch: {
+    selectedDepartment(newValue) {
+      if (newValue) {
+        this.disableTimePicker = false;
+      }
+    },
   },
 };
 </script>
 <style>
+.show-card {
+  transition: opacity 3s, transform 3s;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.show-card.show-card-enter-active,
+.show-card.show-card-leave-active {
+  opacity: 1;
+  transform: translateY(0);
+}
 .el-select {
   margin-left: 30px;
 }
