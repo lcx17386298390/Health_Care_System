@@ -115,11 +115,10 @@
   </div>
 
   <!-- 诊室导航 -->
- <div style="margin-top: 40px;margin-left: 100px;">
-  <h2>诊室介绍</h2>
-  <el-tabs :tab-position="tabPosition" style="height: 200px; margin-top: 20px;">
-  <el-tab-pane  label="非手术科室">
-    <el-card class="box-card">
+  <h3 style="margin-top: 40px;margin-left: 100px;">诊室介绍</h3>
+ <el-tabs type="border-card" style="width: 80%;margin: 30px auto 0;">
+  <el-tab-pane>
+    <span slot="label" class="b" >非手术科室</span>
       <el-row :gutter="20">
         <el-col :span="8" v-for="(data, index) in ['内科', '外科', '妇产科', '儿科', '眼科', '皮肤科']"  :key="index">
           <div class="text item">
@@ -127,11 +126,9 @@
           </div>
         </el-col>
       </el-row>
-    </el-card>
   </el-tab-pane>
-
-  <el-tab-pane label="手术科室">
-    <el-card class="box-card">
+  <el-tab-pane> 
+    <span slot="label" class="b">手术科室</span>
       <el-row :gutter="20">
         <el-col :span="8" v-for="(data, index) in ['心脏科', '神经科', '呼吸科', '皮肤科', '消化科', '骨科']" :key="index">
           <div class="text item">
@@ -139,11 +136,9 @@
           </div>
         </el-col>
       </el-row>
-    </el-card>
   </el-tab-pane>
-
-  <el-tab-pane label="诊断相关科室">
-    <el-card class="box-card">
+  <el-tab-pane> 
+    <span slot="label" class="b">诊断相关</span>
       <el-row :gutter="20">
         <el-col :span="8" v-for="(data, index) in ['肾脏科', '血液科', '内分泌科', '耳鼻喉科', '眼科', '口腔科']" :key="index">
           <div class="text item">
@@ -151,11 +146,9 @@
           </div>
         </el-col>
       </el-row>
-    </el-card>
   </el-tab-pane>
-
-  <el-tab-pane label="特色中医科室">
-    <el-card class="box-card">
+  <el-tab-pane>
+    <span slot="label" class="b">中医特色科室</span>
       <el-row :gutter="20">
         <el-col :span="8" v-for="(data, index) in ['针灸科', '中药科', '推拿科', '经络科', '康复科', '气功科']" :key="index">
           <div class="text item">
@@ -163,15 +156,155 @@
           </div>
         </el-col>
       </el-row>
-    </el-card>
   </el-tab-pane>
 </el-tabs>
 
- </div>
+ <!-- 简单图片简介 -->
+ <div class="image-row">
+    <div class="image-item">
+      <img src="./phono/1.jpg" class="image" />
+      <div class="text-overlay">
+        <span class="text">国际医疗部</span>
+      </div>
+    </div>
+    <div class="image-item">
+      <img src="./phono/1.jpg"  class="image" />
+      <div class="text-overlay">
+        <span class="text">体检专区</span>
+      </div>
+    </div>
+    <div class="image-item">
+      <img src="./phono/1.jpg" class="image" />
+      <div class="text-overlay">
+        <span class="text">临床研究中心</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 制作人员介绍 -->
+  <h1 style="margin: 40px 0 50px 130px;">队伍解释</h1>
+  <div class="timeline">
+  <div class="timeline-item">
+    <div class="left-content">
+      <el-card class="timeline-card">
+        <img src="./phono/lcx.jpg" style="width: 200px" /> 
+        <div style="float: right;" class="bu">
+          <h4>开心超人</h4>
+          <p>天子临宣赐侯印，将军佩出明光</p>
+        </div>
+      </el-card>
+    </div>
+    <el-timeline-item timestamp="黄冈师范学院ACM实验室项目组">
+     <div class="right-content">
+      <el-card class="timeline-card">
+        <img src="./phono/xmy.jpg" style="width: 200px" /> 
+        <div style="float: right;" class="bu">
+          <h4>xmywd</h4>
+        <p>我是高手</p>
+        </div>
+      </el-card>
+     </div>
+    </el-timeline-item>
+  </div>
+
+  <div class="timeline-item">
+    <div class="left-content">
+      <el-card class="timeline-card">
+        <img src="./phono/chy.jpg" style="width: 200px" /> 
+        <div style="float: right;" class="bu">
+          <h4>Vio1et27</h4>
+          <p>springboot，启动！</p>
+        </div>
+      </el-card>
+    </div>
+    <el-timeline-item timestamp="黄冈师范学院ACM实验室项目组">
+     <div class="right-content">
+      <el-card class="timeline-card">
+        <img src="./phono/dx.jpg" style="width: 200px" /> 
+        <div style="float: right;" class="bu">
+          <h4>volcanovo</h4>
+        <p>vscode重度依赖</p>
+        </div>
+      </el-card>
+     </div>
+    </el-timeline-item>
+  </div>
+
+  <div class="timeline-item">
+    <div class="left-content">
+      <el-card class="timeline-card">
+        <img src="./phono/yq.png" style="width:200px" /> 
+        <div style="float: right;" class="bu">
+          <h4>mqgs</h4>
+          <p>无话可说。</p>
+        </div>
+      </el-card>
+    </div>
+    <el-timeline-item timestamp="黄冈师范学院ACM实验室项目组">
+     <div class="right-content">
+      <el-card class="timeline-card">
+        <img src="./phono/wqw.jpg" style="width: 200px" /> 
+        <div style="float: right;" class="bu">
+          <h4>王倩文</h4>
+        <p>大鹏终有直冲云天一日</p>
+        </div>
+      </el-card>
+     </div>
+    </el-timeline-item>
+  </div>
+
+  <div class="timeline-item">
+    <div class="left-content">
+      <el-card class="timeline-card">
+        <img src="./phono/cyj.jpg" style="width: 200px;height: 220px;" /> 
+        <div style="float: right;" class="bu">
+          <h4>demure512</h4>
+          <p>你会同黄金般在我的记忆中闪耀</p>
+        </div>
+      </el-card>
+    </div>
+    <el-timeline-item timestamp="黄冈师范学院ACM实验室项目组">
+     <div class="right-content">
+      <el-card class="timeline-card">
+        <img src="./phono/gt.jpg" style="width: 200px" /> 
+        <div style="float: right;" class="bu">
+          <h4>Kansan1</h4>
+        <p>年少不知生活的苟且😖</p>
+        </div>
+      </el-card>
+     </div>
+    </el-timeline-item>
+  </div>
+
+
+  <div class="timeline-item">
+    <div class="left-content">
+      <el-card class="timeline-card">
+        <img src="./phono/xxj.jpg" style="width: 200px" /> 
+        <div style="float: right;" class="bu">
+          <h4>alpacanosleep</h4>
+          <p>懒是第一生产力</p>
+        </div>
+      </el-card>
+    </div>
+    <el-timeline-item timestamp="黄冈师范学院ACM实验室项目组">
+     <div class="right-content">
+      <el-card class="timeline-card">
+        <img src="./phono/wy.jpg" style="width: 200px" /> 
+        <div style="float: right;" class="bu">
+          <h4>Wanginginging</h4>
+        <p>哈哈</p>
+        </div>
+      </el-card>
+     </div>
+    </el-timeline-item>
+  </div>
+
+</div>
+
 
   </div>
 </template>
-
 <script>
 export default {
   name: "HomeView",
@@ -186,16 +319,89 @@ export default {
 </script>
 
 <style scoped>
-.box-card {
-  width: 80%;
-  margin-top: 3px;
-  height: 180px;
+.bu{
+  width: 200px;
+  height: 100px;
+  position: relative;
+  right: 20px;
+  text-align: center;
+  margin-top: 40px;
 }
+.bu h4{
+  font-size: 25px;
+  letter-spacing: 0.1em;
+  font-weight:800;
+}
+
+.bu p{
+  margin-top: 20px;
+  height: 100px;
+  font-size: 20px;
+  letter-spacing: 0.3em;
+}
+.timeline {
+  max-width: 800px;
+  margin-left: 12%;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.right-content{
+  margin-top: 100px;
+}
+.timeline-card {
+  width: 550px;
+  margin: 0 30px 0 20px;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.image-row {
+  display: flex;
+  width: 85%;
+  margin: 30px auto 0;
+}
+
+.image-item {
+  position: relative;
+  flex: 1;
+  text-align: center;
+}
+
+.image {
+  width: 80%;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.331);
+  padding: 10px;
+}
+
+.text-overlay .text {
+  color: #fff;
+  font-size: 25px;
+}
+
+.b{
+  font-size: 20px;
+}
+
 
 .text.item {
   padding: 10px;
   border: 1px solid #ccc;
   margin-top: 15px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .el-row {
