@@ -4,6 +4,8 @@ import com.acm.entity.Patient;
 import com.acm.vo.ResponseResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 
 /**
  * (Patient)表服务接口
@@ -14,7 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface PatientService extends IService<Patient> {
 
 
+    List<Patient> findByRealname(String realname);
+
     ResponseResult register(Patient patient);
-
-
 }
