@@ -7,94 +7,106 @@
       <el-breadcrumb-item>排队挂号</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <el-card
-      class="box-card mt-4 border-left-primary"
-      :class="{ 'show-card': showCard2 }"
-      shadow="hover"
-    >
-      <div slot="header" class="clearfix">
-        <span>挂号流程</span>
-      </div>
-      <el-form>
-        <el-form-item label="门诊科室"
-          ><hr />
-          <el-radio-group v-model="selectedDepartment">
-            <el-radio label="内科">内科</el-radio>
-            <el-radio label="外科">外科</el-radio>
-            <el-radio label="儿科">儿科</el-radio>
-            <el-radio label="妇科">妇科</el-radio>
-            <el-radio label="眼科">眼科</el-radio>
-            <el-radio label="耳鼻喉科">耳鼻喉科</el-radio>
-            <el-radio label="口腔科">口腔科</el-radio>
-            <el-radio label="皮肤科">皮肤科</el-radio>
-            <el-radio label="中医科">中医科</el-radio>
-            <el-radio label="针灸推拿科">针灸推拿科</el-radio>
-          </el-radio-group>
-        </el-form-item>
-      </el-form>
-      <el-button v-if="currentStep === 1" style="margin-left: 43%" @click="next"
-        >下一步</el-button
+    <transition name="el-fade-in">
+      <el-card
+        class="box-card mt-4 border-left-primary slide-in"
+        shadow="hover"
       >
-    </el-card>
-
-    <el-card
-      v-if="currentStep === 2"
-      class="box-card mt-4 border-left-primary"
-      :class="{ 'show-card': showCard2 }"
-      shadow="hover"
-    >
-      <hr />
-      <el-form :model="formData" ref="form" :rules="formRules">
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="选择预约时间" prop="selectedTime">
-              <el-date-picker
-                v-model="formData.selectedTime"
-                type="date"
-                :picker-options="pickerOptions"
-                placeholder="选择预约时间"
-                @change="handleDateChange"
-                format="yyyy/MM/dd"
-                value-format="yyyy/MM/dd"
-              ></el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12" v-if="isDateSelected">
-            <el-form-item label="选择时间段" prop="selectedTimeSlot">
-              <el-select
-                v-model="formData.selectedTimeSlot"
-                placeholder="请选择时间段"
-              >
-                <el-option
-                  v-for="slot in availableTimeSlots"
-                  :key="slot"
-                  :label="slot"
-                  :value="slot"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-form-item
-          v-if="isDateSelected && formData.selectedTimeSlot"
-          label="此时间段空闲医生"
-          prop="selectedDoctor"
+        <div slot="header" class="clearfix">
+          <span>挂号流程</span>
+        </div>
+        <el-form>
+          <el-form-item label="门诊科室"
+            ><hr />
+            <el-radio-group v-model="selectedDepartment">
+              <el-radio label="内科">内科</el-radio>
+              <el-radio label="外科">外科</el-radio>
+              <el-radio label="儿科">儿科</el-radio>
+              <el-radio label="妇科">妇科</el-radio>
+              <el-radio label="眼科">眼科</el-radio>
+              <el-radio label="耳鼻喉科">耳鼻喉科</el-radio>
+              <el-radio label="口腔科">口腔科</el-radio>
+              <el-radio label="皮肤科">皮肤科</el-radio>
+              <el-radio label="中医科">中医科</el-radio>
+              <el-radio label="针灸推拿科">针灸推拿科</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-form>
+        <el-button
+          v-if="currentStep === 1"
+          style="margin-left: 43%"
+          @click="next"
+          >下一步</el-button
         >
-          <el-select v-model="formData.selectedDoctor" placeholder="请选择医生">
-            <el-option
-              v-for="doctor in doctorOptions"
-              :key="doctor"
-              :label="doctor"
-              :value="doctor"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <el-button v-if="currentStep === 2" style="margin-left: 43%" @click="next"
-        >提交</el-button
+      </el-card>
+    </transition>
+
+    <transition name="slide-down">
+      <el-card
+        v-if="currentStep === 2"
+        class="box-card mt-4 border-left-primary"
+        shadow="hover"
       >
-    </el-card>
+        <hr />
+        <el-form :model="formData" ref="form" :rules="formRules">
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="选择预约时间" prop="selectedTime">
+                <el-date-picker
+                  v-model="formData.selectedTime"
+                  type="date"
+                  :picker-options="pickerOptions"
+                  placeholder="选择预约时间"
+                  @change="handleDateChange"
+                  format="yyyy/MM/dd"
+                  value-format="yyyy/MM/dd"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12" v-if="isDateSelected">
+              <el-form-item label="选择时间段" prop="selectedTimeSlot">
+                <el-select
+                  v-model="formData.selectedTimeSlot"
+                  placeholder="请选择时间段"
+                >
+                  <el-option
+                    v-for="slot in availableTimeSlots"
+                    :key="slot"
+                    :label="slot"
+                    :value="slot"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-form-item
+            v-if="isDateSelected && formData.selectedTimeSlot"
+            label="此时间段空闲医生"
+            prop="selectedDoctor"
+          >
+            <el-select
+              v-model="formData.selectedDoctor"
+              placeholder="请选择医生"
+            >
+              <el-option
+                v-for="doctor in doctorOptions"
+                :key="doctor"
+                :label="doctor"
+                :value="doctor"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <el-button
+          v-if="currentStep === 2"
+          style="margin-left: 43%"
+          @click="next"
+          >提交</el-button
+        >
+      </el-card>
+    </transition>
+
     <el-dialog
       :visible="showModal"
       :before-close="handleModalClose"
@@ -135,6 +147,7 @@ export default {
           { required: true, message: "请选择预约时间", trigger: "blur" },
         ],
       },
+      showCard2: false,
       showModal: false,
       modalData: [],
       disableTimePicker: true,
@@ -151,10 +164,13 @@ export default {
         },
       },
       isDateSelected: false,
-      availableTimeSlots: [],
     };
   },
-
+  mounted() {
+    setTimeout(() => {
+      this.showCard2 = true;
+    }, 500);
+  },
   methods: {
     async next() {
       if (this.currentStep === 1) {
@@ -257,7 +273,6 @@ export default {
       return availableSlots;
     },
   },
-
   watch: {
     selectedDepartment(newValue) {
       if (newValue) {
@@ -268,16 +283,23 @@ export default {
 };
 </script>
 <style>
-.show-card {
-  transition: opacity 3s, transform 3s;
-  opacity: 0;
-  transform: translateY(-20px);
+.el-fade-in-enter-active,
+.el-fade-in-leave-active {
+  transition: opacity 1s;
 }
 
-.show-card.show-card-enter-active,
-.show-card.show-card-leave-active {
-  opacity: 1;
-  transform: translateY(0);
+.el-fade-in-enter,
+.el-fade-in-leave-to {
+  opacity: 0;
+}
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.3s ease; /* Add a transition for smooth animation */
+}
+
+.slide-down-enter,
+.slide-down-leave-to {
+  transform: translateY(-100%); /* Slide down the second card */
 }
 .el-select {
   margin-left: 30px;
