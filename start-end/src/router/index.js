@@ -47,7 +47,6 @@ const routes = [
       { path: 'nav', name: 'nav', component: nav },
     ]
   },
-<<<<<<< HEAD
   {
     path: '/doc',
     redirect:'/doc/dnav',
@@ -61,9 +60,6 @@ const routes = [
   },
 
   
-=======
-
->>>>>>> c72b59c11686cdec529e0ccc129697e24bfac8df
   {
     path: '/login',
     name: 'Login',
