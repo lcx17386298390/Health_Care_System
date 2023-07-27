@@ -10,6 +10,9 @@ spring:
       multipart:
         max-file-size: 2MB
         max-request-size: 5MB
+    transaction:
+      default-timeout: 30
+      rollback-on-commit-failure: true
 mybatis-plus:
   configuration:
       # 日志

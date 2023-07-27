@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -50,25 +52,24 @@ public class DrugServiceImpl extends ServiceImpl<DrugMapper, Drug> implements Dr
 
 
         if (matchedDrugs.isEmpty()) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.valueOf("未找到符合该药品用途的药品"));
+            return ResponseResult.errorResult(AppHttpCodeEnum.valueOf("DRUGS_NOT_NULL"));
         } else {
             return ResponseResult.okResult(matchedDrugs);
         }
     }
 //    根据用途查询药品,价格降序
 
-    @Override
+    @Transactional
     public ResponseResult getByDescUsageDrugs(Integer pageNum, Integer pageSize, String drugUsage) {
-        LambdaQueryWrapper<Drug> queryWrapper=new LambdaQueryWrapper<>();
-        Page<Drug> page=new Page<>(pageNum,pageSize);
-        queryWrapper.eq(Drug::getDrugName,drugUsage).orderByDesc(Drug::getDrugPrice);
-        drugMapper.selectPage(page,queryWrapper);
+        LambdaQueryWrapper<Drug> queryWrapper = new LambdaQueryWrapper<>();
+        Page<Drug> page = new Page<>(pageNum, pageSize);
+        queryWrapper.eq(Drug::getDrugUsage, drugUsage).orderByDesc(Drug::getDrugPrice);
+        drugMapper.selectPage(page, queryWrapper);
         List<Drug> matchedDrugs = page.getRecords();
-        if (matchedDrugs.isEmpty()){
-            return ResponseResult.errorResult(AppHttpCodeEnum.valueOf("未找到符合改用途的药品"));
-        }else {
+        if (page.getTotal() == 0) { // 使用 page.getTotal() 判断是否为空
+            return ResponseResult.errorResult(AppHttpCodeEnum.valueOf("DRUGS_NOT_NULL")); //
+        } else {
             return ResponseResult.okResult(matchedDrugs);
         }
-
     }
 }
