@@ -17,8 +17,9 @@ import history from '../views/patients/history/index.vue'
 import selfInfo from '../views/patients/selfInfo/index.vue'
 import nav from '../views/patients/navigate/index.vue'
 
-import dNav from '../views/doctors/dNav/index.vue'
-
+import order from '../views/doctors/order/index.vue'
+import drug from '../views/doctors/drug/index.vue'
+import his from '../views/doctors/history/index.vue'
 
 import AdminHome from '../views/admin/Pages/AdminHome/index.vue'
 import DataAnalysis from '../views/admin/Pages/DataAnalysis/index.vue'
@@ -57,12 +58,14 @@ const routes = [
   },
   {
     path: '/doc',
-    redirect:'/doc/dnav',
+    redirect:'/doc/order',
     name: 'docView',
     component: docView,
     children:[
-      {path:'dnav',name:'dNav',component:dNav},
-      {path:'self',name:'selfInfo',component:selfInfo},
+      {path:'order',name:'order',component:order},
+      {path:'drug',name:'drug',component:drug},
+      {path:'his',name:'his',component:his},
+
 
     ]
   },

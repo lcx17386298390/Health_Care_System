@@ -1,25 +1,25 @@
 <template>
   <div id="app container-fluid" style="height: 100vh">
-    <banner></banner>
+    <ban></ban>
     <div class="row">
       <div class="col-md-2">
         <side></side>
       </div>
-      <div class="main col-md-10">
-        <router-view></router-view>
+       <div class="col-md-10 d-flex">
+        <router-view></router-view> <!-- order组件将会在这里展示 -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import banner from "../doctors/banner/index.vue";
+import ban from "../doctors/banner/index.vue";
 import side from "../doctors/side/index.vue";
 export default {
   name: "patient",
   components: {
     side,
-    banner
+    ban
   },
 };
 </script>
