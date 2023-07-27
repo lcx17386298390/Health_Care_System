@@ -11,55 +11,65 @@
     <el-card class="box-card">
       <!-- 头像 可上传头像-->
       <el-row class="demo-avatar demo-basic">
-    <el-col :span="12">
-      <div class="demo-basic--circle">
-        <div class="block">
-          <el-avatar :size="100" :src="avatarUrl">
-            <i class="el-icon-user-solid"></i>
-          </el-avatar>
-          <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
-          <el-button type="primary" @click="uploadAvatar">上传头像</el-button> <!-- 新增一个按钮 -->
-        </div>
+  <el-col :span="20">
+    <div class="demo-basic--circle">
+      <div class="block">
+        <el-avatar :size="100" :src="avatarUrl">
+          <i class="el-icon-user-solid"></i>
+        </el-avatar>
       </div>
-    </el-col>  
-  </el-row>
+    </div>
+  </el-col>
+  <el-col :span="4" style="margin-top: 30px;">
+    <div class="block">
+      <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
+      <el-button type="primary" @click="uploadAvatar">上传头像</el-button>
+    </div>
+  </el-col>
+</el-row>
+
 
 
       <!-- 个人信息须填写内容 -->
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="真实姓名:" prop="name">
-              <el-input v-model="ruleForm.name"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="性别:" prop="sex">
-              <el-radio v-model="ruleForm.sex" label="男">男</el-radio>
-              <el-radio v-model="ruleForm.sex" label="女">女</el-radio>
-            </el-form-item>
-          </el-col>
-        </el-row>
-          <el-form-item label="手机号:" prop="phonenumber">
-            <el-input v-model="ruleForm.phonenumber"></el-input>
-          </el-form-item>
-          <el-form-item label="邮箱:" prop="email">
-            <el-input v-model="ruleForm.email"></el-input>
-          </el-form-item>
-          <el-form-item label="身份证号:" prop="identityinfo">
-            <el-input v-model="ruleForm.identityinfo"></el-input>
-          </el-form-item>
-          <el-form-item label="地址:" prop="address">
-            <el-input type="textarea" :rows="2" v-model="ruleForm.address"></el-input>
-          </el-form-item>
-
-
-          <!-- 提交按钮 -->
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">立即完善信息</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
+    <el-row>
+      <el-col :span="12">
+        <el-form-item label="真实姓名:" prop="name">
+          <el-input v-model="ruleForm.name" :disabled="isDisabled"></el-input>
         </el-form-item>
-    </el-form>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="性别:" prop="sex">
+          <el-radio v-model="ruleForm.sex" label="男" :disabled="isDisabled">男</el-radio>
+          <el-radio v-model="ruleForm.sex" label="女" :disabled="isDisabled">女</el-radio>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-form-item label="手机号:" prop="phonenumber">
+      <el-input v-model="ruleForm.phonenumber" :disabled="isDisabled"></el-input>
+    </el-form-item>
+    <el-form-item label="邮箱:" prop="email">
+      <el-input v-model="ruleForm.email" :disabled="isDisabled"></el-input>
+    </el-form-item>
+    <el-form-item label="身份证号:" prop="identityinfo">
+      <el-input v-model="ruleForm.identityinfo" :disabled="isDisabled"></el-input>
+    </el-form-item>
+    <el-form-item label="地址:" prop="address">
+      <el-input type="textarea" :rows="2" v-model="ruleForm.address" :disabled="isDisabled"></el-input>
+    </el-form-item>
+
+    <!-- 提交和重置按钮 -->
+    <el-form-item v-if="isSubmit">
+      <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+      <el-button @click="resetForm('ruleForm')">重置</el-button>
+    </el-form-item>
+
+    <!-- 更改信息按钮 -->
+    <el-form-item v-else>
+      <el-button type="primary" @click="changeInfo">更改信息</el-button>
+    </el-form-item>
+  </el-form>
+
     </el-card>
 
   </div>
@@ -100,12 +110,32 @@ export default {
           address: [
              { required: true, message: '请输入地址', trigger: 'blur' },
           ],
-        }
+        },
+        isDisabled: false, // 控制表单项禁用状态
+      isSubmit: true // 控制是否显示提交和重置按钮
       };
     },
     methods: {
-      // 上传按钮部分
+      // 个人信息按钮
       submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.isDisabled = true; // 提交后禁用表单项
+          this.isSubmit = false; // 隐藏提交和重置按钮，显示更改信息按钮
+          alert('submit!');
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    changeInfo() {
+      this.isDisabled = false; // 允许修改信息
+      this.isSubmit = true; // 隐藏更改信息按钮，显示提交和重置按钮
+    },
         this.$refs[formName].validate((valid) => {
           if (valid) {
             axios({
@@ -137,20 +167,29 @@ export default {
         this.$refs[formName].resetFields();
       },
 
-      // 上传图片部分
-      uploadAvatar() {
-      this.$refs.fileInput.click(); // 点击隐藏的文件选择器
+
+    // 上传图片并实时更新
+    uploadAvatar() {
+      this.$refs.fileInput.click();
     },
     handleFileChange(event) {
-      const file = event.target.files[0]; // 获取选中的文件
+      const file = event.target.files[0];
       const reader = new FileReader();
-      
+
       reader.onload = (e) => {
-        this.avatarUrl = e.target.result; // 将文件读取的数据赋值给头像URL或Base64
-        localStorage.setItem('avatar', e.target.result); // 将数据保存到浏览器本地存储
+        this.avatarUrl = e.target.result;
+        localStorage.setItem('avatar', e.target.result);
+        // 删除之前图片的内存
+        const prevAvatar = localStorage.getItem('prevAvatar');
+        if (prevAvatar !== null && prevAvatar !== this.avatarUrl) {
+          URL.revokeObjectURL(prevAvatar); // 释放内存
+        }
+        localStorage.setItem('prevAvatar', this.avatarUrl);// 存储当前图片 URL，用于下次比对
+        window.location.reload(); // 刷新页面
       };
-      
-      reader.readAsDataURL(file); // 以DataURL形式读取文件内容
+
+      // 将文件读取为 Data URL
+      reader.readAsDataURL(file);
     },
       saveInfo(){
           axios({
@@ -180,15 +219,16 @@ export default {
       }
   },
   created() {
-    const savedAvatar = localStorage.getItem('avatar'); // 获取保存在本地的头像数据
+    const savedAvatar = localStorage.getItem('avatar');
     if (savedAvatar) {
-      this.avatarUrl = savedAvatar; // 如果有保存的头像数据，则赋值给头像URL或Base64
+      this.avatarUrl = savedAvatar;
     }
     
     },
+
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

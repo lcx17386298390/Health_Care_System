@@ -13,8 +13,8 @@ public class DrugController {
     private DrugService drugService;
 
     @RequestMapping("/getUsageDrugs")
-    public ResponseResult getUsageDrugs(String drugUsage){
-        ResponseResult result =drugService.getUsageDrugs(drugUsage);
+    public ResponseResult getUsageDrugs(Integer pageNum,Integer pageSize,String drugUsage){
+        ResponseResult result =drugService.getUsageDrugs(pageNum,pageSize,drugUsage);
         return result;
     }
 
