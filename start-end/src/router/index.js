@@ -7,6 +7,7 @@ import Password from '../components/Password.vue'
 import Register from '../components/Register.vue'
 import PatientView from '../views/patients/PatientView.vue'
 import docView from '../views/doctors/DoctorView.vue'
+import AdminView from '../views/admin/AdminView.vue'
 import Example from '../views/patients/Example.vue'
 
 import buyDrug from '../views/patients/buyDrug/index.vue'
@@ -17,6 +18,13 @@ import selfInfo from '../views/patients/selfInfo/index.vue'
 import nav from '../views/patients/navigate/index.vue'
 
 import dNav from '../views/doctors/dNav/index.vue'
+
+
+import AdminHome from '../views/admin/Pages/AdminHome/index.vue'
+import DataAnalysis from '../views/admin/Pages/DataAnalysis/index.vue'
+import DrugManage from '../views/admin/Pages/DrugManage/index.vue'
+import DoctorManage from '../views/admin/Pages/UserMagage/DoctorManage/index.vue'
+import PatientManage from '../views/admin/Pages/UserMagage/PatientManage/index.vue'
 
 
 Vue.use(VueRouter)
@@ -58,8 +66,19 @@ const routes = [
 
     ]
   },
-
-  
+  {
+    path:'/admin',
+    redirect:'/admin/admin-home',
+    name:'AdminView',
+    component:AdminView,
+    children:[
+      {path:'admin-home',name:'adminHome',component:AdminHome},
+      {path:'data-analysis',name:'dataAnalysis',component:DataAnalysis},
+      {path:'drug-manage',name:'drugManage',component:DrugManage},
+      {path:'doctor-manage',name:'doctorManage',component:DoctorManage},
+      {path:'patient-manage',name:'patientManage',component:PatientManage}
+    ]
+  },
   {
     path: '/login',
     name: 'Login',
