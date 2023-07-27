@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import banner from "../patients/banner/index.vue";
+import banner from "../doctors/banner/index.vue";
 import side from "../doctors/side/index.vue";
 export default {
   name: "patient",

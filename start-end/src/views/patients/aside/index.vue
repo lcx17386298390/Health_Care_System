@@ -1,8 +1,16 @@
 <template>
-  <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark aaa">
+  <div
+    class="sidebar d-flex flex-column flex-shrink-0 p-3 aaa"
+    :class="{
+      'dark-theme': isDarkTheme,
+      'light-theme': !isDarkTheme,
+      'a-white': isDarkTheme,
+      'a-black': !isDarkTheme,
+    }"
+  >
     <router-link
       to="/patient/nav"
-      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
     >
       <svg class="bi pe-none me-2" width="40" height="32">
         <use xlink:to="#patient"></use>
@@ -20,12 +28,12 @@
       <li class="nav-item">
         <router-link
           to="/patient/regis"
-          class="nav-link text-white"
+          class="nav-link text"
           aria-current="page"
-          id="v-pills-home-tab"
+          id="v-pills-regis-tab"
           data-toggle="pill"
           role="tab"
-          aria-controls="v-pills-home"
+          aria-controls="v-pills-messages"
           aria-selected="true"
           :class="{ active: $route.path === '/patient/regis' }"
         >
@@ -38,11 +46,11 @@
       <li>
         <router-link
           to="/patient/prescription"
-          class="nav-link text-white"
-          id="v-pills-Dashboard-tab"
+          class="nav-link text"
+          id="v-pills-prescrition-tab"
           data-toggle="pill"
           role="tab"
-          aria-controls="v-pills-profile"
+          aria-controls="v-pills-messages"
           aria-selected="false"
           :class="{ active: $route.path === '/patient/prescription' }"
         >
@@ -55,8 +63,8 @@
       <li>
         <router-link
           to="/patient/history"
-          class="nav-link text-white"
-          id="v-pills-Orders-tab"
+          class="nav-link text"
+          id="v-pills-history-tab"
           data-toggle="pill"
           role="tab"
           aria-controls="v-pills-messages"
@@ -64,15 +72,16 @@
           :class="{ active: $route.path === '/patient/history' }"
         >
           <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:to="/#table"></use>
+            <use xlink:to="#table"></use>
           </svg>
           历史病例
         </router-link>
       </li>
+
       <li>
         <router-link
           to="/patient/buydrug"
-          class="nav-link text-white"
+          class="nav-link text"
           id="v-pills-maiyao-tab"
           data-toggle="pill"
           role="tab"
@@ -89,7 +98,7 @@
       <li>
         <router-link
           to="/patient/self"
-          class="nav-link text-white"
+          class="nav-link text"
           id="v-pills-Customers-tab"
           data-toggle="pill"
           role="tab"
@@ -104,79 +113,19 @@
         </router-link>
       </li>
     </ul>
-    <!-- 排队挂号 -->
-    <div class="tab-content" id="v-pills-tabContent">
-      <div
-        class="tab-pane fade show active"
-        id="v-pills-home"
-        role="tabpanel"
-        aria-labelledby="v-pills-home-tab"
-        :class="{ 'show active': $route.path === '/patient/regis' }"
-      >
-        ...
-      </div>
-      <!-- 处方单 -->
-      <div
-        class="tab-pane fade"
-        id="v-pills-profile"
-        role="tabpanel"
-        aria-labelledby="v-pills-Dashboard-tab"
-        :class="{ 'show active': $route.path === '/patient/prescription' }"
-      >
-        ...
-      </div>
-      <!-- 历史病例 -->
-      <div
-        class="tab-pane fade"
-        id="v-pills-messages"
-        role="tabpanel"
-        aria-labelledby="v-pills-Orders-tab"
-        :class="{ active: $route.path === '/patient/history' }"
-      >
-        ...
-      </div>
-      <!-- 买药 -->
-      <div
-        class="tab-pane fade"
-        id="v-pills-settings"
-        role="tabpanel"
-        aria-labelledby="v-pills-Customers-tab"
-        :class="{ active: $route.path === '/patient/buydrug' }"
-      >
-        ...
-      </div>
-      <!-- self -->
-      <div
-        class="tab-pane fade"
-        id="v-pills-settings"
-        role="tabpanel"
-        aria-labelledby="v-pills-Customers-tab"
-        :class="{ active: $route.path === '/patient/self' }"
-      >
-        ...
-      </div>
-    </div>
-
     <hr />
     <div class="dropdown">
       <router-link
         to="/#"
-        class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+        class="d-flex align-items-center text text-decoration-none dropdown-toggle"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        <img
-          src="https://github.com/mdo.png"
-          alt=""
-          width="32"
-          height="32"
-          class="rounded-circle me-2"
-        />
-        <strong>mdo</strong>
+        <strong>设置</strong>
       </router-link>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
         <li>
-          <router-link class="dropdown-item" to="/theam">切换主题</router-link>
+          <button class="dropdown-item" @click="toggleTheme">切换主题</button>
         </li>
         <li><hr class="dropdown-divider" /></li>
         <li>
@@ -188,12 +137,46 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      isDarkTheme: false,
+    };
+  },
+  methods: {
+    toggleTheme() {
+      this.isDarkTheme = !this.isDarkTheme;
+    },
+  },
+};
 </script>
 
 <style scoped>
 .aaa {
   height: 100vh;
   width: 16.15vw;
+}
+.nav-link:not(.active):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active:hover {
+  background-color: var(--bs-nav-pills-link-active-bg);
+}
+
+.light-theme {
+  background-color: #eff0f0;
+}
+.dark-theme {
+  background-color: #262525;
+}
+
+.dark-theme .sidebar .a-white {
+  color: #ffffff; /* White text for dark theme links */
+}
+
+/* Set link text color for light theme */
+.light-theme .sidebar .a-black {
+  color: #000000; /* Black text for light theme links */
 }
 </style>
