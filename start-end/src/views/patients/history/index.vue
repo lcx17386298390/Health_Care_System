@@ -22,6 +22,7 @@
         :current-page="currentPage"
         :page-size="pageSize"
         :total="totalRows"
+        :page-count="(currentPage - 1) * pageSize"
         @current-change="handleCurrentPageChange"
       />
     </el-card>
@@ -37,7 +38,7 @@ export default {
       currentPage: 1, 
       pageSize: 10, //一页十行
       totalRows: 0, //总行数
-      patientId: 1
+      patientId: JSON.parse(sessionStorage.getItem("user")).id
     };
   },
    created() {
@@ -165,11 +166,11 @@ export default {
       this.tableData = this.allData.slice(startIndex, endIndex);
     },
   },
-  mounted() {
-    this.currentPage = 1;
-    this.pageSize = 1;
-    this.fetchData();
-  }
+  // mounted() {
+  //   this.currentPage = 1;
+  //   this.pageSize = 1;
+  //   this.fetchData();
+  // }
 };
 </script>
 

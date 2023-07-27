@@ -4,6 +4,7 @@ import com.acm.entity.Patient;
 import com.acm.vo.ResponseResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -19,4 +20,8 @@ public interface PatientService extends IService<Patient> {
     List<Patient> findByRealname(String realname);
 
     ResponseResult register(Patient patient);
+
+    ResponseResult infoApp(String idNo, String name) throws IOException;
+
+    ResponseResult saveInfo(String realname, String phonenumber, String sex, String email, String identityinfo, Integer age, String address, String id);
 }

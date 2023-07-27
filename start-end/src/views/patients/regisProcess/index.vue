@@ -137,7 +137,7 @@ export default {
       selectedDepartment: "",
       showStep2: false,
       selectedDoctor: "",
-      patientName: "Sasigay",
+      patientName: JSON.parse(sessionStorage.getItem("user")).username,
       doctorOptions: ["医生一","医生二","医生三"],
       formData: {
         selectedDoctor: "",

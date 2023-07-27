@@ -66,9 +66,11 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
   data() {
       return {
+        patientId: 1,
         ruleForm: {
           name: '',
           phonenumber:'',
@@ -80,7 +82,7 @@ export default {
         },
         rules: {
           name: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { required: true, message: '请输入真实姓名', trigger: 'blur' },
             { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
           ],
           phonenumber: [
@@ -106,7 +108,25 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            axios({
+              url: 'http://localhost:8001/user/infoApp',
+              method: 'post',
+              params:{
+                idNo: this.ruleForm.identityinfo,
+                name: this.ruleForm.name
+              }
+            }).then(resp => {
+              //console.log(resp.data.data)
+              if((JSON.parse(resp.data.data)).respMessage==="身份证信息匹配"){
+                this.$message({
+                  message: '身份证信息匹配!',
+                  type: 'success'
+                });
+                setTimeout(() => this.saveInfo(), 2000)
+              }else{
+                this.$message.error((JSON.parse(resp.data.data)).respMessage);
+              }
+            })
           } else {
             console.log('error submit!!');
             return false;
@@ -132,6 +152,32 @@ export default {
       
       reader.readAsDataURL(file); // 以DataURL形式读取文件内容
     },
+      saveInfo(){
+          axios({
+            url: 'http://localhost:8001/user/saveinfo',
+            method: 'post',
+            params:{
+              realname:this.ruleForm.name,
+              phonenumber:this.ruleForm.phonenumber,
+              sex:this.ruleForm.sex,
+              email:this.ruleForm.email,
+              identityinfo:this.ruleForm.identityinfo,
+              age:19,
+              address:this.ruleForm.address,
+              id: this.patientId
+            }
+          }).then(resp => {
+            if(resp.data.code === 200){
+              this.$message({
+                message: '信息录入成功!',
+                type: 'success'
+              });
+            }else{
+              this.$message.error('发生错误!请稍后再试');
+            }
+            setTimeout(() => location.reload(), 3000)
+          })
+      }
   },
   created() {
     const savedAvatar = localStorage.getItem('avatar'); // 获取保存在本地的头像数据

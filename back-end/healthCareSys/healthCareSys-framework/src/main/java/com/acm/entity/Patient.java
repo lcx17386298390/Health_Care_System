@@ -42,8 +42,8 @@ public class Patient  {
     private String identityinfo;
     //患者真实姓名
     private String realname;
-
-
+    //患者头像
+    private String avatar;
 
 }
 

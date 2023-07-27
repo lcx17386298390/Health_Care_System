@@ -180,7 +180,7 @@
         </li>
         <li><hr class="dropdown-divider" /></li>
         <li>
-          <router-link class="dropdown-item" to="/login">退出登录</router-link>
+          <a class="dropdown-item" @click="logout">退出登录</a>
         </li>
       </ul>
     </div>
@@ -188,7 +188,23 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios"
+export default {
+
+  methods:{
+
+    logout(){
+      axios({
+        url: 'http://localhost:8001/logout',
+        method: 'post'
+      }).then(resp => {
+        this.$router.push({
+          path: '/login'
+        })
+      })
+    }
+  }
+};
 </script>
 
 <style scoped>

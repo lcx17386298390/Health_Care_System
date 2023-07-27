@@ -6,6 +6,7 @@ import com.acm.mapper.DrugMapper;
 import com.acm.service.DrugService;
 import com.acm.vo.ResponseResult;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,4 +52,5 @@ public class DrugServiceImpl extends ServiceImpl<DrugMapper, Drug> implements Dr
             return ResponseResult.okResult(matchedDrugs);
         }
     }
+
 }
