@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-dark fixd-top bg-dark">
     <div class="container">
-      <span class="navbar-brand fs-3 me-4">ACM医护中心</span>
+      <span class="navbar-brand fs-3 me-4"
+        >ACM医护中心</span
+      >
       <div class="d-flex align-items-center flex-grow-1 justify-content-center">
         <form class="d-flex mt-6 me-5" role="search">
           <!-- 自定义搜索框样式 -->
@@ -16,7 +18,6 @@
           </div>
         </form>
       </div>
-      <pop></pop>
       <button
         class="navbar-toggler"
         type="button"
@@ -91,19 +92,11 @@
 </template>
 
 <script>
-import pop from "../banner/pop.vue";
-export default {
-  components: {
-    pop,
-  },
-};
+export default {};
 </script>
 
 <style scoped>
-.navbar-toggler {
-  display: none;
-}
-.input-group {
+.input-group{
   width: 690px;
 }
 </style>
