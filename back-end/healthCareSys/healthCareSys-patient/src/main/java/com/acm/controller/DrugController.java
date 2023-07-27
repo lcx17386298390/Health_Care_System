@@ -11,9 +11,16 @@ public class DrugController {
     @Autowired
     private DrugService drugService;
 
-    @RequestMapping("/getUsageDrugs")
-    public ResponseResult getUsageDrugs(Integer pageNum,Integer pageSize,String drugUsage){
-        ResponseResult result =drugService.getUsageDrugs(pageNum,pageSize,drugUsage);
+    //    根据用途查询药品,价格升序
+    @RequestMapping("/getByAscUsageDrugs")
+    public ResponseResult getByAscUsageDrugs(Integer pageNum,Integer pageSize,String drugUsage){
+        ResponseResult result =drugService.getByAscUsageDrugs(pageNum,pageSize,drugUsage);
+        return result;
+    }
+    //    根据用途查询药品,价格降序
+    @RequestMapping("/getByDescUsageDrugs")
+    public ResponseResult getByDescUsageDrugs(Integer pageNum,Integer pageSize,String drugUsage){
+        ResponseResult result =drugService.getByDescUsageDrugs(pageNum,pageSize,drugUsage);
         return result;
     }
 
