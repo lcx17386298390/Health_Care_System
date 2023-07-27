@@ -7,25 +7,56 @@
       <el-breadcrumb-item>个人中心</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <!-- 个人信息内容 -->
+    <!-- 卡片部分 -->
     <el-card class="box-card">
+      <!-- 头像 可上传头像-->
+      <el-row class="demo-avatar demo-basic">
+    <el-col :span="12">
+      <div class="demo-basic--circle">
+        <div class="block">
+          <el-avatar :size="100" :src="avatarUrl">
+            <i class="el-icon-user-solid"></i>
+          </el-avatar>
+          <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
+          <el-button type="primary" @click="uploadAvatar">上传头像</el-button> <!-- 新增一个按钮 -->
+        </div>
+      </div>
+    </el-col>  
+  </el-row>
+
+
+      <!-- 个人信息须填写内容 -->
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item label="真实姓名" prop="name">
-            <el-input v-model="ruleForm.name"></el-input>
-          </el-form-item>
-          <el-form-item label="手机号" prop="phonenumber">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="真实姓名:" prop="name">
+              <el-input v-model="ruleForm.name"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="性别:" prop="sex">
+              <el-radio v-model="ruleForm.sex" label="男">男</el-radio>
+              <el-radio v-model="ruleForm.sex" label="女">女</el-radio>
+            </el-form-item>
+          </el-col>
+        </el-row>
+          <el-form-item label="手机号:" prop="phonenumber">
             <el-input v-model="ruleForm.phonenumber"></el-input>
           </el-form-item>
-          <el-form-item label="邮箱" prop="email">
+          <el-form-item label="邮箱:" prop="email">
             <el-input v-model="ruleForm.email"></el-input>
           </el-form-item>
-          <el-form-item label="身份证号" prop="identityinfo">
+          <el-form-item label="身份证号:" prop="identityinfo">
             <el-input v-model="ruleForm.identityinfo"></el-input>
           </el-form-item>
+          <el-form-item label="地址:" prop="address">
+            <el-input type="textarea" :rows="2" v-model="ruleForm.address"></el-input>
+          </el-form-item>
+
 
           <!-- 提交按钮 -->
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')">立即完善信息</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
     </el-form>
@@ -43,25 +74,35 @@ export default {
           phonenumber:'',
           email:'',
           identityinfo:'',
+          address:'',
+          sex:'男',
+          avatarUrl: '', // 头像URL或Base64数据
         },
         rules: {
           name: [
             { required: true, message: '请输入活动名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+            { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
           ],
           phonenumber: [
              { required: true, message: '请输入电话号码', trigger: 'blur' },
+             { pattern: /^\d{11}$/, message: '请填入正确的手机号', trigger: 'blur' }
           ],
           email: [
              { required: true, message: '请输入邮箱', trigger: 'blur' },
+             { pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message: '邮箱格式不正确', trigger: 'blur' }
           ],
           identityinfo: [
              { required: true, message: '请输入身份证号', trigger: 'blur' },
+             { pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '身份证号码格式不正确', trigger: 'blur' }
+          ],
+          address: [
+             { required: true, message: '请输入地址', trigger: 'blur' },
           ],
         }
       };
     },
     methods: {
+      // 上传按钮部分
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -74,8 +115,31 @@ export default {
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-      }
+      },
+
+      // 上传图片部分
+      uploadAvatar() {
+      this.$refs.fileInput.click(); // 点击隐藏的文件选择器
+    },
+    handleFileChange(event) {
+      const file = event.target.files[0]; // 获取选中的文件
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        this.avatarUrl = e.target.result; // 将文件读取的数据赋值给头像URL或Base64
+        localStorage.setItem('avatar', e.target.result); // 将数据保存到浏览器本地存储
+      };
+      
+      reader.readAsDataURL(file); // 以DataURL形式读取文件内容
+    },
+  },
+  created() {
+    const savedAvatar = localStorage.getItem('avatar'); // 获取保存在本地的头像数据
+    if (savedAvatar) {
+      this.avatarUrl = savedAvatar; // 如果有保存的头像数据，则赋值给头像URL或Base64
     }
+    
+    },
 }
 </script>
 
