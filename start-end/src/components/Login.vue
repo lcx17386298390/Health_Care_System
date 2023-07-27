@@ -36,7 +36,8 @@
                         class="form-check-input"
                         id="inputRememberPassword"
                         type="checkbox"
-                        :value="isRememberPwd"
+                        :checked="isRememberPwd"
+                        ref="inputRememberPassword"
                       />
                       <label
                         class="form-check-label"
@@ -79,8 +80,8 @@ import axios from "axios";
 export default {
   data(){
     return {
-      inputUserName: "",
-      inputPassword: "",
+      inputUserName: sessionStorage.getItem("username"),
+      inputPassword: sessionStorage.getItem("password"),
       isRememberPwd: false
     };
   },
@@ -100,17 +101,23 @@ export default {
           });
           return;
         }
+        //console.log(this.$refs.inputRememberPassword.checked)
         axios({
           url:'http://localhost:8001/login',
           method:'post',
           params:{
             username:this.inputUserName,
-            password:this.inputPassword
+            password:this.inputPassword,
           }
         }).then(resp => {
-          if(resp.data.code == 200){
+          if(resp.data.code === 200){
               // 将用户信息存储在sessionStorage中
-              sessionStorage.setItem("user", JSON.stringify(resp.data.data));
+            //console.log(JSON.stringify(resp.data.data.patientInfoVo))
+            if(this.$refs.inputRememberPassword.checked){
+              sessionStorage.setItem("username", JSON.stringify(this.inputUserName).replaceAll("\"",""));
+              sessionStorage.setItem("password", JSON.stringify(this.inputPassword).replaceAll("\"",""));
+            }
+              sessionStorage.setItem("user", JSON.stringify(resp.data.data.patientInfoVo));
             this.$router.push({
               path: '/patient',
               query: resp.data.data

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -50,4 +51,17 @@ public class UserController {
         return patients;
     }
 
+
+    @PostMapping("/infoApp")
+    public ResponseResult infoApp(String idNo,String name) throws IOException {
+        return patientService.infoApp(idNo,name);
+    }
+
+    @PostMapping("/saveinfo")
+    public ResponseResult saveInfo(String realname,String phonenumber
+                                    ,String sex,String email,
+                                   String identityinfo,Integer age,
+                                String address,String id){
+        return patientService.saveInfo(realname,phonenumber,sex,email,identityinfo,age,address,id);
+    }
 }

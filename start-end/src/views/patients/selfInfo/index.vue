@@ -57,13 +57,13 @@
     <el-form-item label="地址:" prop="address">
       <el-input type="textarea" :rows="2" v-model="ruleForm.address" :disabled="isDisabled"></el-input>
     </el-form-item>
-    
+
     <!-- 提交和重置按钮 -->
     <el-form-item v-if="isSubmit">
       <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
       <el-button @click="resetForm('ruleForm')">重置</el-button>
     </el-form-item>
-    
+
     <!-- 更改信息按钮 -->
     <el-form-item v-else>
       <el-button type="primary" @click="changeInfo">更改信息</el-button>
@@ -76,9 +76,11 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
   data() {
       return {
+        patientId: 1,
         ruleForm: {
           name: '',
           phonenumber:'',
@@ -90,7 +92,7 @@ export default {
         },
         rules: {
           name: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { required: true, message: '请输入真实姓名', trigger: 'blur' },
             { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
           ],
           phonenumber: [
@@ -134,6 +136,36 @@ export default {
       this.isDisabled = false; // 允许修改信息
       this.isSubmit = true; // 隐藏更改信息按钮，显示提交和重置按钮
     },
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            axios({
+              url: 'http://localhost:8001/user/infoApp',
+              method: 'post',
+              params:{
+                idNo: this.ruleForm.identityinfo,
+                name: this.ruleForm.name
+              }
+            }).then(resp => {
+              //console.log(resp.data.data)
+              if((JSON.parse(resp.data.data)).respMessage==="身份证信息匹配"){
+                this.$message({
+                  message: '身份证信息匹配!',
+                  type: 'success'
+                });
+                setTimeout(() => this.saveInfo(), 2000)
+              }else{
+                this.$message.error((JSON.parse(resp.data.data)).respMessage);
+              }
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
 
 
     // 上传图片并实时更新
@@ -159,6 +191,32 @@ export default {
       // 将文件读取为 Data URL
       reader.readAsDataURL(file);
     },
+      saveInfo(){
+          axios({
+            url: 'http://localhost:8001/user/saveinfo',
+            method: 'post',
+            params:{
+              realname:this.ruleForm.name,
+              phonenumber:this.ruleForm.phonenumber,
+              sex:this.ruleForm.sex,
+              email:this.ruleForm.email,
+              identityinfo:this.ruleForm.identityinfo,
+              age:19,
+              address:this.ruleForm.address,
+              id: this.patientId
+            }
+          }).then(resp => {
+            if(resp.data.code === 200){
+              this.$message({
+                message: '信息录入成功!',
+                type: 'success'
+              });
+            }else{
+              this.$message.error('发生错误!请稍后再试');
+            }
+            setTimeout(() => location.reload(), 3000)
+          })
+      }
   },
   created() {
     const savedAvatar = localStorage.getItem('avatar');

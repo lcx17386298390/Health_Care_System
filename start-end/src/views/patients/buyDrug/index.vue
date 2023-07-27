@@ -19,7 +19,7 @@
   </el-input>
       </div>
       <el-table
-    :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())||data.id.toLowerCase().includes(search.toLowerCase()))"
+    :data="tableData.filter(data => !search || data.drugName.toLowerCase().includes(search.toLowerCase())||data.id.toLowerCase().includes(search.toLowerCase()))"
     max-height="750px"
     style="width: 90%;margin-left:5%;margin-bottom:10px;">
     <el-table-column type="expand">
@@ -86,7 +86,7 @@
   <div class="block" style="margin-left:28%;margin-bottom:10px;">
   <el-pagination
     layout="prev, pager, next"
-    :total="1000">
+    :total="(pageNum - 1) * pageSize">
   </el-pagination>
 </div>
     </div>
@@ -131,6 +131,7 @@
 
 <script>
 import axios from "axios"
+import search from "@/components/search/index.vue";
 export default {
    data() {
       return {
@@ -190,6 +191,8 @@ export default {
             var newPage = window.open("about:blank", "_blank");
             //将后台传过来的html页面写到新打开的浏览器窗口中显示
             newPage.document.write(resp.data.data);
+          }else{
+            this.$message.error("支付失败!请稍后再试")
           }
         })
 
@@ -207,13 +210,25 @@ export default {
               method: 'get',
               params: {
                 pageNum: this.pageNum,
-                pageSize: this.pageSize
+                pageSize: this.pageSize,
+                drugName: this.search
               }
             }).then(resp => {
-              console.log(resp.data.data)
+              //console.log(resp.data.data)
                 this.tableData = resp.data.data;
             })
-      }
+      },
+      //分页id是自增的
+      handleCurrentPageChange(currentPage) {
+        this.currentPage = currentPage;
+        this.updateTableData();
+      },
+      updateTableData() {
+        const startIndex = (this.currentPage - 1) * this.pageSize;
+        const endIndex = startIndex + this.pageSize;
+        this.tableData = this.allData.slice(startIndex, endIndex);
+      },
+
     },
     mounted() {
      this.initDrugList()
