@@ -85,19 +85,35 @@ public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient> impl
         return patientMapper.selectList(queryWrapper);
     }
 
-
+    /**
+     * 检测用户名是否存在
+     * @param userName
+     * @return
+     */
     private boolean userNameExist(String userName) {
         LambdaQueryWrapper<Patient> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Patient::getUsername,userName);
         return count(queryWrapper) > 0;
     }
 
+    /**
+     * 是否输入真名
+     * @param nickName
+     * @return
+     */
     private boolean nickNameExist(String nickName) {
         LambdaQueryWrapper<Patient> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Patient::getRealname,nickName);
         return count(queryWrapper) > 0;
     }
 
+    /**
+     * 身份证验证api
+     * @param idNo
+     * @param name
+     * @return
+     * @throws IOException
+     */
     @Override
     public ResponseResult infoApp(String idNo, String name) throws IOException {
         String host = "https://idenauthen.market.alicloudapi.com";
@@ -136,7 +152,18 @@ public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient> impl
 
     }
 
-
+    /**
+     * 录入信息
+     * @param realname
+     * @param phonenumber
+     * @param sex
+     * @param email
+     * @param identityinfo
+     * @param age
+     * @param address
+     * @param id
+     * @return
+     */
     @Override
     public ResponseResult saveInfo(String realname, String phonenumber, String sex, String email, String identityinfo, Integer age, String address, String id) {
         Patient patient = new Patient();

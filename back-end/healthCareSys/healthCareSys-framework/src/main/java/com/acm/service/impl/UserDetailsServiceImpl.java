@@ -17,6 +17,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private PatientMapper patientMapper;
+
+
+    /**
+     * 用户名密码检测
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LambdaQueryWrapper<Patient> queryWrapper = new LambdaQueryWrapper<>();

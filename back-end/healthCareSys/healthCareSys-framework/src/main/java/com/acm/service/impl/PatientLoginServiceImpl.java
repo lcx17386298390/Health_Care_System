@@ -51,6 +51,10 @@ public class PatientLoginServiceImpl implements PatientLoginService {
         return ResponseResult.okResult(patientLoginInfoVo);
     }
 
+    /**
+     * 退出登录
+     * @return
+     */
 
     @Override
     public ResponseResult logout() {

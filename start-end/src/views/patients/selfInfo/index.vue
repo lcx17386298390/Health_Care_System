@@ -122,46 +122,42 @@ export default {
         if (valid) {
           this.isDisabled = true; // 提交后禁用表单项
           this.isSubmit = false; // 隐藏提交和重置按钮，显示更改信息按钮
-          alert('submit!');
+          axios({
+            url: 'http://localhost:8001/user/infoApp',
+            method: 'post',
+            params:{
+              idNo: this.ruleForm.identityinfo,
+              name: this.ruleForm.name
+            }
+          }).then(resp => {
+            //console.log(resp.data.data)
+            if((JSON.parse(resp.data.data)).respMessage==="身份证信息匹配"){
+              this.$message({
+                message: '身份证信息匹配!',
+                type: 'success'
+              });
+              setTimeout(() => this.saveInfo(), 2000)
+            }else{
+              this.$message.error((JSON.parse(resp.data.data)).respMessage);
+            }
+          })
         } else {
           console.log('error submit!!');
           return false;
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
     changeInfo() {
       this.isDisabled = false; // 允许修改信息
       this.isSubmit = true; // 隐藏更改信息按钮，显示提交和重置按钮
-    },
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            axios({
-              url: 'http://localhost:8001/user/infoApp',
-              method: 'post',
-              params:{
-                idNo: this.ruleForm.identityinfo,
-                name: this.ruleForm.name
-              }
-            }).then(resp => {
-              //console.log(resp.data.data)
-              if((JSON.parse(resp.data.data)).respMessage==="身份证信息匹配"){
-                this.$message({
-                  message: '身份证信息匹配!',
-                  type: 'success'
-                });
-                setTimeout(() => this.saveInfo(), 2000)
-              }else{
-                this.$message.error((JSON.parse(resp.data.data)).respMessage);
-              }
-            })
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.submitForm('ruleForm')
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
@@ -214,7 +210,7 @@ export default {
             }else{
               this.$message.error('发生错误!请稍后再试');
             }
-            setTimeout(() => location.reload(), 3000)
+            //setTimeout(() => location.reload(), 3000)
           })
       }
   },
