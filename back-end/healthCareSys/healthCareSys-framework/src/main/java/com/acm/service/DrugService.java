@@ -15,5 +15,7 @@ public interface DrugService extends IService<Drug> {
 
     ResponseResult druglist(Integer pageNum, Integer pageSize);
 
-    ResponseResult getUsageDrugs(Integer pageNum,Integer pageSize,String drugUsage);
+    ResponseResult getByAscUsageDrugs(Integer pageNum,Integer pageSize,String drugUsage);
+
+    ResponseResult getByDescUsageDrugs(Integer pageNum, Integer pageSize, String drugUsage);
 }

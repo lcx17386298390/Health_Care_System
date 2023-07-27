@@ -7,7 +7,6 @@ import com.acm.mapper.DrugMapper;
 import com.acm.service.DrugService;
 import com.acm.vo.ResponseResult;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +38,12 @@ public class DrugServiceImpl extends ServiceImpl<DrugMapper, Drug> implements Dr
         return ResponseResult.okResult(drugs);
     }
 
+//    根据用途查询药品,价格升序
     @Override
-    public ResponseResult getUsageDrugs(Integer pageNum,Integer pageSize,String drugUsage) {
+    public ResponseResult getByAscUsageDrugs(Integer pageNum,Integer pageSize,String drugUsage) {
         LambdaQueryWrapper<Drug> queryWrapper = new LambdaQueryWrapper<>();
         Page<Drug> page = new Page(pageNum, pageSize);
-        queryWrapper.eq(Drug::getDrugUsage,drugUsage);
+        queryWrapper.eq(Drug::getDrugUsage,drugUsage).orderByAsc(Drug::getDrugPrice);
         drugMapper.selectPage(page, queryWrapper);
 
         List<Drug> matchedDrugs =  page.getRecords();
@@ -55,5 +55,20 @@ public class DrugServiceImpl extends ServiceImpl<DrugMapper, Drug> implements Dr
             return ResponseResult.okResult(matchedDrugs);
         }
     }
+//    根据用途查询药品,价格降序
 
+    @Override
+    public ResponseResult getByDescUsageDrugs(Integer pageNum, Integer pageSize, String drugUsage) {
+        LambdaQueryWrapper<Drug> queryWrapper=new LambdaQueryWrapper<>();
+        Page<Drug> page=new Page<>(pageNum,pageSize);
+        queryWrapper.eq(Drug::getDrugName,drugUsage).orderByDesc(Drug::getDrugPrice);
+        drugMapper.selectPage(page,queryWrapper);
+        List<Drug> matchedDrugs = page.getRecords();
+        if (matchedDrugs.isEmpty()){
+            return ResponseResult.errorResult(AppHttpCodeEnum.valueOf("未找到符合改用途的药品"));
+        }else {
+            return ResponseResult.okResult(matchedDrugs);
+        }
+
+    }
 }
