@@ -1,5 +1,6 @@
 package com.acm.service.impl;
 
+import com.acm.entity.Disease;
 import com.acm.entity.Drug;
 import com.acm.enums.AppHttpCodeEnum;
 import com.acm.mapper.DrugMapper;
@@ -38,11 +39,13 @@ public class DrugServiceImpl extends ServiceImpl<DrugMapper, Drug> implements Dr
     }
 
     @Override
-    public ResponseResult getUsageDrugs(String drugUsage) {
+    public ResponseResult getUsageDrugs(Integer pageNum,Integer pageSize,String drugUsage) {
         LambdaQueryWrapper<Drug> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Drug::getDrugUsage, drugUsage);
+        Page<Drug> page = new Page(pageNum, pageSize);
+        queryWrapper.eq(Drug::getDrugUsage,drugUsage);
+        drugMapper.selectPage(page, queryWrapper);
 
-        List<Drug> matchedDrugs =drugMapper.selectList(queryWrapper);
+        List<Drug> matchedDrugs =  page.getRecords();
 
 
         if (matchedDrugs.isEmpty()) {
