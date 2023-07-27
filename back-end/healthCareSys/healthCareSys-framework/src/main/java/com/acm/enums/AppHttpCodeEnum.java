@@ -23,6 +23,7 @@ public enum AppHttpCodeEnum {
     DOCTORNAME_NOT_NULL(515,"预约医生姓名不能为空" );
 
 
+
     int code;
     String msg;
 

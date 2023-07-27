@@ -2,7 +2,6 @@ package com.acm.mapper;
 
 import com.acm.entity.Patient;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Repository;
 
 
