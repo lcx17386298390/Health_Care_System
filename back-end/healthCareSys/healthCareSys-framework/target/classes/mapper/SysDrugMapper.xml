@@ -16,4 +16,11 @@
         id,drug_name,drug_price,
         drug_nums,drug_usage
     </sql>
+
+        <select id="selectList" resultMap="BaseResultMap">
+            SELECT * FROM drugs
+            WHERE usage = #{drugUsage}
+        </select>
+
+
 </mapper>
