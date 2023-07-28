@@ -114,8 +114,8 @@ export default {
               // 将用户信息存储在sessionStorage中
             //console.log(JSON.stringify(resp.data.data.patientInfoVo))
             if(this.$refs.inputRememberPassword.checked){
-              sessionStorage.setItem("username", JSON.stringify(this.inputUserName).replaceAll("\"",""));
-              sessionStorage.setItem("password", JSON.stringify(this.inputPassword).replaceAll("\"",""));
+                sessionStorage.setItem("username", JSON.stringify(this.inputUserName).replaceAll("\"",""));
+                sessionStorage.setItem("password", JSON.stringify(this.inputPassword).replaceAll("\"",""));
             }
               sessionStorage.setItem("user", JSON.stringify(resp.data.data.patientInfoVo));
             console.log(sessionStorage.getItem("user"))

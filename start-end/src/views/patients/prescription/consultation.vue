@@ -40,11 +40,7 @@ export default {
             circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
             user: {},
             isCollapse: false,
-            users: [
-                { username: "医生1" },
-                { username: "医生2" },
-                { username: "医生3" },
-            ],
+            users: [],
             chatUser: '',
             text: "",
             messages: [],
@@ -108,7 +104,7 @@ export default {
             this.content += html;
         },
         init() {
-            this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
+            this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {}
             let username = this.user.username;
             let _this = this;
             if (typeof (WebSocket) == "undefined") {

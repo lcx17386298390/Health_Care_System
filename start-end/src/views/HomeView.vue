@@ -35,7 +35,7 @@
             </li>
             <li>
               <router-link to="/#" class="nav-link px-2 mx-4 text-white"
-                >XXX</router-link
+                >xxx</router-link
               >
             </li>
           </ul>

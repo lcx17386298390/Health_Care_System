@@ -23,7 +23,9 @@ public enum AppHttpCodeEnum {
     DOCTORNAME_NOT_NULL(515,"预约医生姓名不能为空"),
 //    查询药品
     DRUGS_NOT_NULL(516,"未找到符合该药品用途的药品"),
-    PRESCRIPTION_NOT_NuLL(517,"还没有处方单");
+    PRESCRIPTION_NOT_NULL(517,"还没有处方单"),
+    DOCTOR_DEPARTMENT_NOT_NULL(518,"找不到该科室的医生");
+
 
     int code;
     String msg;

@@ -52,7 +52,7 @@ public class DrugServiceImpl extends ServiceImpl<DrugMapper, Drug> implements Dr
 
 
         if (matchedDrugs.isEmpty()) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.valueOf("DRUGS_NOT_NULL"));
+            return ResponseResult.errorResult(AppHttpCodeEnum.DRUGS_NOT_NULL);
         } else {
             return ResponseResult.okResult(matchedDrugs);
         }
@@ -67,7 +67,7 @@ public class DrugServiceImpl extends ServiceImpl<DrugMapper, Drug> implements Dr
         drugMapper.selectPage(page, queryWrapper);
         List<Drug> matchedDrugs = page.getRecords();
         if (page.getTotal() == 0) { // 使用 page.getTotal() 判断是否为空
-            return ResponseResult.errorResult(AppHttpCodeEnum.valueOf("DRUGS_NOT_NULL")); //
+            return ResponseResult.errorResult(AppHttpCodeEnum.DRUGS_NOT_NULL); //
         } else {
             return ResponseResult.okResult(matchedDrugs);
         }

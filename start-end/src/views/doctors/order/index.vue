@@ -22,6 +22,7 @@
                   >
                     <option value="5">5</option>
                     <option value="10">10</option>
+                    <option value="15">15</option>
                   </select>
                   折叠条数显示
                 </label>
@@ -40,60 +41,54 @@
             </div>
           </div>
           <div class="datatable-container">
-            <table
-              id="datatablesSimple"
-              class="table table-bordered table-striped"
+            <el-table
+              :data="paginatedOrders"
+              stripe
+              style="max-height: 400px; overflow-y: auto"
             >
-              <thead>
-                <tr>
-                  <th>预约日期</th>
-                  <th>患者名字</th>
-                  <th>预约科室</th>
-                  <th>预约状态</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(order, index) in paginatedOrders" :key="index">
-                  <td>{{ formattedDate(order.appointmentDate) }}</td>
-                  <td>{{ order.patientName }}</td>
-                  <td>{{ order.appointmentDepartment }}</td>
-                  <td>
-                    <el-popover
-                      trigger="click"
-                      placement="top-start"
-                      width="200"
-                    >
-                      <template slot="reference">
-                        <el-button
-                          :type="
-                            order.appointmentStatus === '未通过'
-                              ? 'danger'
-                              : 'success'
-                          "
-                        >
-                          {{ order.appointmentStatus }}
-                        </el-button>
-                      </template>
-                      <div>
-                        <p>确认更改预约状态为：</p>
-                        <el-button
-                          type="success"
-                          size="mini"
-                          @click="confirmStatus(order, '通过')"
-                          >通过</el-button
-                        >
-                        <el-button
-                          type="danger"
-                          size="mini"
-                          @click="confirmStatus(order, '未通过')"
-                          >未通过</el-button
-                        >
-                      </div>
-                    </el-popover>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              <el-table-column label="预约日期" prop="appointmentDate">
+                <template #default="{ row }">{{
+                  formattedDate(row.appointmentDate)
+                }}</template>
+              </el-table-column>
+              <el-table-column
+                label="患者名字"
+                prop="patientName"
+              ></el-table-column>
+              <el-table-column
+                label="预约科室"
+                prop="appointmentDepartment"
+              ></el-table-column>
+              <el-table-column label="预约状态" prop="appointmentStatus">
+                <template #default="{ row }">
+                  <el-popover
+                    ref="popover"
+                    trigger="hover"
+                    placement="top-start"
+                    width="200"
+                  >
+                    <template #reference>
+                      <el-button :type="getButtonType(row.appointmentStatus)">
+                        {{ row.appointmentStatus }}
+                      </el-button>
+                    </template>
+                    <p style="margin-bottom: 10px">确认接取订单</p>
+                    <div>
+                      <el-button
+                        type="success"
+                        size="mini"
+                        @click="confirmStatus(row, '通过')"
+                      >
+                        确认
+                      </el-button>
+                      <el-button type="info" size="mini" @click="cancelStatus">
+                        取消
+                      </el-button>
+                    </div>
+                  </el-popover>
+                </template>
+              </el-table-column>
+            </el-table>
           </div>
         </div>
         <div class="datatable-bottom">
@@ -138,76 +133,79 @@ export default {
     return {
       orders: [
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
         {
-          appointmentDate: "Tiger Nixon",
+          appointmentDate: "2023-07-31 09:00-10:00",
           patientName: "System Architect",
           appointmentDepartment: "Edinburgh",
-          appointmentStatus: 61,
+          appointmentStatus: "未通过",
         },
       ],
       perPage: 10,
       currentPage: 1,
       searchQuery: "",
     };
+  },
+  created() {
+    this.fetchTableData();
   },
   computed: {
     paginatedOrders() {
@@ -225,14 +223,6 @@ export default {
       } else {
         return this.orders.slice(start, end);
       }
-    },
-    formattedDate() {
-      return (dateString) => {
-        const date = new Date(dateString);
-        return `${date.getFullYear()}-${(date.getMonth() + 1)
-          .toString()
-          .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
-      };
     },
     totalEntries() {
       return this.orders.length;
@@ -254,23 +244,54 @@ export default {
     handleSearch() {
       this.currentPage = 1;
     },
-    confirmStatus(order, status) {
-      this.$confirm(`确认更改预约状态为${status}?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
+    formattedDate(dateString) {
+      const [date, timeRange] = dateString.split(" ");
+      const [startTime, endTime] = timeRange.split("-");
+      return `${date} ${startTime}-${endTime}`;
+    },
+    getButtonType(appointmentStatus) {
+      return appointmentStatus === "未通过" ? "danger" : "success";
+    },
+
+    async fetchTableData() {
+      try {
+        const response = await axios.get("http://localhost:8001/tables");//api写这里
+        this.orders = response.data;
+      } catch (error) {
+        this.$message.error("获取数据失败");
+      }
+    },
+    async confirmStatus(order, status) {
+      try {
+        const response = await axios.post(
+          "http://localhost:8001/appointstatus",// api写这里
+          {
+            orderId: order.id, 
+            status,
+          }
+        );
+        if (response.status === 200) {
           order.appointmentStatus = status;
           this.$notify({
             title: "成功",
-            message: "预约状态已更新",
+            message: "已接取预约订单，请按时接诊！",
             type: "success",
           });
-        })
-        .catch(() => {
+        } else {
+          this.$notify.error("更新数据失败");
+        }
+      } catch (error) {
+        this.$notify.error("更新数据失败");
+      }
+      this.$refs.popover.hide();
+    },
 
-        });
+    cancelStatus() {
+      this.$notify({
+        title: "消息",
+        message: "已取消操作",
+        type: "info",
+      });
     },
   },
 };
@@ -289,10 +310,15 @@ export default {
   /* Add overflow property to handle content overflow */
   overflow: auto;
 }
-.aa{
+.datatable-container {
+  margin-top: 20px;
+  border: 1px solid #ebeef5;
+  border-radius: 4px;
+}
+.aa {
   max-height: 80%;
 }
-.aaa{
+.aaa {
   height: 100vh;
 }
 .datatable-top > nav:last-child,

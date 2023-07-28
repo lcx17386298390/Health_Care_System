@@ -43,6 +43,24 @@
           预约挂号
         </router-link>
       </li>
+      <li class="nav-item">
+        <router-link
+          to="/patient/consultation"
+          class="nav-link text"
+          aria-current="page"
+          id="v-pills-regis-tab"
+          data-toggle="pill"
+          role="tab"
+          aria-controls="v-pills-messages"
+          aria-selected="true"
+          :class="{ active: $route.path === '/patient/consultation' }"
+        >
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#consultation"></use>
+          </svg>
+          在线咨询
+        </router-link>
+      </li>
       <li>
         <router-link
           to="/patient/prescription"

@@ -26,6 +26,7 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
     @Resource
     private PrescriptionMapper prescriptionMapper;
 
+    //查询处方单
     @Override
     public ResponseResult getPrescriptionById(String prescriptionId) {
         LambdaQueryWrapper<Prescription> queryWrapper =new LambdaQueryWrapper<>();
@@ -35,7 +36,7 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
             PrescriptionVo prescriptionVo= BeanCopyUtils.copyBean(prescription,PrescriptionVo.class);
             return ResponseResult.okResult(prescriptionVo);
         }else {
-            return ResponseResult.errorResult(AppHttpCodeEnum.APPOINTDATE_NOT_NULL);
+            return ResponseResult.errorResult(AppHttpCodeEnum.PRESCRIPTION_NOT_NULL);
         }
     }
 
