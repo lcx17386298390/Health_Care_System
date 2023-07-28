@@ -1,13 +1,21 @@
 <template>
-  <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark aaa">
+  <div
+    class="sidebar d-flex flex-column flex-shrink-0 p-3 aaa"
+    :class="{
+      'dark-theme': isDarkTheme,
+      'light-theme': !isDarkTheme,
+      'a-white': isDarkTheme,
+      'a-black': !isDarkTheme,
+    }"
+  >
     <router-link
-      to="/doc"
-      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+      to="/doc/order"
+      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
     >
       <svg class="bi pe-none me-2" width="40" height="32">
         <use xlink:to="#doc"></use>
       </svg>
-      <span class="fs-4">导航</span>
+      <span class="fs-4">预约订单</span>
     </router-link>
     <hr />
     <!-- 侧边导航由此开始 -->
@@ -17,109 +25,86 @@
       role="tablist"
       aria-orientation="vertical"
     >
-      <li>
+      <li class="nav-item">
         <router-link
-          to="/doc"
-          class="nav-link text-white"
-          id="v-pills-Orders-tab"
+          to="/doc/drug"
+          class="nav-link text"
+          aria-current="page"
+          id="v-pills-drug-tab"
           data-toggle="pill"
           role="tab"
           aria-controls="v-pills-messages"
-          aria-selected="false"
-          :class="{ active: $route.path === '/patient/history' }"
+          aria-selected="true"
+          :class="{ active: $route.path === '/doc/drug' }"
         >
           <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:to="/#table"></use>
+            <use xlink:to="#drug"></use>
           </svg>
-          预约订单查询
+          开处方
         </router-link>
       </li>
-
       <li>
         <router-link
-          to="/doc"
-          class="nav-link text-white"
-          id="v-pills-Orders-tab"
+          to="/doc/his"
+          class="nav-link text"
+          id="v-pills-history-tab"
           data-toggle="pill"
           role="tab"
           aria-controls="v-pills-messages"
           aria-selected="false"
-          :class="{ active: $route.path === '/patient/history' }"
+          :class="{ active: $route.path === '/doc/his' }"
         >
           <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:to="/#table"></use>
+            <use xlink:to="#table"></use>
           </svg>
-          诊断开方
-        </router-link>
-      </li>
-      
-      <li>
-        <router-link
-          to="/doc"
-          class="nav-link text-white"
-          id="v-pills-Customers-tab"
-          data-toggle="pill"
-          role="tab"
-          aria-controls="v-pills-messages"
-          aria-selected="false"
-          :class="{ active: $route.path === '/patient/self' }"
-        >
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:to="#people-circle"></use>
-          </svg>
-          个人中心
+          诊断记录
         </router-link>
       </li>
     </ul>
-
-    <div class="tab-content" id="v-pills-tabContent">
-      <!-- 历史病例 -->
-      <div
-        class="tab-pane fade"
-        id="v-pills-messages"
-        role="tabpanel"
-        aria-labelledby="v-pills-Orders-tab"
-        :class="{ active: $route.path === '/doc' }"
-      >
-        ...
-      </div>
-  
-      <!-- self -->
-      <div
-        class="tab-pane fade"
-        id="v-pills-settings"
-        role="tabpanel"
-        aria-labelledby="v-pills-Customers-tab"
-        :class="{ active: $route.path === '/doc' }"
-      >
-        ...
-      </div>
-    </div>
-
-    <hr />
-    <div class="dropdown">
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-        <li>
-          <router-link class="dropdown-item" to="/theam">切换主题</router-link>
-        </li>
-        <li><hr class="dropdown-divider" /></li>
-        <li>
-          <router-link class="dropdown-item" to="/login">退出登录</router-link>
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-
-}
+  data() {
+    return {
+      isDarkTheme: false,
+    };
+  },
+  methods: {
+    toggleTheme() {
+      this.isDarkTheme = !this.isDarkTheme;
+    },
+  },
+};
 </script>
 
 <style scoped>
 .aaa {
   height: 100vh;
   width: 16.15vw;
+}
+.nav-link:not(.active):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active:hover {
+  background-color: var(--bs-nav-pills-link-active-bg);
+}
+
+.light-theme {
+  background-color: #eff0f0;
+}
+.dark-theme {
+  background-color: #262525;
+}
+
+.dark-theme .sidebar .a-white {
+  color: #ffffff; /* White text for dark theme links */
+}
+
+/* Set link text color for light theme */
+.light-theme .sidebar .a-black {
+  color: #000000; /* Black text for light theme links */
 }
 </style>
