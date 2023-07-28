@@ -14,9 +14,14 @@
   <el-col :span="20">
     <div class="demo-basic--circle">
       <div class="block">
-        <el-avatar :size="100" :src="avatarUrl">
-          <i class="el-icon-user-solid"></i>
-        </el-avatar>
+        <div class="avatar-container">
+  <el-avatar :size="100" :src="avatarUrl">
+    <i class="el-icon-user-solid"></i>
+  </el-avatar>
+  <div v-if="showGreetingInfo" class="greeting-info">
+    <p>{{ greetingMessage }}</p>
+  </div>
+</div>
       </div>
     </div>
   </el-col>
@@ -45,9 +50,18 @@
         </el-form-item>
       </el-col>
     </el-row>
-    <el-form-item label="手机号:" prop="phonenumber">
-      <el-input v-model="ruleForm.phonenumber" :disabled="isDisabled"></el-input>
+    <el-row>
+      <el-col :span="12">
+        <el-form-item label="手机号:" prop="phonenumber">
+          <el-input v-model="ruleForm.phonenumber" :disabled="isDisabled"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="年龄" prop="age">
+      <el-input v-model="ruleForm.age" :disabled="isDisabled"></el-input>
     </el-form-item>
+      </el-col>
+    </el-row>
     <el-form-item label="邮箱:" prop="email">
       <el-input v-model="ruleForm.email" :disabled="isDisabled"></el-input>
     </el-form-item>
@@ -88,6 +102,7 @@ export default {
           identityinfo:'',
           address:'',
           sex:'男',
+          age:'',
           avatarUrl: '', // 头像URL或Base64数据
         },
         rules: {
@@ -110,9 +125,16 @@ export default {
           address: [
              { required: true, message: '请输入地址', trigger: 'blur' },
           ],
+          age: [
+             { required: true, message: '请输入年龄', trigger: 'blur' },
+             { pattern: /^\d{1,3}$/, message: '年龄为一到三位数字', trigger: 'blur'},
+
+          ],
         },
         isDisabled: false, // 控制表单项禁用状态
-      isSubmit: true // 控制是否显示提交和重置按钮
+      isSubmit: true, // 控制是否显示提交和重置按钮
+      showGreetingInfo: false, // 控制是否显示问候信息
+      greetingMessage: '', // 存储问候信息
       };
     },
     methods: {
@@ -120,6 +142,24 @@ export default {
       submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+
+       // 问候语句获取当前时间
+      const currentTime = new Date();
+      const currentHour = currentTime.getHours();
+
+      let greeting;
+      if (currentHour < 12) {
+        greeting = '早上好';
+      } else if (currentHour < 13) {
+        greeting = '中午好';
+      } else if (currentHour < 18) {
+        greeting = '下午好';
+      }else {
+        greeting = '晚上好';
+      } 
+           // 问候信息
+          this.showGreetingInfo = true; // 显示问候信息区域
+          this.greetingMessage = `${greeting}，${this.ruleForm.name}!`; // 设置问候信息
           this.isDisabled = true; // 提交后禁用表单项
           this.isSubmit = false; // 隐藏提交和重置按钮，显示更改信息按钮
           axios({
@@ -197,7 +237,7 @@ export default {
               sex:this.ruleForm.sex,
               email:this.ruleForm.email,
               identityinfo:this.ruleForm.identityinfo,
-              age:19,
+              age:this.ruleForm.age,
               address:this.ruleForm.address,
               id: this.patientId
             }
@@ -212,7 +252,27 @@ export default {
             }
             //setTimeout(() => location.reload(), 3000)
           })
+      },
+      
+      // 进入页面的判断
+      getData() {
+    // 发送ajax请求获取数据
+    axios.get('http://localhost:8001/user/saveinfo').then(resp => {
+      const data = resp.data;
+      if (data) {
+        // 如果获取到了数据
+        this.ruleForm = { ...data };
+        this.isDisabled = true; // 禁用表单
+        this.isSubmit = false; // 隐藏提交和重置按钮，显示修改按钮
+      } else {
+        // 如果获取的数据为空
+        this.isDisabled = false; // 允许修改表单
+        this.isSubmit = true; // 显示提交和重置按钮
       }
+    }).catch(error => {
+      console.log(error);
+    });
+  },
   },
   created() {
     const savedAvatar = localStorage.getItem('avatar');
@@ -220,11 +280,24 @@ export default {
       this.avatarUrl = savedAvatar;
     }
     
+    // 在页面加载时调用获取数据的方法
+    this.getData(); 
     },
+
+    
 
 }
 </script>
 
 <style scoped>
+.avatar-container {
+  display: flex;
+  align-items: center;
+}
+
+.greeting-info {
+  margin-top: 10px;
+  margin-left: 20px;
+}
 
 </style>
