@@ -60,6 +60,23 @@
           诊断记录
         </router-link>
       </li>
+      <li>
+        <router-link
+          to="/doc/docSelf"
+          class="nav-link text"
+          id="v-pills-docSelf-tab"
+          data-toggle="pill"
+          role="tab"
+          aria-controls="v-pills-messages"
+          aria-selected="false"
+          :class="{ active: $route.path === '/doc/docSelf' }"
+        >
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#table"></use>
+          </svg>
+          个人信息
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>

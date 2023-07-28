@@ -20,6 +20,7 @@ import nav from '../views/patients/navigate/index.vue'
 import order from '../views/doctors/order/index.vue'
 import drug from '../views/doctors/drug/index.vue'
 import his from '../views/doctors/history/index.vue'
+import docSelf from '../views/doctors/docSelf/index.vue'
 
 import AdminHome from '../views/admin/Pages/AdminHome/index.vue'
 import DataAnalysis from '../views/admin/Pages/DataAnalysis/index.vue'
@@ -71,7 +72,7 @@ const routes = [
       { path: 'order', name: 'order', component: order },
       { path: 'drug', name: 'drug', component: drug },
       { path: 'his', name: 'his', component: his },
-
+      { path: 'docSelf' , name: 'docSelf' ,component: docSelf},
 
     ]
   },
