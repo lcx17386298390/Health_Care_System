@@ -118,6 +118,7 @@ export default {
               sessionStorage.setItem("password", JSON.stringify(this.inputPassword).replaceAll("\"",""));
             }
               sessionStorage.setItem("user", JSON.stringify(resp.data.data.patientInfoVo));
+            console.log(sessionStorage.getItem("user"))
             this.$router.push({
               path: '/patient',
               query: resp.data.data

@@ -3,9 +3,9 @@
     <div class="user-avatar" @mouseenter="showPopup" @mouseleave="hidePopup">
       <div class="user-info">
         <!-- 传入姓名 {{user.name}}-->
-        <span class="user-name">aa</span>
+        <span class="user-name">{{username}}</span>
       </div>
-      <el-avatar icon="el-icon-user-solid" :style="avatarStyle"></el-avatar>
+      <el-avatar icon="el-icon-user-solid" :style="avatarStyle" :src="avatar"></el-avatar>
       <div v-if="showPopupContent" class="popup-content text-small">
         <router-link class="popup-link" to="/patient/self">个人信息</router-link>
         <router-link class="popup-link" to="/home">退出登录</router-link>
@@ -28,6 +28,8 @@ export default {
 //   },
   data() {
     return {
+      username: JSON.parse(sessionStorage.getItem("user")).username,
+      avatar:localStorage.getItem('prevAvatar'),
       showPopupContent: false,
     };
   },

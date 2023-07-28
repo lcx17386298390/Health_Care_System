@@ -181,4 +181,31 @@ public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient> impl
         }
         return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR);
     }
+
+
+
+    /**
+     * 设置用户头像
+     * @param url
+     * @param id
+     * @return
+     */
+    @Override
+    public ResponseResult transAvatar(String url,String id) {
+        LambdaQueryWrapper<Patient> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Patient::getId, id);
+        boolean update = update(queryWrapper);
+        if(update){
+            return ResponseResult.okResult();
+        }
+        return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR);
+    }
+
+    @Override
+    public ResponseResult getInfo(String username) {
+        LambdaQueryWrapper<Patient> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(Patient::getUsername,username);
+        Patient patient = patientMapper.selectOne(queryWrapper);
+        return ResponseResult.okResult(patient);
+    }
 }

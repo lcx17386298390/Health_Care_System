@@ -24,4 +24,8 @@ public interface PatientService extends IService<Patient> {
     ResponseResult infoApp(String idNo, String name) throws IOException;
 
     ResponseResult saveInfo(String realname, String phonenumber, String sex, String email, String identityinfo, Integer age, String address, String id);
+
+    ResponseResult transAvatar(String url,String id);
+
+    ResponseResult getInfo(String username);
 }

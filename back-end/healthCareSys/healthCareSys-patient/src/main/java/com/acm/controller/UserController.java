@@ -64,4 +64,14 @@ public class UserController {
                                 String address,String id){
         return patientService.saveInfo(realname,phonenumber,sex,email,identityinfo,age,address,id);
     }
+
+    @PostMapping("/transAvatar")
+    public ResponseResult transAvatar(String url,String id){
+        return patientService.transAvatar(url,id);
+    }
+
+    @GetMapping("/getinfo")
+    public ResponseResult getinfo(String username){
+        return patientService.getInfo(username);
+    }
 }

@@ -40,7 +40,7 @@
     <el-row>
       <el-col :span="12">
         <el-form-item label="真实姓名:" prop="name">
-          <el-input v-model="ruleForm.name" :disabled="isDisabled"></el-input>
+          <el-input v-model="ruleForm.realname" :disabled="isDisabled"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="12">
@@ -96,7 +96,7 @@ export default {
       return {
         patientId: 1,
         ruleForm: {
-          name: '',
+          realname: '',
           phonenumber:'',
           email:'',
           identityinfo:'',
@@ -106,7 +106,7 @@ export default {
           avatarUrl: '', // 头像URL或Base64数据
         },
         rules: {
-          name: [
+          realname: [
             { required: true, message: '请输入真实姓名', trigger: 'blur' },
             { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
           ],
@@ -159,7 +159,7 @@ export default {
       } 
            // 问候信息
           this.showGreetingInfo = true; // 显示问候信息区域
-          this.greetingMessage = `${greeting}，${this.ruleForm.name}!`; // 设置问候信息
+          this.greetingMessage = `${greeting}，${this.ruleForm.realname}!`; // 设置问候信息
           this.isDisabled = true; // 提交后禁用表单项
           this.isSubmit = false; // 隐藏提交和重置按钮，显示更改信息按钮
           axios({
@@ -167,7 +167,7 @@ export default {
             method: 'post',
             params:{
               idNo: this.ruleForm.identityinfo,
-              name: this.ruleForm.name
+              name: this.ruleForm.realname
             }
           }).then(resp => {
             //console.log(resp.data.data)
@@ -179,6 +179,8 @@ export default {
               setTimeout(() => this.saveInfo(), 2000)
             }else{
               this.$message.error((JSON.parse(resp.data.data)).respMessage);
+              this.isDisabled = false;
+              this.isSubmit = true;
             }
           })
         } else {
@@ -211,7 +213,6 @@ export default {
     handleFileChange(event) {
       const file = event.target.files[0];
       const reader = new FileReader();
-
       reader.onload = (e) => {
         this.avatarUrl = e.target.result;
         localStorage.setItem('avatar', e.target.result);
@@ -223,16 +224,32 @@ export default {
         localStorage.setItem('prevAvatar', this.avatarUrl);// 存储当前图片 URL，用于下次比对
         window.location.reload(); // 刷新页面
       };
-
       // 将文件读取为 Data URL
       reader.readAsDataURL(file);
+      // axios({
+      //   url: 'http://localhost:8001/user/transAvatar',
+      //   method: 'post',
+      //   params:{
+      //     id:JSON.parse(sessionStorage.getItem("user")).id,
+      //     url:this.avatarUrl
+      //   }
+      // }).then(resp => {
+      //   if(resp.data.code === 200){
+      //     this.$message({
+      //       message: '头像上传成功!',
+      //       type: 'success'
+      //     });
+      //   }else{
+      //     this.$message.error('发生错误!请稍后再试');
+      //   }
+      // })
     },
       saveInfo(){
           axios({
             url: 'http://localhost:8001/user/saveinfo',
             method: 'post',
             params:{
-              realname:this.ruleForm.name,
+              realname:this.ruleForm.realname,
               phonenumber:this.ruleForm.phonenumber,
               sex:this.ruleForm.sex,
               email:this.ruleForm.email,
@@ -256,12 +273,36 @@ export default {
       
       // 进入页面的判断
       getData() {
+        const username = JSON.parse(sessionStorage.getItem("user")).username
     // 发送ajax请求获取数据
-    axios.get('http://localhost:8001/user/saveinfo').then(resp => {
-      const data = resp.data;
-      if (data) {
+        axios({
+          url: 'http://localhost:8001/user/getinfo',
+          method: 'GET',
+          params:{
+            username: username
+          }
+        }).then(resp => {
+      //console.log(resp.data.data.identityinfo)
+      if (resp.data.data.identityinfo !== '' && resp.data.data.identityinfo !== null && resp.data.data.identityinfo!== undefined) {
         // 如果获取到了数据
-        this.ruleForm = { ...data };
+        this.ruleForm = { ...resp.data.data };
+        // 问候语句获取当前时间
+        const currentTime = new Date();
+        const currentHour = currentTime.getHours();
+
+        let greeting;
+        if (currentHour < 12) {
+          greeting = '早上好';
+        } else if (currentHour < 13) {
+          greeting = '中午好';
+        } else if (currentHour < 18) {
+          greeting = '下午好';
+        }else {
+          greeting = '晚上好';
+        }
+        // 问候信息
+        this.showGreetingInfo = true; // 显示问候信息区域
+        this.greetingMessage = `${greeting}，${this.ruleForm.realname}!`; // 设置问候信息
         this.isDisabled = true; // 禁用表单
         this.isSubmit = false; // 隐藏提交和重置按钮，显示修改按钮
       } else {
