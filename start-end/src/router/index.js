@@ -59,6 +59,7 @@ const routes = [
       { path: 'buydrug', name: 'buydrug', component: buyDrug },
       { path: 'self', name: 'selfInfo', component: selfInfo },
       { path: 'nav', name: 'nav', component: nav },
+      { path: 'consultation', name: 'consultation', component: consultation },
     ]
   },
   {
