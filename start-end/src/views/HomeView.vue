@@ -34,8 +34,8 @@
               >
             </li>
             <li>
-              <router-link to="/#" class="nav-link px-2 mx-4 text-white"
-                >XXX</router-link
+              <router-link to="/consultation" class="nav-link px-2 mx-4 text-white"
+                >在线咨询</router-link
               >
             </li>
           </ul>

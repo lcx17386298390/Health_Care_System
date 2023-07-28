@@ -27,7 +27,7 @@ import DrugManage from '../views/admin/Pages/DrugManage/index.vue'
 import DoctorManage from '../views/admin/Pages/UserMagage/DoctorManage/index.vue'
 import PatientManage from '../views/admin/Pages/UserMagage/PatientManage/index.vue'
 
-
+import consultation from '../views/patients/prescription/consultation.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -41,6 +41,11 @@ const routes = [
     path: '/home',
     name: 'Homeview',
     component: HomeView
+  },
+  {
+    path: '/consultation',
+    name: 'consultation',
+    component: consultation
   },
   {
     path: '/patient',
@@ -58,28 +63,28 @@ const routes = [
   },
   {
     path: '/doc',
-    redirect:'/doc/order',
+    redirect: '/doc/order',
     name: 'docView',
     component: docView,
-    children:[
-      {path:'order',name:'order',component:order},
-      {path:'drug',name:'drug',component:drug},
-      {path:'his',name:'his',component:his},
+    children: [
+      { path: 'order', name: 'order', component: order },
+      { path: 'drug', name: 'drug', component: drug },
+      { path: 'his', name: 'his', component: his },
 
 
     ]
   },
   {
-    path:'/admin',
-    redirect:'/admin/admin-home',
-    name:'AdminView',
-    component:AdminView,
-    children:[
-      {path:'admin-home',name:'adminHome',component:AdminHome},
-      {path:'data-analysis',name:'dataAnalysis',component:DataAnalysis},
-      {path:'drug-manage',name:'drugManage',component:DrugManage},
-      {path:'doctor-manage',name:'doctorManage',component:DoctorManage},
-      {path:'patient-manage',name:'patientManage',component:PatientManage}
+    path: '/admin',
+    redirect: '/admin/admin-home',
+    name: 'AdminView',
+    component: AdminView,
+    children: [
+      { path: 'admin-home', name: 'adminHome', component: AdminHome },
+      { path: 'data-analysis', name: 'dataAnalysis', component: DataAnalysis },
+      { path: 'drug-manage', name: 'drugManage', component: DrugManage },
+      { path: 'doctor-manage', name: 'doctorManage', component: DoctorManage },
+      { path: 'patient-manage', name: 'patientManage', component: PatientManage }
     ]
   },
   {
