@@ -22,7 +22,8 @@ public enum AppHttpCodeEnum {
     APPOINTDATE_NOT_NULL(514,"预约日期不能为空"),
     DOCTORNAME_NOT_NULL(515,"预约医生姓名不能为空"),
 //    查询药品
-    DRUGS_NOT_NULL(516,"未找到符合该药品用途的药品");
+    DRUGS_NOT_NULL(516,"未找到符合该药品用途的药品"),
+    PRESCRIPTION_NOT_NuLL(517,"还没有处方单");
 
     int code;
     String msg;

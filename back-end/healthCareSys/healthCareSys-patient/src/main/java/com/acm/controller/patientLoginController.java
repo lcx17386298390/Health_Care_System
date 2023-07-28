@@ -5,7 +5,6 @@ import com.acm.enums.AppHttpCodeEnum;
 import com.acm.exception.SystemException;
 import com.acm.service.PatientLoginService;
 import com.acm.vo.ResponseResult;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;

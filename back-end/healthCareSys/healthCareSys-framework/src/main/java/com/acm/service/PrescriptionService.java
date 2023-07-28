@@ -1,6 +1,7 @@
 package com.acm.service;
 
 import com.acm.entity.Prescription;
+import com.acm.vo.ResponseResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 
@@ -12,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PrescriptionService extends IService<Prescription> {
 
+    ResponseResult getPrescriptionById(String prescriptionId);
 }

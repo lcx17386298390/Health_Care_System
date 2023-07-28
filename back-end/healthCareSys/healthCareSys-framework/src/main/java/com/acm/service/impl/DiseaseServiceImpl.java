@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -29,6 +30,9 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
      * @param patientId
      * @return
      */
+
+    @Resource
+    private DiseaseMapper diseaseMapper;
     @Override
     public ResponseResult diseaseInfo(Integer pageNo, Integer pageSize, String patientId) {
         LambdaQueryWrapper<Disease> queryWrapper = new LambdaQueryWrapper<>();
@@ -38,4 +42,5 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
         List<DiseaseInfoVo> diseaseInfoList = BeanCopyUtils.copyBeanList(page.getRecords(), DiseaseInfoVo.class);
         return ResponseResult.okResult(diseaseInfoList);
     }
+
 }

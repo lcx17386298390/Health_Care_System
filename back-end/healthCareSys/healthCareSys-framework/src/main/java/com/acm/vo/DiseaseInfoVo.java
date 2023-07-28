@@ -15,4 +15,6 @@ public class DiseaseInfoVo {
     private Date clinicDate;
 
     private String dname;
+
+    private Integer id;
 }
