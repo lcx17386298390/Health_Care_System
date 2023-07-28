@@ -2,26 +2,26 @@
     <div style="padding: 10px; margin-bottom: 50px">
         <el-row>
             <el-col :span="8">
-                <el-card style="width: 100%; min-height: 300px; color: #333">
-                    <div style="padding-bottom: 10px; border-bottom: 1px solid #ccc">可咨询医师<span style="font-size: 12px">（点击聊天气泡选择咨询医师）</span></div>
-                    <div style="padding: 10px 0" v-for="user in users" :key="user.username">
+                <el-card style="width: 320px; min-height: 300px; max-height: 600px; color: #333333; overflow: auto; margin:20px 30px">
+                    <div style="padding-bottom: 10px; border-bottom: 1px solid #ccc">在线咨询<span style="font-size: 12px">（点击聊天气泡选择咨询医师）</span></div>
+                    <div style="padding: 10px" v-for="user in users" :key="user.username">
                         <span>{{ user.username }}</span>
                         <i class="el-icon-chat-dot-round" style="margin-left: 10px; font-size: 16px; cursor: pointer"
                            @click="chatUser = user.username"></i>
-                        <span style="font-size: 12px;color: limegreen; margin-left: 5px" v-if="user.username === chatUser">咨询中...</span>
+                        <span style="font-size: 12px;color: rgb(47, 161, 47); margin-left: 5px" v-if="user.username === chatUser">咨询中...</span>
                     </div>
                 </el-card>
             </el-col>
             <el-col :span="16">
-                <div style="width: 800px; margin: 0 auto; background-color: white;
-                    border-radius: 5px; box-shadow: 0 0 10px #ccc">
-                    <div style="text-align: center; line-height: 50px;">
+                <div style="width: 700px; margin: 20px 0; background-color: white;
+                    border-radius: 5px; box-shadow: 0 0 10px #ccc; ">
+                    <div style="text-align: center; line-height: 50px; background-color: rgb(38, 38, 38); color:white">
                         （{{ chatUser }}）医生
                     </div>
                     <div style="height: 350px; overflow:auto; border-top: 1px solid #ccc" v-html="content"></div>
                     <div style="height: 200px">
             <textarea v-model="text" style="height: 160px; width: 100%; padding: 20px; border: none; border-top: 1px solid #ccc;
-             border-bottom: 1px solid #ccc; outline: none"></textarea>
+             border-bottom: 1px solid #ccc; outline: none;" placeholder="请编辑咨询信息..."></textarea>
                         <div style="text-align: right; padding-right: 10px">
                             <el-button type="primary" size="mini" @click="send">发送</el-button>
                         </div>
@@ -40,7 +40,11 @@ export default {
             circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
             user: {},
             isCollapse: false,
-            users: [],
+            users: [
+                { username: "医生1" },
+                { username: "医生2" },
+                { username: "医生3" },
+            ],
             chatUser: '',
             text: "",
             messages: [],
@@ -163,9 +167,10 @@ export default {
     display:inline;
 }
 .right {
-    background-color: deepskyblue;
+    background-color: rgb(114, 164, 200);
 }
 .left {
-    background-color: forestgreen;
+    background-color: rgb(129, 171, 129);
 }
+
 </style>
