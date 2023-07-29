@@ -12,25 +12,41 @@ import Example from '../views/patients/Example.vue'
 
 import buyDrug from '../views/patients/buyDrug/index.vue'
 import regisProcess from '../views/patients/regisProcess/index.vue'
-import prescription from '../views/patients/prescription/index.vue'
+import prescription0 from '../views/patients/prescription0/index.vue'
 import history from '../views/patients/history/index.vue'
 import selfInfo from '../views/patients/selfInfo/index.vue'
 import nav from '../views/patients/navigate/index.vue'
 
 import order from '../views/doctors/order/index.vue'
-import drug from '../views/doctors/drug/index.vue'
+import drug0 from '../views/doctors/drug0/index.vue'
 import his from '../views/doctors/history/index.vue'
+import adminLogin from "@/views/admin/adminLogin.vue";
 
-import AdminHome from '../views/admin/Pages/AdminHome/index.vue'
-import DataAnalysis from '../views/admin/Pages/DataAnalysis/index.vue'
-import DrugManage from '../views/admin/Pages/DrugManage/index.vue'
-import DoctorManage from '../views/admin/Pages/UserMagage/DoctorManage/index.vue'
-import PatientManage from '../views/admin/Pages/UserMagage/PatientManage/index.vue'
 
-import consultation from '../views/patients/prescription/consultation.vue'
+import consultation from '../views/patients/prescription0/consultation.vue'
+
+
+//测试
+import appointment from "@/views/admin/appointment/index.vue";
+import department from "@/views/admin/department/index.vue";
+import disease from "@/views/admin/disease/index.vue";
+import doctor from "@/views/admin/doctor/index.vue"
+import drug from "@/views/admin/drug/index.vue"
+import patient from "@/views/admin/patient/index.vue";
+import prescription from "@/views/admin/prescription/index.vue"
+import adminHome from "@/views/admin/Pages/AdminHome/index.vue";
+
 Vue.use(VueRouter)
 
 const routes = [
+  //   ceshi
+  {
+    path: '/admin-login',
+    name: 'adminLogin',
+    component: adminLogin
+  },
+
+  //
   {
     path: '/',
     redirect: '/home',
@@ -54,7 +70,7 @@ const routes = [
     component: PatientView,
     children: [
       { path: 'regis', name: 'regisProcess', component: regisProcess },
-      { path: 'prescription', name: 'prescription', component: prescription },
+      { path: 'prescription0', name: 'prescription0', component: prescription0 },
       { path: 'history', name: 'history', component: history },
       { path: 'buydrug', name: 'buydrug', component: buyDrug },
       { path: 'self', name: 'selfInfo', component: selfInfo },
@@ -69,7 +85,7 @@ const routes = [
     component: docView,
     children: [
       { path: 'order', name: 'order', component: order },
-      { path: 'drug', name: 'drug', component: drug },
+      { path: 'drug0', name: 'drug0', component: drug0 },
       { path: 'his', name: 'his', component: his },
 
 
@@ -77,15 +93,30 @@ const routes = [
   },
   {
     path: '/admin',
-    redirect: '/admin/admin-home',
+    redirect: '/admin-login',
     name: 'AdminView',
     component: AdminView,
     children: [
-      { path: 'admin-home', name: 'adminHome', component: AdminHome },
-      { path: 'data-analysis', name: 'dataAnalysis', component: DataAnalysis },
-      { path: 'drug-manage', name: 'drugManage', component: DrugManage },
-      { path: 'doctor-manage', name: 'doctorManage', component: DoctorManage },
-      { path: 'patient-manage', name: 'patientManage', component: PatientManage }
+      {path: 'admin-home', name: 'admin-home', component:adminHome},
+      { path: 'appointment', name: 'appointment', component: appointment },
+      { path: 'drug', name: 'drug', component: drug },
+      { path: 'doctor', name: 'doctor', component: doctor },
+      { path: 'patient', name: 'patient', component: patient },
+      {
+        path: 'department',
+        name: 'department',
+        component: department
+      },
+      {
+        path:'disease',
+        name: 'disease',
+        component: disease
+      },
+      {
+        path: 'prescription',
+        name:'prescription',
+        component: prescription
+      },
     ]
   },
   {

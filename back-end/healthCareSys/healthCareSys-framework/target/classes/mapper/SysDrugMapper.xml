@@ -1,26 +1,73 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.acm.mapper.DrugMapper">
-
-    <resultMap id="BaseResultMap" type="com.acm.entity.Drug">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
-            <result property="drugName" column="drug_name" jdbcType="VARCHAR"/>
-            <result property="drugPrice" column="drug_price" jdbcType="DECIMAL"/>
-            <result property="drugNums" column="drug_nums" jdbcType="INTEGER"/>
-            <result property="drugUsage" column="drug_usage" jdbcType="VARCHAR"/>
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acm.mapper.SysDrugMapper">
+    
+    <resultMap type="SysDrug" id="SysDrugResult">
+        <result property="id"    column="id"    />
+        <result property="drugName"    column="drug_name"    />
+        <result property="drugPrice"    column="drug_price"    />
+        <result property="drugNums"    column="drug_nums"    />
+        <result property="drugUsage"    column="drug_usage"    />
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,drug_name,drug_price,
-        drug_nums,drug_usage
+    <sql id="selectSysDrugVo">
+        select id, drug_name, drug_price, drug_nums, drug_usage from sys_drug
     </sql>
 
-        <select id="selectList" resultMap="BaseResultMap">
-            SELECT * FROM drugs
-            WHERE usage = #{drugUsage}
-        </select>
+    <select id="selectSysDrugList" parameterType="SysDrug" resultMap="SysDrugResult">
+        <include refid="selectSysDrugVo"/>
+        <where>  
+            <if test="drugName != null  and drugName != ''"> and drug_name like concat('%', #{drugName}, '%')</if>
+            <if test="drugPrice != null "> and drug_price = #{drugPrice}</if>
+            <if test="drugNums != null "> and drug_nums = #{drugNums}</if>
+            <if test="drugUsage != null  and drugUsage != ''"> and drug_usage = #{drugUsage}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysDrugById" parameterType="String" resultMap="SysDrugResult">
+        <include refid="selectSysDrugVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysDrug" parameterType="SysDrug">
+        insert into sys_drug
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="drugName != null">drug_name,</if>
+            <if test="drugPrice != null">drug_price,</if>
+            <if test="drugNums != null">drug_nums,</if>
+            <if test="drugUsage != null">drug_usage,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="drugName != null">#{drugName},</if>
+            <if test="drugPrice != null">#{drugPrice},</if>
+            <if test="drugNums != null">#{drugNums},</if>
+            <if test="drugUsage != null">#{drugUsage},</if>
+         </trim>
+    </insert>
 
+    <update id="updateSysDrug" parameterType="SysDrug">
+        update sys_drug
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="drugName != null">drug_name = #{drugName},</if>
+            <if test="drugPrice != null">drug_price = #{drugPrice},</if>
+            <if test="drugNums != null">drug_nums = #{drugNums},</if>
+            <if test="drugUsage != null">drug_usage = #{drugUsage},</if>
+        </trim>
+        where id = #{id}
+    </update>
 
+    <delete id="deleteSysDrugById" parameterType="String">
+        delete from sys_drug where id = #{id}
+    </delete>
+
+    <delete id="deleteSysDrugByIds" parameterType="String">
+        delete from sys_drug where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

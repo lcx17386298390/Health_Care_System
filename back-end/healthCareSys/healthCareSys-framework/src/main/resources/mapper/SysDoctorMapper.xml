@@ -1,26 +1,98 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.acm.mapper.DoctorMapper">
-
-    <resultMap id="BaseResultMap" type="com.acm.entity.Doctor">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
-            <result property="username" column="username" jdbcType="VARCHAR"/>
-            <result property="gender" column="gender" jdbcType="CHAR"/>
-            <result property="phonenumber" column="phonenumber" jdbcType="VARCHAR"/>
-            <result property="email" column="email" jdbcType="VARCHAR"/>
-            <result property="password" column="password" jdbcType="VARCHAR"/>
-            <result property="qualification" column="qualification" jdbcType="VARCHAR"/>
-            <result property="department" column="department" jdbcType="VARCHAR"/>
-            <result property="identityinfo" column="identityinfo" jdbcType="VARCHAR"/>
-            <result property="realname" column="realname" jdbcType="VARCHAR"/>
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acm.mapper.SysDoctorMapper">
+    
+    <resultMap type="SysDoctor" id="SysDoctorResult">
+        <result property="id"    column="id"    />
+        <result property="username"    column="username"    />
+        <result property="gender"    column="gender"    />
+        <result property="phonenumber"    column="phonenumber"    />
+        <result property="email"    column="email"    />
+        <result property="password"    column="password"    />
+        <result property="qualification"    column="qualification"    />
+        <result property="department"    column="department"    />
+        <result property="identityinfo"    column="identityinfo"    />
+        <result property="realname"    column="realname"    />
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,username,gender,
-        phonenumber,email,password,
-        qualification,department,identityinfo,
-        realname
+    <sql id="selectSysDoctorVo">
+        select id, username, gender, phonenumber, email, password, qualification, department, identityinfo, realname from sys_doctor
     </sql>
+
+    <select id="selectSysDoctorList" parameterType="SysDoctor" resultMap="SysDoctorResult">
+        <include refid="selectSysDoctorVo"/>
+        <where>  
+            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="phonenumber != null  and phonenumber != ''"> and phonenumber = #{phonenumber}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="password != null  and password != ''"> and password = #{password}</if>
+            <if test="qualification != null  and qualification != ''"> and qualification = #{qualification}</if>
+            <if test="department != null  and department != ''"> and department = #{department}</if>
+            <if test="identityinfo != null  and identityinfo != ''"> and identityinfo = #{identityinfo}</if>
+            <if test="realname != null  and realname != ''"> and realname like concat('%', #{realname}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectSysDoctorById" parameterType="String" resultMap="SysDoctorResult">
+        <include refid="selectSysDoctorVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysDoctor" parameterType="SysDoctor">
+        insert into sys_doctor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="username != null">username,</if>
+            <if test="gender != null">gender,</if>
+            <if test="phonenumber != null">phonenumber,</if>
+            <if test="email != null">email,</if>
+            <if test="password != null">password,</if>
+            <if test="qualification != null">qualification,</if>
+            <if test="department != null">department,</if>
+            <if test="identityinfo != null">identityinfo,</if>
+            <if test="realname != null">realname,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="username != null">#{username},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="phonenumber != null">#{phonenumber},</if>
+            <if test="email != null">#{email},</if>
+            <if test="password != null">#{password},</if>
+            <if test="qualification != null">#{qualification},</if>
+            <if test="department != null">#{department},</if>
+            <if test="identityinfo != null">#{identityinfo},</if>
+            <if test="realname != null">#{realname},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysDoctor" parameterType="SysDoctor">
+        update sys_doctor
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null">username = #{username},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="phonenumber != null">phonenumber = #{phonenumber},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="qualification != null">qualification = #{qualification},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="identityinfo != null">identityinfo = #{identityinfo},</if>
+            <if test="realname != null">realname = #{realname},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysDoctorById" parameterType="String">
+        delete from sys_doctor where id = #{id}
+    </delete>
+
+    <delete id="deleteSysDoctorByIds" parameterType="String">
+        delete from sys_doctor where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

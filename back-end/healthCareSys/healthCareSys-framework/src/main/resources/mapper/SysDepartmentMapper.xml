@@ -1,20 +1,78 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.acm.mapper.DepartmentMapper">
-
-    <resultMap id="BaseResultMap" type="com.acm.entity.Department">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="dname" column="dname" jdbcType="VARCHAR"/>
-            <result property="did" column="did" jdbcType="VARCHAR"/>
-            <result property="orders" column="orders" jdbcType="INTEGER"/>
-            <result property="aid" column="aid" jdbcType="VARCHAR"/>
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acm.mapper.SysDepartmentMapper">
+    
+    <resultMap type="SysDepartment" id="SysDepartmentResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="dname"    column="dname"    />
+        <result property="did"    column="did"    />
+        <result property="orders"    column="orders"    />
+        <result property="aid"    column="aid"    />
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,name,dname,
-        did,orders,aid
+    <sql id="selectSysDepartmentVo">
+        select id, name, dname, did, orders, aid from sys_department
     </sql>
+
+    <select id="selectSysDepartmentList" parameterType="SysDepartment" resultMap="SysDepartmentResult">
+        <include refid="selectSysDepartmentVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="dname != null  and dname != ''"> and dname like concat('%', #{dname}, '%')</if>
+            <if test="did != null  and did != ''"> and did = #{did}</if>
+            <if test="orders != null "> and orders = #{orders}</if>
+            <if test="aid != null  and aid != ''"> and aid = #{aid}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysDepartmentById" parameterType="String" resultMap="SysDepartmentResult">
+        <include refid="selectSysDepartmentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysDepartment" parameterType="SysDepartment">
+        insert into sys_department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="dname != null">dname,</if>
+            <if test="did != null">did,</if>
+            <if test="orders != null">orders,</if>
+            <if test="aid != null">aid,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="dname != null">#{dname},</if>
+            <if test="did != null">#{did},</if>
+            <if test="orders != null">#{orders},</if>
+            <if test="aid != null">#{aid},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysDepartment" parameterType="SysDepartment">
+        update sys_department
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="dname != null">dname = #{dname},</if>
+            <if test="did != null">did = #{did},</if>
+            <if test="orders != null">orders = #{orders},</if>
+            <if test="aid != null">aid = #{aid},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysDepartmentById" parameterType="String">
+        delete from sys_department where id = #{id}
+    </delete>
+
+    <delete id="deleteSysDepartmentByIds" parameterType="String">
+        delete from sys_department where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
