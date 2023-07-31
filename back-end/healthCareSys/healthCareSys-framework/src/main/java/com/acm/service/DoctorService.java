@@ -14,4 +14,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface DoctorService extends IService<Doctor> {
 
     ResponseResult getDoctorsByDepartment(String department);
+
+    ResponseResult revise(Integer doctorId, String username,
+                          String gender, String phonenumber,
+                          String email, String password,
+                          String qualification, String department,
+                          String identityinfo, String realname);
 }

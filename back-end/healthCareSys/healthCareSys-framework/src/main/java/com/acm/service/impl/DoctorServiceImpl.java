@@ -43,4 +43,53 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
             return ResponseResult.errorResult(AppHttpCodeEnum.DOCTOR_DEPARTMENT_NOT_NULL);
         }
     }
+
+//    医生修改自己的信息
+    @Override
+    public ResponseResult revise(Integer doctorId, String username,
+                                 String gender, String phonenumber,
+                                 String email, String password,
+                                 String qualification, String department,
+                                 String identityinfo, String realname) {
+
+        // 使用 doctorId 查询医生记录
+        Doctor doctor = doctorMapper.selectById(doctorId);
+        if (doctor == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.DOCTOR_NOT_EXIST);
+        }
+
+        // 设置需要修改的属性值
+        if (username != null) {
+            doctor.setUsername(username);
+        }
+        if (gender != null) {
+            doctor.setGender(gender);
+        }
+        if (phonenumber != null) {
+            doctor.setPhonenumber(phonenumber);
+        }
+        if (email != null) {
+            doctor.setEmail(email);
+        }
+        if (qualification != null) {
+            doctor.setQualification(qualification);
+        }
+        if (department != null) {
+            doctor.setDepartment(department);
+        }
+        if (identityinfo != null) {
+            doctor.setIdentityinfo(identityinfo);
+        }
+        if (realname != null) {
+            doctor.setRealname(realname);
+        }
+
+        // 更新医生记录
+        int result = doctorMapper.updateById(doctor);
+        if (result > 0) {
+            return ResponseResult.okResult(AppHttpCodeEnum.REVISE_YES);
+        } else {
+            return ResponseResult.errorResult(AppHttpCodeEnum.REVISE_NOT);
+        }
+    }
 }
