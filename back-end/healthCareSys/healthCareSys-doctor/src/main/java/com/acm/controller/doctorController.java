@@ -44,7 +44,7 @@ public class doctorController {
 
 //    医生修改个人主页
 
-    @RequestMapping("/revise")
+    @RequestMapping("/docrevise")
     public ResponseResult revise(Integer doctorId,String username,
                                  String gender,String phonenumber,
                                  String email,String password,
