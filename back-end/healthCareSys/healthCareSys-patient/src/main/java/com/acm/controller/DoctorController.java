@@ -21,6 +21,7 @@ public class DoctorController {
         return doctorService.getDoctorsByDepartment(departmentname);
     }
 
+
     @RequestMapping("/revise")
     public ResponseResult revise(Integer doctorId,String username,
                                  String gender,String phonenumber,
@@ -32,6 +33,11 @@ public class DoctorController {
                                     email,password,
                                     qualification,department,
                                     identityinfo,realname);
+    }
+
+    @RequestMapping("/getDoctorId")
+    public ResponseResult getDoctorId(Integer doctorId){
+        return doctorService.getDoctorId(doctorId);
     }
 
 }

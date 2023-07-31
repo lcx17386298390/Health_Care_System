@@ -5,6 +5,7 @@ import com.acm.enums.AppHttpCodeEnum;
 import com.acm.mapper.DoctorMapper;
 import com.acm.service.DoctorService;
 import com.acm.utils.BeanCopyUtils;
+import com.acm.vo.DoctorVo;
 import com.acm.vo.DoctorsByDepartmentVo;
 import com.acm.vo.ResponseResult;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -90,6 +91,20 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
             return ResponseResult.okResult(AppHttpCodeEnum.REVISE_YES);
         } else {
             return ResponseResult.errorResult(AppHttpCodeEnum.REVISE_NOT);
+        }
+    }
+
+    @Override
+    public ResponseResult getDoctorId(Integer doctorId) {
+
+        LambdaQueryWrapper<Doctor> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(Doctor::getId,doctorId);
+        Doctor doctor=doctorMapper.selectOne(queryWrapper);
+        if(doctor!=null){
+            DoctorVo doctorVo=BeanCopyUtils.copyBean(doctor,DoctorVo.class);
+            return ResponseResult.okResult(doctorVo);
+        }else{
+            return ResponseResult.errorResult(AppHttpCodeEnum.DOCTOR_NOT_EXIST);
         }
     }
 }
