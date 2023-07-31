@@ -23,16 +23,4 @@ public class diseaseInfoController {
         return diseaseService.diseaseInfo(pageNo,pageSize,patientId);
     }
 
-//    添加病例
-    @RequestMapping("/adddisease")
-    public ResponseResult adddisease(String pid, String diseasename, Data data, String did){
-        return diseaseService.adddisease(pid,diseasename,data,did);
-    }
-
-//    只有医生可以修改病例
-    @RequestMapping("/diseaserevise")
-    public ResponseResult diseaserevise(String pidId ,String diseaseName){
-        return diseaseService.diseaserevise(pidId,diseaseName);
-    }
-
 }
