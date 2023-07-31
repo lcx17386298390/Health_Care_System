@@ -9,6 +9,7 @@ import com.acm.vo.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,4 +35,33 @@ public class doctorController {
     public ResponseResult register(Doctor doctor){
         return doctorService.register(doctor);
     }
+    //    根据科室来查询医生
+    @RequestMapping("/getDoctorsByDepartment")
+    public ResponseResult getDoctorsByDepartment(String departmentname){
+        return doctorService.getDoctorsByDepartment(departmentname);
+    }
+
+
+//    医生修改个人主页
+
+    @RequestMapping("/revise")
+    public ResponseResult revise(Integer doctorId,String username,
+                                 String gender,String phonenumber,
+                                 String email,String password,
+                                 String qualification,String department,
+                                 String identityinfo,String realname){
+        return doctorService.revise(doctorId,username,
+                gender,phonenumber,
+                email,password,
+                qualification,department,
+                identityinfo,realname);
+    }
+
+    @RequestMapping("/getDoctorId")
+    public ResponseResult getDoctorId(Integer doctorId){
+        return doctorService.getDoctorId(doctorId);
+    }
+
+
+
 }
