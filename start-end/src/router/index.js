@@ -21,21 +21,21 @@ import order from '../views/doctors/order/index.vue'
 import drug0 from '../views/doctors/drug0/index.vue'
 import his from '../views/doctors/history/index.vue'
 import docSelf from '../views/doctors/docSelf/index.vue'
-import adminLogin from "@/views/admin/adminLogin.vue";
+import adminLogin from "@/views/admin/adminLogin.vue"
 
 
 import consultation from '../views/patients/prescription0/consultation.vue'
 
 
 //测试
-import appointment from "@/views/admin/appointment/index.vue";
-import department from "@/views/admin/department/index.vue";
-import disease from "@/views/admin/disease/index.vue";
+import appointment from "@/views/admin/appointment/index.vue"
+import department from "@/views/admin/department/index.vue"
+import disease from "@/views/admin/disease/index.vue"
 import doctor from "@/views/admin/doctor/index.vue"
 import drug from "@/views/admin/drug/index.vue"
-import patient from "@/views/admin/patient/index.vue";
+import patient from "@/views/admin/patient/index.vue"
 import prescription from "@/views/admin/prescription/index.vue"
-import adminHome from "@/views/admin/Pages/AdminHome/index.vue";
+import adminHome from "@/views/admin/Pages/AdminHome/index.vue"
 
 Vue.use(VueRouter)
 
@@ -88,7 +88,7 @@ const routes = [
       { path: 'order', name: 'order', component: order },
       { path: 'drug0', name: 'drug0', component: drug0 },
       { path: 'his', name: 'his', component: his },
-      { path: 'docSelf' , name: 'docSelf' ,component: docSelf},
+      { path: 'docSelf', name: 'docSelf', component: docSelf },
 
     ]
   },
@@ -98,7 +98,7 @@ const routes = [
     name: 'AdminView',
     component: AdminView,
     children: [
-      {path: 'admin-home', name: 'admin-home', component:adminHome},
+      { path: 'admin-home', name: 'admin-home', component: adminHome },
       { path: 'appointment', name: 'appointment', component: appointment },
       { path: 'drug', name: 'drug', component: drug },
       { path: 'doctor', name: 'doctor', component: doctor },
@@ -109,13 +109,13 @@ const routes = [
         component: department
       },
       {
-        path:'disease',
+        path: 'disease',
         name: 'disease',
         component: disease
       },
       {
         path: 'prescription',
-        name:'prescription',
+        name: 'prescription',
         component: prescription
       },
     ]
