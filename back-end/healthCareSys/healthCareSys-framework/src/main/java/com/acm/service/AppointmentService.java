@@ -14,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface AppointmentService extends IService<Appointment> {
 
     ResponseResult appointRegister(Appointment appointment);
+
+    ResponseResult getappointmentBydname(Integer pageNum, Integer pageSize, String docName);
 }

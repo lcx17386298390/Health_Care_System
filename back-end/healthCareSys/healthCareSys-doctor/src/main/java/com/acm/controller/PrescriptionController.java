@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/prescription")
+@RequestMapping("/doctor")
 public class PrescriptionController {
 
 
@@ -20,7 +20,7 @@ public class PrescriptionController {
         this.prescriptionService = prescriptionService;
     }
 
-    //查询处方单
+    //查询处方单医生和患者
     @RequestMapping("/getPrescriptionById")
     public ResponseResult getPrescriptionById(String prescriptionId){
         return prescriptionService.getPrescriptionById(prescriptionId);

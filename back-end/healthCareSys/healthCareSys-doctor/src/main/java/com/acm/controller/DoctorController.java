@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/doctor")
 public class DoctorController {
 
     @Autowired
@@ -55,7 +56,7 @@ public class DoctorController {
                 qualification,department,
                 identityinfo,realname);
     }
-
+//查询医生
     @RequestMapping("/getDoctorId")
     public ResponseResult getDoctorId(Integer doctorId){
         return doctorService.getDoctorId(doctorId);
