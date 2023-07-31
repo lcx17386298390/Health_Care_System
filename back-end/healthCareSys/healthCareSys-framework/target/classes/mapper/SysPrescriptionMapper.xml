@@ -1,27 +1,93 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.acm.mapper.PrescriptionMapper">
-
-    <resultMap id="BaseResultMap" type="com.acm.entity.Prescription">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
-            <result property="diseaseId" column="disease_id" jdbcType="VARCHAR"/>
-            <result property="diseaseName" column="disease_name" jdbcType="VARCHAR"/>
-            <result property="diseaseDesc" column="disease_desc" jdbcType="VARCHAR"/>
-            <result property="did" column="did" jdbcType="VARCHAR"/>
-            <result property="dname" column="dname" jdbcType="VARCHAR"/>
-            <result property="pid" column="pid" jdbcType="VARCHAR"/>
-            <result property="pname" column="pname" jdbcType="VARCHAR"/>
-            <result property="drugs" column="drugs" jdbcType="VARCHAR"/>
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acm.mapper.SysPrescriptionMapper">
+    
+    <resultMap type="SysPrescription" id="SysPrescriptionResult">
+        <result property="id"    column="id"    />
+        <result property="diseaseId"    column="disease_id"    />
+        <result property="diseaseName"    column="disease_name"    />
+        <result property="diseaseDesc"    column="disease_desc"    />
+        <result property="did"    column="did"    />
+        <result property="dname"    column="dname"    />
+        <result property="pid"    column="pid"    />
+        <result property="pname"    column="pname"    />
+        <result property="drugs"    column="drugs"    />
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,disease_id,disease_name,
-        disease_desc,did,dname,
-        pid,pname,drugs
+    <sql id="selectSysPrescriptionVo">
+        select id, disease_id, disease_name, disease_desc, did, dname, pid, pname, drugs from sys_prescription
     </sql>
 
+    <select id="selectSysPrescriptionList" parameterType="SysPrescription" resultMap="SysPrescriptionResult">
+        <include refid="selectSysPrescriptionVo"/>
+        <where>  
+            <if test="diseaseId != null  and diseaseId != ''"> and disease_id = #{diseaseId}</if>
+            <if test="diseaseName != null  and diseaseName != ''"> and disease_name like concat('%', #{diseaseName}, '%')</if>
+            <if test="diseaseDesc != null  and diseaseDesc != ''"> and disease_desc = #{diseaseDesc}</if>
+            <if test="did != null  and did != ''"> and did = #{did}</if>
+            <if test="dname != null  and dname != ''"> and dname like concat('%', #{dname}, '%')</if>
+            <if test="pid != null  and pid != ''"> and pid = #{pid}</if>
+            <if test="pname != null  and pname != ''"> and pname like concat('%', #{pname}, '%')</if>
+            <if test="drugs != null  and drugs != ''"> and drugs = #{drugs}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysPrescriptionById" parameterType="String" resultMap="SysPrescriptionResult">
+        <include refid="selectSysPrescriptionVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysPrescription" parameterType="SysPrescription">
+        insert into sys_prescription
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="diseaseId != null">disease_id,</if>
+            <if test="diseaseName != null">disease_name,</if>
+            <if test="diseaseDesc != null">disease_desc,</if>
+            <if test="did != null">did,</if>
+            <if test="dname != null">dname,</if>
+            <if test="pid != null">pid,</if>
+            <if test="pname != null">pname,</if>
+            <if test="drugs != null">drugs,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="diseaseId != null">#{diseaseId},</if>
+            <if test="diseaseName != null">#{diseaseName},</if>
+            <if test="diseaseDesc != null">#{diseaseDesc},</if>
+            <if test="did != null">#{did},</if>
+            <if test="dname != null">#{dname},</if>
+            <if test="pid != null">#{pid},</if>
+            <if test="pname != null">#{pname},</if>
+            <if test="drugs != null">#{drugs},</if>
+         </trim>
+    </insert>
 
+    <update id="updateSysPrescription" parameterType="SysPrescription">
+        update sys_prescription
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="diseaseId != null">disease_id = #{diseaseId},</if>
+            <if test="diseaseName != null">disease_name = #{diseaseName},</if>
+            <if test="diseaseDesc != null">disease_desc = #{diseaseDesc},</if>
+            <if test="did != null">did = #{did},</if>
+            <if test="dname != null">dname = #{dname},</if>
+            <if test="pid != null">pid = #{pid},</if>
+            <if test="pname != null">pname = #{pname},</if>
+            <if test="drugs != null">drugs = #{drugs},</if>
+        </trim>
+        where id = #{id}
+    </update>
 
+    <delete id="deleteSysPrescriptionById" parameterType="String">
+        delete from sys_prescription where id = #{id}
+    </delete>
+
+    <delete id="deleteSysPrescriptionByIds" parameterType="String">
+        delete from sys_prescription where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

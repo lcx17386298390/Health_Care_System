@@ -1,22 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.acm.mapper.DiseaseMapper">
-
-    <resultMap id="BaseResultMap" type="com.acm.entity.Disease">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
-            <result property="pid" column="pid" jdbcType="VARCHAR"/>
-            <result property="pname" column="pname" jdbcType="VARCHAR"/>
-            <result property="diseaseName" column="disease_name" jdbcType="VARCHAR"/>
-            <result property="clinicDate" column="clinic_date" jdbcType="DATE"/>
-            <result property="did" column="did" jdbcType="VARCHAR"/>
-            <result property="dname" column="dname" jdbcType="VARCHAR"/>
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acm.mapper.SysDiseaseMapper">
+    
+    <resultMap type="SysDisease" id="SysDiseaseResult">
+        <result property="id"    column="id"    />
+        <result property="pid"    column="pid"    />
+        <result property="pname"    column="pname"    />
+        <result property="diseaseName"    column="disease_name"    />
+        <result property="clinicDate"    column="clinic_date"    />
+        <result property="did"    column="did"    />
+        <result property="dname"    column="dname"    />
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,pid,pname,
-        disease_name,clinic_date,did,
-        dname
+    <sql id="selectSysDiseaseVo">
+        select id, pid, pname, disease_name, clinic_date, did, dname from sys_disease
     </sql>
+
+    <select id="selectSysDiseaseList" parameterType="SysDisease" resultMap="SysDiseaseResult">
+        <include refid="selectSysDiseaseVo"/>
+        <where>  
+            <if test="pid != null  and pid != ''"> and pid = #{pid}</if>
+            <if test="pname != null  and pname != ''"> and pname like concat('%', #{pname}, '%')</if>
+            <if test="diseaseName != null  and diseaseName != ''"> and disease_name like concat('%', #{diseaseName}, '%')</if>
+            <if test="clinicDate != null "> and clinic_date = #{clinicDate}</if>
+            <if test="did != null  and did != ''"> and did = #{did}</if>
+            <if test="dname != null  and dname != ''"> and dname like concat('%', #{dname}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectSysDiseaseById" parameterType="String" resultMap="SysDiseaseResult">
+        <include refid="selectSysDiseaseVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysDisease" parameterType="SysDisease">
+        insert into sys_disease
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="pid != null">pid,</if>
+            <if test="pname != null">pname,</if>
+            <if test="diseaseName != null">disease_name,</if>
+            <if test="clinicDate != null">clinic_date,</if>
+            <if test="did != null">did,</if>
+            <if test="dname != null">dname,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="pid != null">#{pid},</if>
+            <if test="pname != null">#{pname},</if>
+            <if test="diseaseName != null">#{diseaseName},</if>
+            <if test="clinicDate != null">#{clinicDate},</if>
+            <if test="did != null">#{did},</if>
+            <if test="dname != null">#{dname},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysDisease" parameterType="SysDisease">
+        update sys_disease
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pid != null">pid = #{pid},</if>
+            <if test="pname != null">pname = #{pname},</if>
+            <if test="diseaseName != null">disease_name = #{diseaseName},</if>
+            <if test="clinicDate != null">clinic_date = #{clinicDate},</if>
+            <if test="did != null">did = #{did},</if>
+            <if test="dname != null">dname = #{dname},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysDiseaseById" parameterType="String">
+        delete from sys_disease where id = #{id}
+    </delete>
+
+    <delete id="deleteSysDiseaseByIds" parameterType="String">
+        delete from sys_disease where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

@@ -1,23 +1,78 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.acm.mapper.AppointmentMapper">
-
-    <resultMap id="BaseResultMap" type="com.acm.entity.Appointment">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
-            <result property="did" column="did" jdbcType="VARCHAR"/>
-            <result property="pid" column="pid" jdbcType="VARCHAR"/>
-            <result property="appointmentDate" column="appointment_date" jdbcType="DATE"/>
-            <result property="appointmentStatus" column="appointment_status" jdbcType="VARCHAR"/>
-            <result property="doctorName" column="doctor_name" jdbcType="VARCHAR"/>
-            <result property="patientName" column="patient_name" jdbcType="VARCHAR"/>
-            <result property="appointmentDepartment" column="appointment_department" jdbcType="VARCHAR"/>
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acm.mapper.SysAppointmentMapper">
+    
+    <resultMap type="SysAppointment" id="SysAppointmentResult">
+        <result property="id"    column="id"    />
+        <result property="appointmentDate"    column="appointment_date"    />
+        <result property="appointmentStatus"    column="appointment_status"    />
+        <result property="doctorName"    column="doctor_name"    />
+        <result property="patientName"    column="patient_name"    />
+        <result property="appointmentDepartment"    column="appointment_department"    />
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,did,pid,
-        appointment_date,appointment_status,doctor_name,
-        patient_name,appointment_department
+    <sql id="selectSysAppointmentVo">
+        select id, appointment_date, appointment_status, doctor_name, patient_name, appointment_department from sys_appointment
     </sql>
+
+    <select id="selectSysAppointmentList" parameterType="SysAppointment" resultMap="SysAppointmentResult">
+        <include refid="selectSysAppointmentVo"/>
+        <where>  
+            <if test="appointmentDate != null  and appointmentDate != ''"> and appointment_date = #{appointmentDate}</if>
+            <if test="appointmentStatus != null  and appointmentStatus != ''"> and appointment_status = #{appointmentStatus}</if>
+            <if test="doctorName != null  and doctorName != ''"> and doctor_name like concat('%', #{doctorName}, '%')</if>
+            <if test="patientName != null  and patientName != ''"> and patient_name like concat('%', #{patientName}, '%')</if>
+            <if test="appointmentDepartment != null  and appointmentDepartment != ''"> and appointment_department = #{appointmentDepartment}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysAppointmentById" parameterType="String" resultMap="SysAppointmentResult">
+        <include refid="selectSysAppointmentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysAppointment" parameterType="SysAppointment">
+        insert into sys_appointment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="appointmentDate != null">appointment_date,</if>
+            <if test="appointmentStatus != null">appointment_status,</if>
+            <if test="doctorName != null">doctor_name,</if>
+            <if test="patientName != null">patient_name,</if>
+            <if test="appointmentDepartment != null">appointment_department,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="appointmentDate != null">#{appointmentDate},</if>
+            <if test="appointmentStatus != null">#{appointmentStatus},</if>
+            <if test="doctorName != null">#{doctorName},</if>
+            <if test="patientName != null">#{patientName},</if>
+            <if test="appointmentDepartment != null">#{appointmentDepartment},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysAppointment" parameterType="SysAppointment">
+        update sys_appointment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="appointmentDate != null">appointment_date = #{appointmentDate},</if>
+            <if test="appointmentStatus != null">appointment_status = #{appointmentStatus},</if>
+            <if test="doctorName != null">doctor_name = #{doctorName},</if>
+            <if test="patientName != null">patient_name = #{patientName},</if>
+            <if test="appointmentDepartment != null">appointment_department = #{appointmentDepartment},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysAppointmentById" parameterType="String">
+        delete from sys_appointment where id = #{id}
+    </delete>
+
+    <delete id="deleteSysAppointmentByIds" parameterType="String">
+        delete from sys_appointment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
