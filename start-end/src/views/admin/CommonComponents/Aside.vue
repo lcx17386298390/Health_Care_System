@@ -45,7 +45,7 @@ export default {
           path: "/admin/appointment",
           name: "appointment",
           label: "预约信息",
-          icon: "data-analysis",
+          icon: "date",
           url: "Appointment/Appointment",
         },
 
@@ -53,21 +53,21 @@ export default {
           path: "/admin/department",
           name: "department",
           label: "科室信息",
-          icon: "data-analysis",
+          icon: "monitor",
           url: "Department/Department",
         },
         {
           path: "/admin/disease",
           name: "disease",
           label: "病历信息",
-          icon: "data-analysis",
+          icon: "notebook-1",
           url: "Disease/Disease",
         },
         {
           path: "/admin/prescription",
           name: "prescription",
           label: "处方信息",
-          icon: "data-analysis",
+          icon: "notebook-2",
           url: "Prescription/Prescription",
         },
         {

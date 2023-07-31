@@ -15,7 +15,7 @@
     <div class="r-container">
       <el-dropdown>
         <span class="el-dropdown-link">
-          <img class="user" src="https://ts1.cn.mm.bing.net/th/id/R-C.cffaabd20802747bf3e35ae2b6223976?rik=JXROwHWYSgbmcQ&riu=http%3a%2f%2fwww.httone.com%2fresources%2fproducts%2f1748%2fimage0_m.jpg&ehk=hgj2Ezhc9ypkD%2bPkxWkV%2fuUYfMLqCXOQV5FF4RWQaFc%3d&risl=&pid=ImgRaw&r=0" alt="头像" />
+          <img class="user" src="@/../public/img/cabo.jpg" alt="头像" />
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>个人中心</el-dropdown-item>

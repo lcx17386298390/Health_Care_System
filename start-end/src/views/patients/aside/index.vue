@@ -63,14 +63,14 @@
       </li>
       <li>
         <router-link
-          to="/patient/prescription"
+          to="/patient/prescription0"
           class="nav-link text"
           id="v-pills-prescrition-tab"
           data-toggle="pill"
           role="tab"
           aria-controls="v-pills-messages"
           aria-selected="false"
-          :class="{ active: $route.path === '/patient/prescription' }"
+          :class="{ active: $route.path === '/patient/prescription0' }"
         >
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:to="#speedometer2"></use>

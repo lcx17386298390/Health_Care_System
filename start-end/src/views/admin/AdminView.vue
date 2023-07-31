@@ -31,4 +31,7 @@ export default {
 .el-header{
   padding: 0;
 }
+.el-aside{
+  padding:0;
+}
 </style>
