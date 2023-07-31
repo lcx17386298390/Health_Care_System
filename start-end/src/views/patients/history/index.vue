@@ -138,6 +138,7 @@ export default {
   // },
   methods: {
     fetchData() {
+      //console.log(this.patientId)
       axios({
         url: 'http://localhost:8001/diseaseInfo', //api地址接口
         method: 'GET',
