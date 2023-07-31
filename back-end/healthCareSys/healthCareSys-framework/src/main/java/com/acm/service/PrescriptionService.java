@@ -14,4 +14,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface PrescriptionService extends IService<Prescription> {
 
     ResponseResult getPrescriptionById(String prescriptionId);
+
+    ResponseResult addPrescription(String patientname, String doctorname, String diseaseDesc, String did, String pid, String drugs);
+
+    ResponseResult previse(String prescriptionId,String diseaseId, String diseaseName, String diseaseDesc, String did, String pid, String drugs);
 }

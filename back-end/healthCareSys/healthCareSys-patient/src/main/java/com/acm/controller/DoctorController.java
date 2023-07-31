@@ -21,5 +21,17 @@ public class DoctorController {
         return doctorService.getDoctorsByDepartment(departmentname);
     }
 
+    @RequestMapping("/revise")
+    public ResponseResult revise(Integer doctorId,String username,
+                                 String gender,String phonenumber,
+                                 String email,String password,
+                                 String qualification,String department,
+                                 String identityinfo,String realname){
+        return doctorService.revise(doctorId,username,
+                                    gender,phonenumber,
+                                    email,password,
+                                    qualification,department,
+                                    identityinfo,realname);
+    }
 
 }

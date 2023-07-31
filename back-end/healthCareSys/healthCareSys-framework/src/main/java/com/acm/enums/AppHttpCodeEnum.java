@@ -24,7 +24,19 @@ public enum AppHttpCodeEnum {
 //    查询药品
     DRUGS_NOT_NULL(516,"未找到符合该药品用途的药品"),
     PRESCRIPTION_NOT_NULL(517,"还没有处方单"),
-    DOCTOR_DEPARTMENT_NOT_NULL(518,"找不到该科室的医生");
+    DOCTOR_DEPARTMENT_NOT_NULL(518,"找不到该科室的医生"),
+    PATIENT_NOT_EXIST(519,"找不到该患者" ),
+    DOCTOR_NOT_EXIST(520,"尚未注册成为医生"),
+    ADDPRESCRIPTION_YES(521,"添加处方单成功"),
+
+    ADDPRESCRIPTION_NOT(522,"添加处方单失败"),
+
+    REVISE_YES(523,"信息修改成功"),
+    REVISE_NOT(524,"信息修改失败"),
+    CASES_NOT_NULL(525,"添加病例单失败"),
+
+    CASES_NULL(526,"找不到该患者的病例单"),
+    DATA_NULL(300,"参数不能为空");
 
 
     int code;
