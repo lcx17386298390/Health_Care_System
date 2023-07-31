@@ -22,4 +22,10 @@ public interface DoctorService extends IService<Doctor> {
                           String identityinfo, String realname);
 
     ResponseResult getDoctorId(Integer doctorId);
+
+    ResponseResult login(Doctor doctor);
+
+    ResponseResult logout();
+
+    ResponseResult register(Doctor doctor);
 }
