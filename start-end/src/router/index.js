@@ -10,6 +10,7 @@ import docView from '../views/doctors/DoctorView.vue'
 import AdminView from '../views/admin/AdminView.vue'
 import Example from '../views/patients/Example.vue'
 
+// 病人
 import buyDrug from '../views/patients/buyDrug/index.vue'
 import regisProcess from '../views/patients/regisProcess/index.vue'
 import prescription0 from '../views/patients/prescription0/index.vue'
@@ -17,14 +18,17 @@ import history from '../views/patients/history/index.vue'
 import selfInfo from '../views/patients/selfInfo/index.vue'
 import nav from '../views/patients/navigate/index.vue'
 
+
+import consultation from '../views/patients/prescription0/consultation.vue'
+
+
+// 医生
 import order from '../views/doctors/order/index.vue'
 import drug0 from '../views/doctors/drug0/index.vue'
 import his from '../views/doctors/history/index.vue'
 import docSelf from '../views/doctors/docSelf/index.vue'
 import adminLogin from "@/views/admin/adminLogin.vue"
 
-
-import consultation from '../views/patients/prescription0/consultation.vue'
 
 
 //测试
