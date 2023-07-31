@@ -103,7 +103,7 @@
 
     <el-table v-loading="loading" :data="diseaseList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
+      <el-table-column label="病历id" align="center" prop="id" />
       <el-table-column label="患者id" align="center" prop="pid" />
       <el-table-column label="患者姓名" align="center" prop="pname" />
       <el-table-column label="患者病名" align="center" prop="diseaseName" />

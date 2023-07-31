@@ -28,7 +28,7 @@
     "node-polyfill-webpack-plugin": "^2.0.1",
     "path-browserify": "^1.0.1",
     "quill": "^1.3.7",
-    "screenfull": "^6.0.2",
+    "screenfull": "^5.2.0",
     "vue": "^2.6.14",
     "vue-meta": "^2.4.0",
     "vue-pagination-2": "^3.1.0",
@@ -51,5 +51,9 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "webPreferences": {
+    "nodeIntegration": true,
+    "contextIsolation": false
+  }
 }
