@@ -2,9 +2,9 @@ server:
   port: 8003
 spring:
     datasource:
-      url: jdbc:mysql://localhost:3306/db_group_maedical?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-      username: lan
-      password: "c314"
+      url: jdbc:mysql://localhost:3306/sys?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: "root"
+      password: "gt040311"
       driver-class-name: com.mysql.cj.jdbc.Driver
     servlet:
       multipart:

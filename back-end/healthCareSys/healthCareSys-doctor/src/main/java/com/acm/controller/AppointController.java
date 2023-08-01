@@ -22,5 +22,10 @@ public class AppointController {
         return appointmentService.getappointmentBydname(pageNum,pageSize,docName);
     }
 
+//    修改记录信息
+@RequestMapping("/appointmentrevise")
+    public ResponseResult appointmentrevise(String appointmentId ,String status){
+        return appointmentService.appointmentrevise(appointmentId,status);
+}
 
 }
