@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from "vuex"
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -56,7 +57,7 @@ Vue.prototype.download = download
 Vue.prototype.handleTree = handleTree
 Vue.config.productionTip = false
 Vue.prototype.resetForm = resetForm
-
+Vue.use(Vuex);
 
 
 // 全局组件挂载
@@ -74,6 +75,14 @@ Vue.use(VueMeta)
 DictData.install()
 
 new Vue({
+  state: {
+    realname: "",
+  },
+  mutations: {
+    setrealname(state, doctorName) {
+      state.realname = doctorName;
+    },
+  },
   router,
   store,
   render: h => h(App)

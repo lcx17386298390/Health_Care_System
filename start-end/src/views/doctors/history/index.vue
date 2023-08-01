@@ -55,17 +55,20 @@
                     inline
                     class="demo-table-expand"
                   >
-                    <el-form-item label="患者年龄">
-                      <span>{{ props.row.patientAge }}</span>
+                    <el-form-item label="患者id">
+                      <span>{{ props.row.patientId }}</span>
                     </el-form-item>
-                    <el-form-item label="患者性别">
-                      <span>{{ props.row.patientSex }}</span>
+                    <el-form-item label="患有疾病">
+                      <span>{{ props.row.diseaseName }}</span>
+                    </el-form-item>
+                    <el-form-item label="诊断医生">
+                      <span>{{ props.row.doctorName }}</span>
                     </el-form-item>
                     <el-form-item label="诊断描述">
-                      <span>{{ props.row.patientName }}</span>
+                      <span>{{ props.row.diseaseDesc }}</span>
                     </el-form-item>
                     <el-form-item label="开方药片">
-                      <span>{{ props.row.patientDrugs }}</span>
+                      <span>{{ props.row.drugs }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
@@ -83,7 +86,7 @@
               ></el-table-column>
               <el-table-column
                 label="诊断科室"
-                prop="department"
+                prop="appointmentDepartment"
               ></el-table-column>
             </el-table>
           </div>
@@ -124,7 +127,12 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import axios from "axios";
 export default {
+   props: {
+    realname: String,
+  },
   data() {
     return {
       histories: [],
@@ -134,9 +142,12 @@ export default {
     };
   },
   created() {
-    this.fetchTableData();
+     if (this.currentDoctorName) {
+      this.fetchTableData();
+    };
   },
   computed: {
+    ...mapState(["realname"]),
     paginatedOrders() {
       const start = (this.currentPage - 1) * this.perPage;
       const end = start + this.perPage;
@@ -146,7 +157,9 @@ export default {
           .filter(
             (order) =>
               order.patientName.toLowerCase().includes(lowercaseQuery) ||
-              order.appointmentDepartment.toLowerCase().includes(lowercaseQuery)
+              order.appointmentappointmentDepartment
+                .toLowerCase()
+                .includes(lowercaseQuery)
           )
           .slice(start, end);
       } else {
@@ -179,28 +192,29 @@ export default {
       const [startTime, endTime] = timeRange.split("-");
       return `${date} ${startTime}-${endTime}`;
     },
-    async fetchTableData() {
-      try {
-          // const realname = "realname";    //api .realname是医生真实姓名，以此为id带回表头数据
-        // const response = await axios.get(`/api/history-records/${realname}`);
-        // this.histories = response.data;
-
-        //案例数据，不需要时请删除，并取消上方注释
-        for (let i = 0; i < 12; i++) {
-          this.histories.push({
-            clinicDate: "2023-07-20 09:00-10:00",
-            patientName: "Patient " + i,
-            diseaseName: "Random Disease " + i,
-            department: "Random Department " + i,
-            patientAge: 30 + i, 
-            patientSex: i % 2 === 0 ? "Male" : "Female",
-            patientDrugs: "Drug " + i, 
-            diseaseDesc: "Random Disease Description " + i,
-          });
-        }
-      } catch (error) {
-        this.$message.error("获取数据失败");
-      }
+    fetchTableData() {
+      axios
+        .get("http://localhost:8003/doctor/history/${this.realname}")
+        .then((response) => {
+          this.histories = response.data; 
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          this.$message.error("获取数据失败");
+        });
+      //案例数据，不需要时请删除，并取消上方注释
+      // for (let i = 0; i < 12; i++) {
+      //   this.histories.push({
+      //     clinicDate: "2023-07-20 09:00-10:00",
+      //     patientName: "Patient " + i,
+      //     diseaseName: "Random Disease " + i,
+      //     appointmentDepartment: "Random appointmentDepartment " + i,
+      //     patientAge: 30 + i,
+      //     patientSex: i % 2 === 0 ? "Male" : "Female",
+      //     patientDrugs: "Drug " + i,
+      //     diseaseDesc: "Random Disease Description " + i,
+      //   });
+      // }
     },
     toggleAccordion(row) {
       console.log("Toggling accordion for row:", row);

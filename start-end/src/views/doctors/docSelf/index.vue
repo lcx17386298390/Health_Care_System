@@ -159,16 +159,17 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
       userData: {
-        username: "doctor_username",
-        realname: "Doctor Realname",
-        gender: "Male",
+        username: "isdusername",
+        realname: "dname1",
+        gender: "女",
         department: "神经科",
-        email: "doctor@example.com",
-          phonenumber:"33",
+        email: "1441307999@qq.com",
+          phonenumber:"11111122222",
       },
       currentPassword: "",
       newPassword: "",
@@ -179,7 +180,11 @@ export default {
       showConfirmPassword: false,
     };
   },
+   created() {
+    this.setrealname("dname1"); 
+  },
   methods: {
+    ...mapMutations(["setrealname"]),
     async submitPasswordForm() {
       if (this.newPassword !== this.confirmPassword) {
         this.passwordMismatch = true;
