@@ -2,7 +2,7 @@
   <div>
     <el-card shadow="hover" flex>
       <!-- 此处因为没有图片为不影响先行注释 -->
-      <!-- <img src="@/../public/img/cabo.jpg" alt="cabo" class="img"> -->
+      <img src="@/../public/img/cabo.jpg" alt="cabo" class="img">
       <span class="title">Admin</span>
       <div class="aaa">
         <span class="bbb">HGNUACM医疗健康系统</span>

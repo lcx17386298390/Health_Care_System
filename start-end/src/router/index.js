@@ -27,11 +27,11 @@ import order from '../views/doctors/order/index.vue'
 import drug0 from '../views/doctors/drug0/index.vue'
 import his from '../views/doctors/history/index.vue'
 import docSelf from '../views/doctors/docSelf/index.vue'
-import adminLogin from "@/views/admin/adminLogin.vue"
+import seeDrug from '../views/doctors/seeDrug/index.vue'
 
 
 
-//测试
+//admin
 import appointment from "@/views/admin/appointment/index.vue"
 import department from "@/views/admin/department/index.vue"
 import disease from "@/views/admin/disease/index.vue"
@@ -40,6 +40,7 @@ import drug from "@/views/admin/drug/index.vue"
 import patient from "@/views/admin/patient/index.vue"
 import prescription from "@/views/admin/prescription/index.vue"
 import adminHome from "@/views/admin/Pages/AdminHome/index.vue"
+import adminLogin from "@/views/admin/adminLogin.vue"
 
 Vue.use(VueRouter)
 
@@ -85,7 +86,7 @@ const routes = [
   },
   {
     path: '/doc',
-    redirect: '/doc/order',
+    redirect: '/doc/docSelf',
     name: 'docView',
     component: docView,
     children: [
@@ -93,7 +94,7 @@ const routes = [
       { path: 'drug0', name: 'drug0', component: drug0 },
       { path: 'his', name: 'his', component: his },
       { path: 'docSelf', name: 'docSelf', component: docSelf },
-
+      { path:'see-drug',name:'seeDrug',component:seeDrug},
     ]
   },
   {

@@ -1,7 +1,7 @@
 <template>
   <div class="buy-container" >
     <el-row type="flex" class="row-bg" justify="space-around"  style="overflow:auto;">
-  <el-col :span="16">
+  <el-col :span="22">
     <div class="grid-content bg-purple-light flex column center ">
       <div class="flex column">
         <div class="flex jst">
@@ -83,18 +83,14 @@
     </el-table-column>
 
   </el-table>
-  <div class="block" style="margin-left:28%;margin-bottom:10px;">
+  <div class="block" style="margin-left:40%;margin-bottom:10px;">
   <el-pagination
     layout="prev, pager, next"
     :total="(pageNum - 1) * pageSize">
   </el-pagination>
 </div>
     </div>
-
     </el-col>
-  <el-col :span="6"><div class="grid-content bg-purple">
-    
-    </div></el-col>
 </el-row>
 
 

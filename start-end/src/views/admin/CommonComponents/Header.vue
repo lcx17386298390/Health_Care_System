@@ -11,7 +11,7 @@
       <el-dropdown>
         <span class="el-dropdown-link">
           <!-- 此处因为没有图片为不影响先行注释 -->
-          <!-- <img class="user" src="@/../public/img/cabo.jpg" alt="头像" /> -->
+          <img class="user" src="@/../public/img/cabo.jpg" alt="头像" />
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>个人中心</el-dropdown-item>

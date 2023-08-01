@@ -24,6 +24,16 @@
           开处方
         </router-link>
       </li>
+      <li class="nav-item">
+        <router-link to="/doc/see-drug" class="nav-link text" aria-current="page" id="v-pills-drug-tab" data-toggle="pill"
+          role="tab" aria-controls="v-pills-messages" aria-selected="true"
+          :class="{ active: $route.path === '/doc/see-drug' }">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#drug"></use>
+          </svg>
+          查看药品
+        </router-link>
+      </li>
       <li>
         <router-link to="/doc/his" class="nav-link text" id="v-pills-history-tab" data-toggle="pill" role="tab"
           aria-controls="v-pills-messages" aria-selected="false" :class="{ active: $route.path === '/doc/his' }">
@@ -31,6 +41,15 @@
             <use xlink:to="#table"></use>
           </svg>
           诊断记录
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/doc/order" class="nav-link text" id="v-pills-history-tab" data-toggle="pill" role="tab"
+          aria-controls="v-pills-messages" aria-selected="false" :class="{ active: $route.path === '/doc/order' }">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:to="#table"></use>
+          </svg>
+          订单处理
         </router-link>
       </li>
       <li>
