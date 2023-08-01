@@ -1,14 +1,6 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="病例id" prop="diseaseId">
-        <el-input
-          v-model="queryParams.diseaseId"
-          placeholder="请输入病例id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="病名" prop="diseaseName">
         <el-input
           v-model="queryParams.diseaseName"
@@ -25,26 +17,10 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="开处方医生id" prop="did">
-        <el-input
-          v-model="queryParams.did"
-          placeholder="请输入开处方医生id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="医生姓名" prop="dname">
         <el-input
           v-model="queryParams.dname"
           placeholder="请输入医生姓名"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="患者id" prop="pid">
-        <el-input
-          v-model="queryParams.pid"
-          placeholder="请输入患者id"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -120,12 +96,9 @@
     <el-table v-loading="loading" :data="prescriptionList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="处方id" align="center" prop="id" />
-      <el-table-column label="病例id" align="center" prop="diseaseId" />
       <el-table-column label="病名" align="center" prop="diseaseName" />
       <el-table-column label="患病的简介" align="center" prop="diseaseDesc" />
-      <el-table-column label="开处方医生id" align="center" prop="did" />
       <el-table-column label="医生姓名" align="center" prop="dname" />
-      <el-table-column label="患者id" align="center" prop="pid" />
       <el-table-column label="患者姓名" align="center" prop="pname" />
       <el-table-column label="药瓶信息" align="center" prop="drugs" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -156,26 +129,17 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改医生处方对话框 -->
+    <!-- 添加或修改prescription对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="病例id" prop="diseaseId">
-          <el-input v-model="form.diseaseId" placeholder="请输入病例id" />
-        </el-form-item>
         <el-form-item label="病名" prop="diseaseName">
           <el-input v-model="form.diseaseName" placeholder="请输入病名" />
         </el-form-item>
         <el-form-item label="患病的简介" prop="diseaseDesc">
           <el-input v-model="form.diseaseDesc" placeholder="请输入患病的简介" />
         </el-form-item>
-        <el-form-item label="开处方医生id" prop="did">
-          <el-input v-model="form.did" placeholder="请输入开处方医生id" />
-        </el-form-item>
         <el-form-item label="医生姓名" prop="dname">
           <el-input v-model="form.dname" placeholder="请输入医生姓名" />
-        </el-form-item>
-        <el-form-item label="患者id" prop="pid">
-          <el-input v-model="form.pid" placeholder="请输入患者id" />
         </el-form-item>
         <el-form-item label="患者姓名" prop="pname">
           <el-input v-model="form.pname" placeholder="请输入患者姓名" />
@@ -211,7 +175,7 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 医生处方表格数据
+      // prescription表格数据
       prescriptionList: [],
       // 弹出层标题
       title: "",
@@ -221,12 +185,9 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        diseaseId: null,
         diseaseName: null,
         diseaseDesc: null,
-        did: null,
         dname: null,
-        pid: null,
         pname: null,
         drugs: null
       },
@@ -241,7 +202,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询医生处方列表 */
+    /** 查询prescription列表 */
     getList() {
       this.loading = true;
       listPrescription(this.queryParams).then(response => {
@@ -259,12 +220,9 @@ export default {
     reset() {
       this.form = {
         id: null,
-        diseaseId: null,
         diseaseName: null,
         diseaseDesc: null,
-        did: null,
         dname: null,
-        pid: null,
         pname: null,
         drugs: null
       };
@@ -290,7 +248,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加医生处方";
+      this.title = "添加prescription";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -299,7 +257,7 @@ export default {
       getPrescription(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改医生处方";
+        this.title = "修改prescription";
       });
     },
     /** 提交按钮 */
@@ -325,7 +283,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除医生处方编号为"' + ids + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除prescription编号为"' + ids + '"的数据项？').then(function() {
         return delPrescription(ids);
       }).then(() => {
         this.getList();
@@ -334,7 +292,7 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('http://localhost:8002/prescription/prescription/export', {
+      this.download('prescription/prescription/export', {
         ...this.queryParams
       }, `prescription_${new Date().getTime()}.xlsx`)
     }

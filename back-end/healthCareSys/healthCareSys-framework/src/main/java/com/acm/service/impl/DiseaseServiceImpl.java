@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -58,31 +59,31 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
     }
 
 //    添加病例单
-    @Override
-    public ResponseResult adddisease(String pid, String diseasename, Data data, String did) {
-
-        Doctor doctor = doctorMapper.selectById(did);
-
-        Patient patient = patientMapper.selectById(pid);
-        if (doctor == null) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.DOCTOR_NOT_EXIST);
-        }
-        if(patient == null){
-            return ResponseResult.errorResult(AppHttpCodeEnum.PATIENT_NOT_EXIST);
-        }
-        Disease disease=new Disease();
-        disease.setDiseaseName(diseasename);
-        disease.setPid(pid);
-        disease.setDname(doctor.getRealname());
-        disease.setPname(patient.getRealname());
-        disease.setClinicDate((Date) data);
-        int result=diseaseMapper.insert(disease);
-        if(result>0){
-            return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
-        }else {
-            return ResponseResult.errorResult(AppHttpCodeEnum.CASES_NOT_NULL);
-        }
-    }
+//    @Override
+//    public ResponseResult adddisease(String pid, String diseasename, Data data, String did) {
+//
+//        Doctor doctor = doctorMapper.selectById(did);
+//
+//        Patient patient = patientMapper.selectById(pid);
+//        if (doctor == null) {
+//            return ResponseResult.errorResult(AppHttpCodeEnum.DOCTOR_NOT_EXIST);
+//        }
+//        if(patient == null){
+//            return ResponseResult.errorResult(AppHttpCodeEnum.PATIENT_NOT_EXIST);
+//        }
+//        Disease disease=new Disease();
+//        disease.setDiseaseName(diseasename);
+//        disease.setPid(pid);
+//        disease.setDname(doctor.getRealname());
+//        disease.setPname(patient.getRealname());
+//        disease.setClinicDate((Date) data);
+//        int result=diseaseMapper.insert(disease);
+//        if(result>0){
+//            return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
+//        }else {
+//            return ResponseResult.errorResult(AppHttpCodeEnum.CASES_NOT_NULL);
+//        }
+//    }
     //    只有医生可以修改病例病名
     @Override
     public ResponseResult diseaserevise(String pidId , String diseaseName) {

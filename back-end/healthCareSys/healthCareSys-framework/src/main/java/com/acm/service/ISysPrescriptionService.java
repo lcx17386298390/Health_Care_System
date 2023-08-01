@@ -5,57 +5,57 @@ import com.acm.entity.SysPrescription;
 import java.util.List;
 
 /**
- * 医生处方Service接口
+ * prescriptionService接口
  * 
  * @author ruoyi
- * @date 2023-07-28
+ * @date 2023-08-01
  */
 public interface ISysPrescriptionService 
 {
     /**
-     * 查询医生处方
+     * 查询prescription
      * 
-     * @param id 医生处方主键
-     * @return 医生处方
+     * @param id prescription主键
+     * @return prescription
      */
     public SysPrescription selectSysPrescriptionById(String id);
 
     /**
-     * 查询医生处方列表
+     * 查询prescription列表
      * 
-     * @param sysPrescription 医生处方
-     * @return 医生处方集合
+     * @param sysPrescription prescription
+     * @return prescription集合
      */
     public List<SysPrescription> selectSysPrescriptionList(SysPrescription sysPrescription);
 
     /**
-     * 新增医生处方
+     * 新增prescription
      * 
-     * @param sysPrescription 医生处方
+     * @param sysPrescription prescription
      * @return 结果
      */
     public int insertSysPrescription(SysPrescription sysPrescription);
 
     /**
-     * 修改医生处方
+     * 修改prescription
      * 
-     * @param sysPrescription 医生处方
+     * @param sysPrescription prescription
      * @return 结果
      */
     public int updateSysPrescription(SysPrescription sysPrescription);
 
     /**
-     * 批量删除医生处方
+     * 批量删除prescription
      * 
-     * @param ids 需要删除的医生处方主键集合
+     * @param ids 需要删除的prescription主键集合
      * @return 结果
      */
     public int deleteSysPrescriptionByIds(String[] ids);
 
     /**
-     * 删除医生处方信息
+     * 删除prescription信息
      * 
-     * @param id 医生处方主键
+     * @param id prescription主键
      * @return 结果
      */
     public int deleteSysPrescriptionById(String id);

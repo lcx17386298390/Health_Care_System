@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询医生处方列表
+// 查询prescription列表
 export function listPrescription(query) {
   return request({
     url: 'http://localhost:8002/prescription/prescription/list',
@@ -9,7 +9,7 @@ export function listPrescription(query) {
   })
 }
 
-// 查询医生处方详细
+// 查询prescription详细
 export function getPrescription(id) {
   return request({
     url: 'http://localhost:8002/prescription/prescription/' + id,
@@ -17,7 +17,7 @@ export function getPrescription(id) {
   })
 }
 
-// 新增医生处方
+// 新增prescription
 export function addPrescription(data) {
   return request({
     url: 'http://localhost:8002/prescription/prescription',
@@ -26,7 +26,7 @@ export function addPrescription(data) {
   })
 }
 
-// 修改医生处方
+// 修改prescription
 export function updatePrescription(data) {
   return request({
     url: 'http://localhost:8002/prescription/prescription',
@@ -35,7 +35,7 @@ export function updatePrescription(data) {
   })
 }
 
-// 删除医生处方
+// 删除prescription
 export function delPrescription(id) {
   return request({
     url: 'http://localhost:8002/prescription/prescription/' + id,

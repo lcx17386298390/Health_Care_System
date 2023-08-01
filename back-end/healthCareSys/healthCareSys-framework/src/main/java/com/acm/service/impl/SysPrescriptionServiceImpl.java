@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 医生处方Service业务层处理
+ * prescriptionService业务层处理
  * 
  * @author ruoyi
- * @date 2023-07-28
+ * @date 2023-08-01
  */
 @Service
 public class SysPrescriptionServiceImpl implements ISysPrescriptionService
@@ -21,10 +21,10 @@ public class SysPrescriptionServiceImpl implements ISysPrescriptionService
     private SysPrescriptionMapper sysPrescriptionMapper;
 
     /**
-     * 查询医生处方
+     * 查询prescription
      * 
-     * @param id 医生处方主键
-     * @return 医生处方
+     * @param id prescription主键
+     * @return prescription
      */
     @Override
     public SysPrescription selectSysPrescriptionById(String id)
@@ -33,10 +33,10 @@ public class SysPrescriptionServiceImpl implements ISysPrescriptionService
     }
 
     /**
-     * 查询医生处方列表
+     * 查询prescription列表
      * 
-     * @param sysPrescription 医生处方
-     * @return 医生处方
+     * @param sysPrescription prescription
+     * @return prescription
      */
     @Override
     public List<SysPrescription> selectSysPrescriptionList(SysPrescription sysPrescription)
@@ -45,9 +45,9 @@ public class SysPrescriptionServiceImpl implements ISysPrescriptionService
     }
 
     /**
-     * 新增医生处方
+     * 新增prescription
      * 
-     * @param sysPrescription 医生处方
+     * @param sysPrescription prescription
      * @return 结果
      */
     @Override
@@ -57,9 +57,9 @@ public class SysPrescriptionServiceImpl implements ISysPrescriptionService
     }
 
     /**
-     * 修改医生处方
+     * 修改prescription
      * 
-     * @param sysPrescription 医生处方
+     * @param sysPrescription prescription
      * @return 结果
      */
     @Override
@@ -69,9 +69,9 @@ public class SysPrescriptionServiceImpl implements ISysPrescriptionService
     }
 
     /**
-     * 批量删除医生处方
+     * 批量删除prescription
      * 
-     * @param ids 需要删除的医生处方主键
+     * @param ids 需要删除的prescription主键
      * @return 结果
      */
     @Override
@@ -81,9 +81,9 @@ public class SysPrescriptionServiceImpl implements ISysPrescriptionService
     }
 
     /**
-     * 删除医生处方信息
+     * 删除prescription信息
      * 
-     * @param id 医生处方主键
+     * @param id prescription主键
      * @return 结果
      */
     @Override

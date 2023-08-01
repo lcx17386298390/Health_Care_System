@@ -5,55 +5,55 @@ import com.acm.entity.SysPrescription;
 import java.util.List;
 
 /**
- * 医生处方Mapper接口
+ * prescriptionMapper接口
  * 
  * @author ruoyi
- * @date 2023-07-28
+ * @date 2023-08-01
  */
 public interface SysPrescriptionMapper 
 {
     /**
-     * 查询医生处方
+     * 查询prescription
      * 
-     * @param id 医生处方主键
-     * @return 医生处方
+     * @param id prescription主键
+     * @return prescription
      */
     public SysPrescription selectSysPrescriptionById(String id);
 
     /**
-     * 查询医生处方列表
+     * 查询prescription列表
      * 
-     * @param sysPrescription 医生处方
-     * @return 医生处方集合
+     * @param sysPrescription prescription
+     * @return prescription集合
      */
     public List<SysPrescription> selectSysPrescriptionList(SysPrescription sysPrescription);
 
     /**
-     * 新增医生处方
+     * 新增prescription
      * 
-     * @param sysPrescription 医生处方
+     * @param sysPrescription prescription
      * @return 结果
      */
     public int insertSysPrescription(SysPrescription sysPrescription);
 
     /**
-     * 修改医生处方
+     * 修改prescription
      * 
-     * @param sysPrescription 医生处方
+     * @param sysPrescription prescription
      * @return 结果
      */
     public int updateSysPrescription(SysPrescription sysPrescription);
 
     /**
-     * 删除医生处方
+     * 删除prescription
      * 
-     * @param id 医生处方主键
+     * @param id prescription主键
      * @return 结果
      */
     public int deleteSysPrescriptionById(String id);
 
     /**
-     * 批量删除医生处方
+     * 批量删除prescription
      * 
      * @param ids 需要删除的数据主键集合
      * @return 结果
