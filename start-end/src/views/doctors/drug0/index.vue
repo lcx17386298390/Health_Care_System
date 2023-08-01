@@ -42,10 +42,22 @@
               <span slot="label" prop="disease_desc" class="tian">患病详情</span>
               <el-input type="textarea" :rows="2" v-model="ruleForm.disease_desc"></el-input>
             </el-form-item>
+
             <el-form-item prop="drugs">
-              <span slot="label" prop="drugs" class="tian">患病详情</span>
-              <el-input type="textarea" :rows="2" v-model="ruleForm.drugs"></el-input>
+              <span slot="label" prop="drugs" class="tian">药瓶信息</span>
+              <div class="tags" style="display: inline;">
+                <el-tag v-for="(drug, index) in drugsList" :key="index" closable @close="handleTagClose(index)">
+                  {{ drug }}
+                </el-tag>
+              </div>
+              <el-input v-if="inputVisible" class="input-new-tag" v-model="zsdrug" ref="input" size="medium"
+                @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm"></el-input>
+              <el-button v-else class="button-new-tag" size="small" @click="showInput">
+                添加药名
+              </el-button>
             </el-form-item>
+
+
 
             <!-- 提交和重置按钮 -->
             <el-form-item>
@@ -71,6 +83,7 @@ export default {
     return {
       pname: '',
       dname: '',
+      zsdrug: "",
       inputVisible: false,
       ruleForm: {
         disease_name: '',
@@ -84,10 +97,76 @@ export default {
       }
     }
   },
+  computed: {
+    drugsList () {
+      return this.ruleForm.drugs.split(", ")
+    },
+  },
+  methods: {
+    showInput () {
+      this.inputVisible = true
+      this.$nextTick(() => {
+        this.$refs.input.focus()
+      })
+    },
+    handleInputConfirm () {
+      let drug = this.zsdrug.trim()
+      if (drug) {
+        if (this.ruleForm.drugs) {
+          this.ruleForm.drugs += ", "
+        }
+        this.ruleForm.drugs += drug
+      }
+      this.inputVisible = false
+      this.zsdrug = ""
+      alert(this.ruleForm.drugs)
+    },
+    handleTagClose (index) {
+      const drugsList = this.ruleForm.drugs.split(", ")
+      drugsList.splice(index, 1)
+      this.ruleForm.drugs = drugsList.join(", ")
+    },
+    submitForm () {
+      // 使用axios发送POST请求将数据发送到后端 API
+      axios
+        .post("/api/submit", this.ruleForm)
+        .then((response) => {
+          // 处理成功响应
+          console.log(response.data)
+        })
+        .catch((error) => {
+          // 处理错误
+          console.error(error)
+        })
+    },
+    resetForm () {
+      this.$refs.ruleForm.resetFields()
+      this.ruleForm.drugs = ""
+      this.zsdrug = ""
+    },
+  }
 }
 </script>
 
 <style scoped>
+.el-tag+.el-tag {
+  margin-left: 10px;
+}
+
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
+
 /* 填写部分 */
 .tian {
   font-size: 19px;
