@@ -47,6 +47,8 @@ public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appoi
         return ResponseResult.okResult();
     }
 
+    //    查询就诊记录
+
     @Override
     public ResponseResult getappointmentBydname(Integer pageNum, Integer pageSize, String docName) {
         if (pageNum == null || pageNum <= 0) {
