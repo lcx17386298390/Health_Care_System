@@ -20,4 +20,12 @@ public interface DoctorService extends IService<Doctor> {
                           String email, String password,
                           String qualification, String department,
                           String identityinfo, String realname);
+
+    ResponseResult getDoctorId(Integer doctorId);
+
+    ResponseResult login(Doctor doctor);
+
+    ResponseResult logout();
+
+    ResponseResult register(Doctor doctor);
 }
