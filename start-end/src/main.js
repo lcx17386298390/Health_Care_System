@@ -9,7 +9,8 @@ import directive from './directive' // directive
 import plugins from './plugins' // plugins
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-import axios from './http/axios-config.js';
+import axiosConfig from './http/axios-config.js';
+import axios from "axios";
 import Cookies from 'js-cookie'
 // import http from "./http";
 // Vue.prototype.$http = http;
@@ -71,10 +72,12 @@ Vue.use(directive)
 Vue.use(plugins)
 Vue.use(VueMeta)
 DictData.install()
+
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
 
-Vue.prototype.$axios = axios;
+Vue.prototype.$http = axios; 
+Vue.prototype.$axiosConfig= axiosConfig;

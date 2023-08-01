@@ -42,12 +42,12 @@
             />
           </div>
           <div class="mb-3">
-            <label for="identityinfo" class="form-label">身份证号</label>
+            <label for="department" class="form-label">所属科室</label>
             <input
               type="text"
               class="form-control"
-              id="identityinfo"
-              :value="userData.identityinfo"
+              id="department"
+              :value="userData.department"
               disabled
             />
           </div>
@@ -68,36 +68,80 @@
       <div class="card mt-4">
         <div class="card-header">密码修改</div>
         <div class="card-body">
-          <div class="mb-3">
-            <label for="currentPassword" class="form-label">当前密码</label>
-            <input
-              type="password"
-              class="form-control"
-              id="currentPassword"
-              v-model="currentPassword"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="newPassword" class="form-label">新密码</label>
-            <input
-              type="password"
-              class="form-control"
-              id="newPassword"
-              v-model="newPassword"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="confirmPassword" class="form-label">确认新密码</label>
-            <input
-              type="password"
-              class="form-control"
-              id="confirmPassword"
-              v-model="confirmPassword"
-            />
-          </div>
-          <button type="button" class="btn btn-primary" @click="submitPassword">
-            提交
-          </button>
+          <form @submit.prevent="submitPasswordForm">
+            <div class="mb-3">
+              <label for="currentPassword" class="form-label">当前密码</label>
+              <div class="input-group">
+                <input
+                  :type="showCurrentPassword ? 'text' : 'password'"
+                  v-model="currentPassword"
+                  class="form-control"
+                  id="currentPassword"
+                  required
+                />
+                <button
+                  @click="showCurrentPassword = !showCurrentPassword"
+                  class="btn btn-outline-secondary"
+                  type="button"
+                >
+                  <i
+                    :class="
+                      showCurrentPassword ? 'fa fa-eye-slash' : 'fa fa-eye'
+                    "
+                  ></i>
+                </button>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="newPassword" class="form-label">新密码</label>
+              <div class="input-group">
+                <input
+                  :type="showNewPassword ? 'text' : 'password'"
+                  v-model="newPassword"
+                  class="form-control"
+                  id="newPassword"
+                  required
+                />
+                <button
+                  @click="showNewPassword = !showNewPassword"
+                  class="btn btn-outline-secondary"
+                  type="button"
+                >
+                  <i
+                    :class="showNewPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+                  ></i>
+                </button>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">确认新密码</label>
+              <div class="input-group">
+                <input
+                  :type="showConfirmPassword ? 'text' : 'password'"
+                  v-model="confirmPassword"
+                  class="form-control"
+                  id="confirmPassword"
+                  required
+                  @input="validatePassword"
+                />
+                <button
+                  @click="showConfirmPassword = !showConfirmPassword"
+                  class="btn btn-outline-secondary"
+                  type="button"
+                >
+                  <i
+                    :class="
+                      showConfirmPassword ? 'fa fa-eye-slash' : 'fa fa-eye'
+                    "
+                  ></i>
+                </button>
+              </div>
+              <div v-if="passwordMismatch" class="text-danger">
+                新密码和确认密码不一致
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">确认修改</button>
+          </form>
         </div>
       </div>
     </div>
@@ -112,21 +156,61 @@ export default {
         username: "doctor_username",
         realname: "Doctor Realname",
         gender: "Male",
-        identityinfo: "1234567890",
+        department: "神经科",
         email: "doctor@example.com",
       },
       currentPassword: "",
       newPassword: "",
       confirmPassword: "",
+      passwordMismatch: false,
+      showCurrentPassword: false,
+      showNewPassword: false,
+      showConfirmPassword: false,
     };
   },
   methods: {
-    submitPassword() {
-      // You can add password validation logic here
-      // For example, checking if the current password is correct
-      // and if the new password matches the confirm password
-      // Then, you can make an API call to update the password
-      // using the this.newPassword value
+    async submitPasswordForm() {
+      if (this.newPassword !== this.confirmPassword) {
+        this.passwordMismatch = true;
+        return;
+      } else {
+        this.passwordMismatch = false;
+      }
+
+      const request = {
+        currentPassword: this.currentPassword,
+        newPassword: this.newPassword,
+      };
+
+      try {
+        //  API
+        const response = await axios.post("/api/change-password", request);
+
+        if (response.status === 200) {
+          this.$notify({
+            title: "成功",
+            message: "密码修改成功",
+            type: "success",
+          });
+          window.location.reload();
+        } else {
+          // Password change failed
+          this.$notify({
+            title: "错误",
+            message: "密码修改失败，请稍后重试",
+            type: "error",
+          });
+        }
+      } catch (error) {
+        this.$notify({
+          title: "错误",
+          message: "发生了一个错误，请稍后重试",
+          type: "error",
+        });
+      }
+    },
+    validatePassword() {
+      this.passwordMismatch = this.newPassword !== this.confirmPassword;
     },
   },
 };
@@ -134,7 +218,7 @@ export default {
 
 <style>
 .personal-info-container {
-  max-height: 666px; /* Set the maximum height for the container */
-  overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+  max-height: 666px;
+  overflow-y: auto;
 }
 </style>

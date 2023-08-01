@@ -238,6 +238,8 @@ export default {
     },
   },
   methods: {
+    handleRowsPerPageChange() {},
+
     setCurrentPage(page) {
       this.currentPage = page;
     },
@@ -255,7 +257,7 @@ export default {
 
     async fetchTableData() {
       try {
-        const response = await axios.get("http://localhost:8001/tables");//api写这里
+        const response = await axios.get("http://localhost:8001/tables"); //api写这里
         this.orders = response.data;
       } catch (error) {
         this.$message.error("获取数据失败");
@@ -264,9 +266,9 @@ export default {
     async confirmStatus(order, status) {
       try {
         const response = await axios.post(
-          "http://localhost:8001/appointstatus",// api写这里
+          "http://localhost:8001/appointstatus", // api写这里
           {
-            orderId: order.id, 
+            orderId: order.id,
             status,
           }
         );
