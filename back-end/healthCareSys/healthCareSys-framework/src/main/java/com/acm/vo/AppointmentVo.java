@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class AppointmentVo {
 
 
-
+    private String id;
     //预约日期
     private String appointmentDate;
     //预约状态（是否通过）

@@ -55,35 +55,36 @@
                     inline
                     class="demo-table-expand"
                   >
-                    <el-form-item label="患者id">
-                      <span>{{ props.row.patientId }}</span>
-                    </el-form-item>
-                    <el-form-item label="患有疾病">
-                      <span>{{ props.row.diseaseName }}</span>
-                    </el-form-item>
+<!--                    <el-form-item label="患者id">-->
+<!--                      <span>{{ props.row.patientId }}</span>-->
+<!--                    </el-form-item>-->
+<!--                    <el-form-item label="患有疾病">-->
+<!--                      <span>{{ props.row.diseaseName }}</span>-->
+<!--                    </el-form-item>-->
                     <el-form-item label="诊断医生">
-                      <span>{{ props.row.doctorName }}</span>
+<!--                      <span>{{ props.row.doctorName }}</span>-->
+                      <span>{{currentDoctorName}}</span>
                     </el-form-item>
-                    <el-form-item label="诊断描述">
-                      <span>{{ props.row.diseaseDesc }}</span>
+                    <el-form-item label="诊断日期">
+                      <span>{{ props.row.appointmentDate }}</span>
                     </el-form-item>
-                    <el-form-item label="开方药片">
-                      <span>{{ props.row.drugs }}</span>
+                    <el-form-item label="预约科室">
+                      <span>{{ props.row.appointmentDepartment }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
               </el-table-column>
 
-              <el-table-column label="接诊日期" prop="clinicDate">
+              <el-table-column label="接诊日期" prop="appointmentDate">
               </el-table-column>
               <el-table-column
                 label="患者名字"
                 prop="patientName"
               ></el-table-column>
-              <el-table-column
-                label="患有疾病"
-                prop="diseaseName"
-              ></el-table-column>
+<!--              <el-table-column-->
+<!--                label="患有疾病"-->
+<!--                prop="diseaseName"-->
+<!--              ></el-table-column>-->
               <el-table-column
                 label="诊断科室"
                 prop="appointmentDepartment"
@@ -139,6 +140,7 @@ export default {
       perPage: 10,
       currentPage: 1,
       searchQuery: "",
+      currentDoctorName: "医生二"
     };
   },
   created() {
@@ -193,10 +195,17 @@ export default {
       return `${date} ${startTime}-${endTime}`;
     },
     fetchTableData() {
-      axios
-        .get("http://localhost:8003/doctor/history/${this.realname}")
-        .then((response) => {
-          this.histories = response.data; 
+      axios({
+        url: 'http://localhost:8003/doctor/getAcceptappointmentBydname',
+        method: 'get',
+        params: {
+          docName:this.currentDoctorName,
+          pageNum:this.currentPage,
+          pageSize:this.perPage
+        }
+      }).then((response) => {
+        //console.log(response.data.data);
+          this.histories = response.data.data;
         })
         .catch((error) => {
           console.error("Error fetching data:", error);

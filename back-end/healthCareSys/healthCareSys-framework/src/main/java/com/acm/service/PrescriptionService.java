@@ -15,7 +15,11 @@ public interface PrescriptionService extends IService<Prescription> {
 
     ResponseResult getPrescriptionById(String prescriptionId);
 
-    ResponseResult addPrescription(String patientname, String doctorname, String diseaseDesc, String did, String pid, String drugs);
+    ResponseResult addPrescription(String diseaseName,
+                                   String pname,
+                                   String dname,
+                                   String diseaseDesc,
+                                   String drugs);
 
-    ResponseResult previse(String prescriptionId,String diseaseId, String diseaseName, String diseaseDesc, String did, String pid, String drugs);
+    ResponseResult previse(String prescriptionId,String diseaseName, String diseaseDesc, String drugs);
 }

@@ -51,30 +51,28 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
     }
 //    添加处方单
     @Override
-    public ResponseResult addPrescription(String diseaseId,String diseaseName,
-                                          String diseaseDesc,String did,
-                                          String pid,
+    public ResponseResult addPrescription(String diseaseName,
+                                          String pname,
+                                          String dname,
+                                          String diseaseDesc,
                                           String drugs){
 
         // 根据did和pid查询患者姓名和医生姓名
-        Doctor doctor = doctorMapper.selectById(did);
-        Patient patient = patientMapper.selectById(pid);
-
-        if (doctor == null) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.DOCTOR_NOT_EXIST);
-        }
-        if(patient == null){
-            return ResponseResult.errorResult(AppHttpCodeEnum.PATIENT_NOT_EXIST);
-        }
+//        Doctor doctor = doctorMapper.selectById(did);
+//        Patient patient = patientMapper.selectById(pid);
+//
+//        if (doctor == null) {
+//            return ResponseResult.errorResult(AppHttpCodeEnum.DOCTOR_NOT_EXIST);
+//        }
+//        if(patient == null){
+//            return ResponseResult.errorResult(AppHttpCodeEnum.PATIENT_NOT_EXIST);
+//        }
 
         Prescription prescription = new Prescription();
-        prescription.setDiseaseId(diseaseId);
         prescription.setDiseaseName(diseaseName);
-        prescription.setPname(patient.getRealname());
-        prescription.setDname(doctor.getRealname());
+        prescription.setPname(pname);
+        prescription.setDname(dname);
         prescription.setDiseaseDesc(diseaseDesc);
-        prescription.setDid(did);
-        prescription.setPid(pid);
         prescription.setDrugs(drugs);
 
         int result = prescriptionMapper.insert(prescription);
@@ -89,16 +87,16 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
     //修改处方单
 
     @Override
-    public ResponseResult previse(String prescriptionId,String diseaseId,
+    public ResponseResult previse(String prescriptionId,
                                   String diseaseName, String diseaseDesc,
-                                  String did, String pid, String drugs) {
+                                  String drugs) {
         Prescription prescription=prescriptionMapper.selectById(prescriptionId);
         if(prescription== null){
             return ResponseResult.errorResult(AppHttpCodeEnum.PRESCRIPTION_NOT_NULL);
         }
-        if(diseaseId!=null){
-            prescription.setDiseaseId(diseaseId);
-        }
+//        if(diseaseId!=null){
+//            prescription.setDiseaseId(diseaseId);
+//        }
         if(diseaseName!=null){
             prescription.setDiseaseName(diseaseName);
         }
@@ -108,12 +106,12 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
         if(drugs!=null){
             prescription.setDrugs(drugs);
         }
-        if(did!=null){
-            prescription.setDid(did);
-        }
-        if(pid!=null){
-            prescription.setPid(pid);
-        }
+//        if(did!=null){
+//            prescription.setDid(did);
+//        }
+//        if(pid!=null){
+//            prescription.setPid(pid);
+//        }
 
         int result=prescriptionMapper.updateById(prescription);
         if(result>0){

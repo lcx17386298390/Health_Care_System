@@ -24,7 +24,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @TableName("sys_appointment")
 public class Appointment  {
     //预约id@TableId
-    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
     //预约日期

@@ -75,14 +75,15 @@
   </div>
 </template>
 
-import axios from 'axios'
+
 <script>
+import axios from 'axios'
 export default {
   name: "drug0",
   data () {
     return {
-      pname: '',
-      dname: '',
+      pname: 'vvv',
+      dname: '医生二',
       zsdrug: "",
       inputVisible: false,
       ruleForm: {
@@ -94,7 +95,9 @@ export default {
         disease_name: [{ required: true, message: '请输入病名', trigger: 'blur' }],
         disease_desc: [{ required: true, message: '请输入详情', trigger: 'blur' }],
         drugs: [{ required: true, message: '请输入详情', trigger: 'blur' }],
-      }
+      },
+
+
     }
   },
   computed: {
@@ -128,9 +131,17 @@ export default {
     },
     submitForm () {
       // 使用axios发送POST请求将数据发送到后端 API
-      axios
-        .post("/api/submit", this.ruleForm)
-        .then((response) => {
+      axios({
+        url: 'http://localhost:8003/doctor/addPrescription',
+        method:'post',
+        params:{
+          diseaseName:this.ruleForm.disease_name,
+          diseaseDesc:this.ruleForm.disease_desc,
+          drugs:this.ruleForm.drugs,
+          dname:this.dname,
+          pname:this.pname
+        }
+      }).then((response) => {
           // 处理成功响应
           console.log(response.data)
         })
