@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/doc")
-@RequestMapping("/his")
+@RestController("/doctor")
+@RequestMapping("/history")
 public class HistoryRecordController {
     private final HistoryRecordService historyRecordService;
 
@@ -21,7 +21,7 @@ public class HistoryRecordController {
         this.historyRecordService = historyRecordService;
     }
 
-    @GetMapping("/doctor/{doctorName}")
+    @GetMapping("/{doctorName}")
     public ResponseEntity<List<HistoryRecord>> getHistoryRecordsByDoctorName(@PathVariable String doctorName) {
         List<HistoryRecord> historyRecords = historyRecordService.getHistoryRecordsByDoctorName(doctorName);
         return ResponseEntity.ok(historyRecords);
