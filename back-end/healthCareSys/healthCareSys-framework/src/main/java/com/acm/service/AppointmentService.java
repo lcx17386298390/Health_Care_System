@@ -20,4 +20,5 @@ public interface AppointmentService extends IService<Appointment> {
     ResponseResult getappointstatus(String orderId,String status);
 
     ResponseResult getAcceptappointmentBydname(Integer pageNum, Integer pageSize, String docName);
+    ResponseResult appointmentrevise(String appointmentId, String status);
 }

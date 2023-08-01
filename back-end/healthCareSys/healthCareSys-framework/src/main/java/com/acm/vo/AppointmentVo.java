@@ -22,4 +22,7 @@ public class AppointmentVo {
 
     //预约科室信息
     private String appointmentDepartment;
+
+     private String id;
+
 }

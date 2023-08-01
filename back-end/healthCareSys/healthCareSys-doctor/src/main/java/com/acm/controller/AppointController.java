@@ -27,6 +27,11 @@ public class AppointController {
     public ResponseResult getappointstatus(String orderId,String status){
         return appointmentService.getappointstatus(orderId,status);
     }
+//    修改记录信息
+@RequestMapping("/appointmentrevise")
+    public ResponseResult appointmentrevise(String appointmentId ,String status){
+        return appointmentService.appointmentrevise(appointmentId,status);
+}
 
     @RequestMapping("/getAcceptappointmentBydname")
     public ResponseResult getAcceptappointmentBydname(Integer pageNum,Integer pageSize,String docName){

@@ -105,4 +105,26 @@ public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appoi
             return ResponseResult.okResult(appointmentVos);
         }
     }
+//修改记录
+    @Override
+    public ResponseResult appointmentrevise(String appointmentId, String status) {
+        LambdaQueryWrapper<Appointment> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(Appointment::getId,appointmentId);
+        Appointment appointment=appointmentMapper.selectOne(queryWrapper);
+        if(appointment!=null){
+            if(status!=appointment.getAppointmentStatus()){
+                appointment.setAppointmentStatus(status);
+            }
+        }else {
+            return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NULL);
+        }
+        int result=appointmentMapper.updateById(appointment);
+        if(result>0){
+            return ResponseResult.okResult(AppHttpCodeEnum.REVISE_YES);
+        }else {
+            return ResponseResult.errorResult(AppHttpCodeEnum.REVISE_NOT);
+        }
+    }
+
+
 }
