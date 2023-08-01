@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acm.mapper.HistoryRecordMapper">
+    <resultMap id="HistoryRecordResultMap" type="com.acm.entity.HistoryRecord">
+        <result property="doctorName" column="doctor_name"/>
+        <result property="diseaseName" column="disease_name"/>
+        <result property="diseaseDesc" column="disease_desc"/>
+        <result property="drugs" column="drugs"/>
+        <result property="patientId" column="patient_id"/>
+        <result property="patientName" column="patient_name"/>
+        <result property="clinicDate" column="clinic_date"/>
+        <result property="appointmentDepartment" column="appointment_department"/>
+    </resultMap>
+
+    <select id="getHistoryRecordsByDoctorName" resultMap="HistoryRecordResultMap">
+        SELECT
+        pre.dname AS doctor_name,
+        dis.disease_name,
+        dis.disease_desc,
+        pre.drugs,
+        dis.pid AS patient_id,
+        pat.username AS patient_name,
+        dis.clinic_date,
+        app.appointment_department
+        FROM sys_prescription pre
+        LEFT JOIN sys_disease dis ON pre.did = dis.id
+        LEFT JOIN sys_patient pat ON dis.pid = pat.id
+        LEFT JOIN sys_appointment app ON dis.did = app.did AND dis.pid = app.pid
+        WHERE pre.dname = #{doctorName};
+    </select>
+</mapper>
