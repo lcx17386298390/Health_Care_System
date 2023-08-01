@@ -61,6 +61,16 @@
               disabled
             />
           </div>
+            <div class="mb-3">
+                <label for="phonenumber" class="form-label">电话号码</label>
+                <input
+                        type="phonenumber"
+                        class="form-control"
+                        id="phonenumber"
+                        :value="userData.phonenumber"
+                        disabled
+                />
+          </div>
         </div>
       </div>
 
@@ -114,6 +124,7 @@ export default {
         gender: "Male",
         identityinfo: "1234567890",
         email: "doctor@example.com",
+          phonenumber:"33",
       },
       currentPassword: "",
       newPassword: "",
