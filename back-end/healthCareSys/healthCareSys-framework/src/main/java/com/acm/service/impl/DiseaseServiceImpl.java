@@ -11,17 +11,21 @@ import com.acm.mapper.PatientMapper;
 import com.acm.service.DiseaseService;
 import com.acm.utils.BeanCopyUtils;
 import com.acm.vo.DiseaseInfoVo;
+import com.acm.vo.DocDiagnosticsVo;
 import com.acm.vo.ResponseResult;
 import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.Data;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * (Disease)表服务实现类
@@ -112,5 +116,37 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
 
         }
 
+    @Override
+    public ResponseResult diagnostics(Integer pageNum, Integer pageSize, String did) {
+        LambdaQueryWrapper<Disease> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Disease::getDid, did);
+
+        Page<Disease> page = new Page<>(pageNum, pageSize);
+        page = diseaseMapper.selectPage(page, queryWrapper);
+
+        List<Disease> diseaseList = page.getRecords();
+
+
+        List<String> didList = diseaseList.stream().map(Disease::getDid).collect(Collectors.toList());
+
+        LambdaQueryWrapper<Doctor> doctorWrapper = new LambdaQueryWrapper<>();
+        doctorWrapper.in(Doctor::getId, didList);
+        List<Doctor> doctorList = doctorMapper.selectList(doctorWrapper);
+
+
+        List<DocDiagnosticsVo> diagnosticsList = new ArrayList<>();
+        for (Disease disease : diseaseList) {
+            DocDiagnosticsVo diagnosticsVo = BeanCopyUtils.copyBean(disease, DocDiagnosticsVo.class);
+            // 查找对应的doctor对象
+            Doctor matchingDoctor = doctorList.stream().filter(doctor -> did.equals(doctor.getId())).findFirst().orElse(null);
+            if (matchingDoctor != null) {
+                diagnosticsVo.setDepartment(matchingDoctor.getDepartment());
+            }
+            diagnosticsList.add(diagnosticsVo);
+        }
+
+
+        return  ResponseResult.okResult(diagnosticsList);
+    }
 
 }

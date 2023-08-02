@@ -28,4 +28,10 @@ public class diseaseController {
     public ResponseResult diseaserevise(String pidId ,String diseaseName){
         return diseaseService.diseaserevise(pidId,diseaseName);
     }
+    @RequestMapping("/docdiagnostics")
+    public ResponseResult diagnostics(Integer pageNum, Integer pageSize, String patientId){
+        return diseaseService.diagnostics(pageNum,pageSize,patientId);
+    }
+
+
 }
