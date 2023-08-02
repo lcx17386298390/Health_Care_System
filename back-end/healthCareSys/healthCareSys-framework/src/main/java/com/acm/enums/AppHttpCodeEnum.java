@@ -41,7 +41,7 @@ public enum AppHttpCodeEnum {
 
     WAIT_ACCESS(528,"等待接收"),
     HAVE_ACCESS(529,"通过"),
-    DATA_NOT(600,"参数错误");
+    DATA_NOT(600,"参数错误"), PASSWORD_ERROR(530,"输入的原密码错误!" );
 
 
 

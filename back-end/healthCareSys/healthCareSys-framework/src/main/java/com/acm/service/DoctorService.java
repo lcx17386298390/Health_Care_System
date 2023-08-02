@@ -28,4 +28,6 @@ public interface DoctorService extends IService<Doctor> {
     ResponseResult logout();
 
     ResponseResult register(Doctor doctor);
+
+    ResponseResult changePassword(String doctorId, String currentPassword, String newPassword);
 }

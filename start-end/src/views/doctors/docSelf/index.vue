@@ -149,6 +149,8 @@
               <div v-if="passwordMismatch" class="text-danger">
                 新密码和确认密码不一致
               </div>
+              <label for="confirmPassword" class="form-label">输入验证码</label>
+              <el-input v-model="inputText"></el-input><img :src="httpimage" @click="getImage"></img>
             </div>
             <button type="submit" class="btn btn-primary">确认修改</button>
           </form>
@@ -160,17 +162,19 @@
 
 <script>
 import { mapMutations } from "vuex";
+import axios from "axios"
 export default {
   data() {
     return {
       userData: {
-        username: "isdusername",
-        realname: "dname1",
-        gender: "女",
-        department: "神经科",
-        email: "1441307999@qq.com",
-          phonenumber:"11111122222",
+        username: "",
+        realname: "",
+        gender: "",
+        department: "",
+        email: "",
+          phonenumber:"",
       },
+      inputText:"",
       currentPassword: "",
       newPassword: "",
       confirmPassword: "",
@@ -178,10 +182,15 @@ export default {
       showCurrentPassword: false,
       showNewPassword: false,
       showConfirmPassword: false,
+      doctorId:"1",
+      httpimage:"",
+      httptext:""
     };
   },
    created() {
-    this.setrealname("dname1"); 
+     this.docInfo()
+    this.setrealname("dname1");
+     this.getImage()
   },
   methods: {
     ...mapMutations(["setrealname"]),
@@ -192,17 +201,35 @@ export default {
       } else {
         this.passwordMismatch = false;
       }
+      if(this.inputText !== this.httptext){
+        this.$notify({
+          title: "错误",
+          message: "输入验证码错误",
+          type: "error",
+        });
+        return;
+      }
 
       const request = {
         currentPassword: this.currentPassword,
         newPassword: this.newPassword,
+        doctorId:this.doctorId
       };
 
       try {
         //  API
-        const response = await axios.post("/api/change-password", request);
-
-        if (response.status === 200) {
+        //console.log(request.currentPassword)
+        const response = await axios({
+          url:'http://localhost:8003/doctor/changepassword',
+          method:'post',
+          params:{
+            currentPassword: request.currentPassword,
+            newPassword: request.newPassword,
+            doctorId:request.doctorId
+          }
+        })
+        //console.log(response.data.code)
+        if (response.data.code === 200) {
           this.$notify({
             title: "成功",
             message: "密码修改成功",
@@ -213,14 +240,14 @@ export default {
           // Password change failed
           this.$notify({
             title: "错误",
-            message: "密码修改失败，请稍后重试",
+            message: "输入的原密码错误",
             type: "error",
           });
         }
       } catch (error) {
         this.$notify({
           title: "错误",
-          message: "发生了一个错误，请稍后重试",
+          message: "输入的原密码错误",
           type: "error",
         });
       }
@@ -228,6 +255,34 @@ export default {
     validatePassword() {
       this.passwordMismatch = this.newPassword !== this.confirmPassword;
     },
+    docInfo(){
+      axios({
+        url:'http://localhost:8003/doctor/getDoctorId',
+        method: 'post',
+        params:{
+          doctorId:this.doctorId
+        }
+      }).then(resp => {
+        if(resp){
+          this.userData = resp.data.data
+        }
+      })
+    },
+    getImage(){
+      axios({
+        url: 'https://www.mxnzp.com/api/verifycode/code',
+        method:'get',
+        params:{
+          app_id:"cpnlmkgjticxfzop",
+          app_secret: "QbRMPR4d5zr4Rzv0Tr5r1zkNVD8b3eoi"
+      }
+      }).then(resp => {
+
+        this.httpimage = resp.data.data.verifyCodeImgUrl
+        this.httptext=resp.data.data.verifyCode
+        //console.log(this.httptext)
+      })
+    }
   },
 };
 </script>

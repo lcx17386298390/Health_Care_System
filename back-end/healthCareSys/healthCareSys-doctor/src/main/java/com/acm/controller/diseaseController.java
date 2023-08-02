@@ -18,10 +18,10 @@ public class diseaseController {
 
 
     //    添加病例
-    @RequestMapping("/adddisease")
-    public ResponseResult adddisease(String pid, String diseasename, Data data, String did){
-        return diseaseService.adddisease(pid,diseasename,data,did);
-    }
+//    @RequestMapping("/adddisease")
+//    public ResponseResult adddisease(String pid, String diseasename, Data data, String did){
+//        return diseaseService.adddisease(pid,diseasename,data,did);
+//    }
 
     //    只有医生可以修改病例
     @RequestMapping("/diseaserevise")

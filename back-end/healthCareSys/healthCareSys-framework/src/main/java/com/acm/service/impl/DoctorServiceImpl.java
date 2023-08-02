@@ -207,4 +207,29 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
         queryWrapper.eq(Doctor::getRealname,nickName);
         return count(queryWrapper) > 0;
     }
+
+
+    /**
+     * 修改医生密码
+     * @param doctorId
+     * @param currentPassword
+     * @param newPassword
+     * @return
+     */
+    @Override
+    public ResponseResult changePassword(String doctorId, String currentPassword, String newPassword) {
+        Doctor doctor = doctorMapper.selectById(doctorId);
+        if (passwordEncoder.matches(currentPassword, doctor.getPassword())) {
+            String newPwd = passwordEncoder.encode(newPassword);
+            doctor.setPassword(newPwd);
+            boolean updateById = updateById(doctor);
+            if(updateById){
+                return ResponseResult.okResult();
+            }else{
+                return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR);
+            }
+        }else{
+            return ResponseResult.errorResult(AppHttpCodeEnum.PASSWORD_ERROR);
+        }
+    }
 }

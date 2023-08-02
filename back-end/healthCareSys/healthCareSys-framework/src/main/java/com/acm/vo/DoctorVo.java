@@ -25,4 +25,6 @@ public class DoctorVo {
     private String realname;
     //医生身份证号
     private String identityinfo;
+
+    private String department;
 }

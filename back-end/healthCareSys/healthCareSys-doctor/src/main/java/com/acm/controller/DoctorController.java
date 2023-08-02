@@ -62,6 +62,9 @@ public class DoctorController {
         return doctorService.getDoctorId(doctorId);
     }
 
-
+    @PostMapping("/changepassword")
+    public ResponseResult changePassword(String doctorId,String currentPassword,String newPassword){
+        return doctorService.changePassword(doctorId,currentPassword,newPassword);
+    }
 
 }
