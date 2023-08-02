@@ -17,8 +17,6 @@ import prescription0 from '../views/patients/prescription0/index.vue'
 import history from '../views/patients/history/index.vue'
 import selfInfo from '../views/patients/selfInfo/index.vue'
 import nav from '../views/patients/navigate/index.vue'
-
-
 import consultation from '../views/patients/prescription0/consultation.vue'
 
 
@@ -28,6 +26,7 @@ import drug0 from '../views/doctors/drug0/index.vue'
 import his from '../views/doctors/history/index.vue'
 import docSelf from '../views/doctors/docSelf/index.vue'
 import seeDrug from '../views/doctors/seeDrug/index.vue'
+import docconsultation from '../views/doctors/side/docconsultation.vue'
 
 
 
@@ -95,6 +94,7 @@ const routes = [
       { path: 'his', name: 'his', component: his },
       { path: 'docSelf', name: 'docSelf', component: docSelf },
       { path:'see-drug',name:'seeDrug',component:seeDrug},
+      { path: 'docconsultation',name: 'docconsultation',component: docconsultation},
     ]
   },
   {
