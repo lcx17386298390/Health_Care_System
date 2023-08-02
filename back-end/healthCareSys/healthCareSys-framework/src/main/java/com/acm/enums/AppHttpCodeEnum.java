@@ -38,6 +38,9 @@ public enum AppHttpCodeEnum {
     CASES_NULL(526,"找不到该患者的病例单"),
     DATA_NULL(300,"参数不能为空"),
     APPOINTMENT_NULL(527,"目前还没有该医生的预约"),
+
+    WAIT_ACCESS(528,"等待接收"),
+    HAVE_ACCESS(529,"通过"),
     DATA_NOT(600,"参数错误");
 
 

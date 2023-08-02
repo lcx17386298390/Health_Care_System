@@ -127,81 +127,24 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   components: {},
   data() {
     return {
       orders: [
         {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
-        },
-        {
-          appointmentDate: "2023-07-31 09:00-10:00",
-          patientName: "System Architect",
-          appointmentDepartment: "Edinburgh",
-          appointmentStatus: "未通过",
+          appointmentDate: "",
+          patientName: "",
+          appointmentDepartment: "",
+          appointmentStatus: "",
         },
       ],
       perPage: 10,
       currentPage: 1,
       searchQuery: "",
+      currentDoctorName: "医生二"
+
     };
   },
   created() {
@@ -252,27 +195,38 @@ export default {
       return `${date} ${startTime}-${endTime}`;
     },
     getButtonType(appointmentStatus) {
-      return appointmentStatus === "未通过" ? "danger" : "success";
+      return appointmentStatus === "等待接收" ? "danger" : "success";
     },
 
     async fetchTableData() {
       try {
-        const response = await axios.get("http://localhost:8001/tables"); //api写这里
-        this.orders = response.data;
+        const response = await axios({
+          url: 'http://localhost:8003/doctor/getappointmentBydname',
+          method: 'get',
+          params:{
+            docName:this.currentDoctorName,
+            pageNum:this.currentPage,
+            pageSize:this.perPage
+          }
+        })//api写这里
+        this.orders = response.data.data;
       } catch (error) {
         this.$message.error("获取数据失败");
       }
     },
     async confirmStatus(order, status) {
+      //console.log(order.id)
       try {
-        const response = await axios.post(
-          "http://localhost:8001/appointstatus", // api写这里
-          {
-            orderId: order.id,
-            status,
+        const response = await axios({
+          url: 'http://localhost:8003/doctor/appointstatus',
+          method:'post',
+          params:{
+            orderId:order.id,
+            status:status
           }
-        );
+        })
         if (response.status === 200) {
+          console.log(response.data)
           order.appointmentStatus = status;
           this.$notify({
             title: "成功",

@@ -29,19 +29,19 @@ public class PrescriptionController {
     //添加处方单
     @RequestMapping("/addPrescription")
     public ResponseResult addPrescription(
-                                          String diseaseId,String diseaseName,
-                                          String diseaseDesc,String did,
-                                          String pid,
-                                          String drugs){
-        return prescriptionService.addPrescription(diseaseId,diseaseName,diseaseDesc,did,pid,drugs);
+            String diseaseName,
+            String pname,
+            String dname,
+            String diseaseDesc,
+            String drugs){
+        return prescriptionService.addPrescription(diseaseName,pname,dname,diseaseDesc,drugs);
     }
     @RequestMapping("/previse")
     public ResponseResult previse(
                                     String prescriptionId,
-                                    String diseaseId,String diseaseName,
-                                    String diseaseDesc,String did,
-                                    String pid, String drugs){
-        return prescriptionService.previse(prescriptionId,diseaseId,diseaseName,diseaseDesc,did,pid,drugs);
+                                    String diseaseName,
+                                    String diseaseDesc,String drugs){
+        return prescriptionService.previse(prescriptionId,diseaseName,diseaseDesc,drugs);
     }
 
 

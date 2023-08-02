@@ -84,6 +84,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -93,15 +95,34 @@ export default {
       max: 10,
       tableData: [
         {
-          id: "1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          drugName: "1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          drugPrice: "1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          drugNums: "1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          drugUsage: "1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          id: "",
+          drugName: "",
+          drugPrice: "",
+          drugNums: "",
+          drugUsage: "",
         }
       ],
     };
   },
+  methods:{
+    initDrugList(){
+      axios({
+        url: 'http://localhost:8001/druglist',
+        method: 'get',
+        params: {
+          pageNum: this.pageNum,
+          pageSize: this.pageSize,
+          drugName: this.search
+        }
+      }).then(resp => {
+        //console.log(resp.data.data)
+        this.tableData = resp.data.data;
+      })
+    }
+  },
+  mounted() {
+    this.initDrugList()
+  }
 };
 </script>
 

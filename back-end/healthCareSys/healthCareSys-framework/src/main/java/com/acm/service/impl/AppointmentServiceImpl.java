@@ -42,7 +42,7 @@ public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appoi
         if(appointment.getDoctorName() == null){
             throw new SystemException(AppHttpCodeEnum.DOCTORNAME_NOT_NULL);
         }
-        appointment.setAppointmentStatus(AppHttpCodeEnum.SUCCESS.getMsg());
+        appointment.setAppointmentStatus(AppHttpCodeEnum.WAIT_ACCESS.getMsg());
         appointmentMapper.insert(appointment);
         return ResponseResult.okResult();
     }
@@ -62,6 +62,39 @@ public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appoi
         LambdaQueryWrapper<Appointment> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Appointment::getDoctorName, docName);
 
+        IPage<Appointment> appointmentPage = appointmentMapper.selectPage(page, queryWrapper);
+        List<AppointmentVo> appointmentVos = BeanCopyUtils.copyBeanList(appointmentPage.getRecords(), AppointmentVo.class);
+
+        // 判断查询结果是否为空
+        if (appointmentVos.isEmpty()) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.APPOINTMENT_NULL);
+        } else {
+            return ResponseResult.okResult(appointmentVos);
+        }
+    }
+
+
+    @Override
+    public ResponseResult getappointstatus(String orderId,String status) {
+        Appointment appointment = appointmentMapper.selectById(orderId);
+        appointment.setAppointmentStatus(status);
+        appointmentMapper.updateById(appointment);
+        return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult getAcceptappointmentBydname(Integer pageNum, Integer pageSize, String docName) {
+        if (pageNum == null || pageNum <= 0) {
+            pageNum = 1;
+        }
+        if (pageSize == null || pageSize <= 0) {
+            pageSize = 10;
+        }
+
+        Page<Appointment> page = new Page<>(pageNum, pageSize);
+        LambdaQueryWrapper<Appointment> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Appointment::getDoctorName, docName);
+        queryWrapper.eq(Appointment::getAppointmentStatus,AppHttpCodeEnum.HAVE_ACCESS.getMsg());
         IPage<Appointment> appointmentPage = appointmentMapper.selectPage(page, queryWrapper);
         List<AppointmentVo> appointmentVos = BeanCopyUtils.copyBeanList(appointmentPage.getRecords(), AppointmentVo.class);
 
