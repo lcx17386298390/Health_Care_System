@@ -125,7 +125,7 @@
             </div>
             <div class="mb-3">
               <label for="confirmPassword" class="form-label">确认新密码</label>
-              <div class="input-group">
+              <div class="input-group haha">
                 <input
                   :type="showConfirmPassword ? 'text' : 'password'"
                   v-model="confirmPassword"
@@ -150,7 +150,10 @@
                 新密码和确认密码不一致
               </div>
               <label for="confirmPassword" class="form-label">输入验证码</label>
-              <el-input v-model="inputText"></el-input><img :src="httpimage" @click="getImage"></img>
+              <div class="flex0">
+                <el-input v-model="inputText" style="width:15%;margin-right:20px;"></el-input>
+              <img :src="httpimage" @click="getImage"></img>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary">确认修改</button>
           </form>
@@ -291,5 +294,11 @@ export default {
 .personal-info-container {
   max-height: 666px;
   overflow-y: auto;
+}
+.flex0{
+  display: flex;
+}
+.haha{
+  margin-bottom: 10px;
 }
 </style>
