@@ -11,18 +11,21 @@ import com.acm.mapper.PatientMapper;
 import com.acm.service.DiseaseService;
 import com.acm.utils.BeanCopyUtils;
 import com.acm.vo.DiseaseInfoVo;
+import com.acm.vo.DocDiagnosticsVo;
 import com.acm.vo.ResponseResult;
 import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * (Disease)表服务实现类
@@ -59,31 +62,31 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
     }
 
 //    添加病例单
-//    @Override
-//    public ResponseResult adddisease(String pid, String diseasename, Data data, String did) {
-//
-//        Doctor doctor = doctorMapper.selectById(did);
-//
-//        Patient patient = patientMapper.selectById(pid);
-//        if (doctor == null) {
-//            return ResponseResult.errorResult(AppHttpCodeEnum.DOCTOR_NOT_EXIST);
-//        }
-//        if(patient == null){
-//            return ResponseResult.errorResult(AppHttpCodeEnum.PATIENT_NOT_EXIST);
-//        }
-//        Disease disease=new Disease();
-//        disease.setDiseaseName(diseasename);
-//        disease.setPid(pid);
-//        disease.setDname(doctor.getRealname());
-//        disease.setPname(patient.getRealname());
-//        disease.setClinicDate((Date) data);
-//        int result=diseaseMapper.insert(disease);
-//        if(result>0){
-//            return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
-//        }else {
-//            return ResponseResult.errorResult(AppHttpCodeEnum.CASES_NOT_NULL);
-//        }
-//    }
+    @Override
+    public ResponseResult adddisease(String pid, String diseasename, Data data, String did) {
+
+        Doctor doctor = doctorMapper.selectById(did);
+
+        Patient patient = patientMapper.selectById(pid);
+        if (doctor == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.DOCTOR_NOT_EXIST);
+        }
+        if(patient == null){
+            return ResponseResult.errorResult(AppHttpCodeEnum.PATIENT_NOT_EXIST);
+        }
+        Disease disease=new Disease();
+        disease.setDiseaseName(diseasename);
+        disease.setPid(pid);
+        disease.setDname(doctor.getRealname());
+        disease.setPname(patient.getRealname());
+        disease.setClinicDate((Date) data);
+        int result=diseaseMapper.insert(disease);
+        if(result>0){
+            return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
+        }else {
+            return ResponseResult.errorResult(AppHttpCodeEnum.CASES_NOT_NULL);
+        }
+    }
     //    只有医生可以修改病例病名
     @Override
     public ResponseResult diseaserevise(String pidId , String diseaseName) {
@@ -113,5 +116,37 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
 
         }
 
+    @Override
+    public ResponseResult diagnostics(Integer pageNum, Integer pageSize, String did) {
+        LambdaQueryWrapper<Disease> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Disease::getDid, did);
+
+        Page<Disease> page = new Page<>(pageNum, pageSize);
+        page = diseaseMapper.selectPage(page, queryWrapper);
+
+        List<Disease> diseaseList = page.getRecords();
+
+
+        List<String> didList = diseaseList.stream().map(Disease::getDid).collect(Collectors.toList());
+
+        LambdaQueryWrapper<Doctor> doctorWrapper = new LambdaQueryWrapper<>();
+        doctorWrapper.in(Doctor::getId, didList);
+        List<Doctor> doctorList = doctorMapper.selectList(doctorWrapper);
+
+
+        List<DocDiagnosticsVo> diagnosticsList = new ArrayList<>();
+        for (Disease disease : diseaseList) {
+            DocDiagnosticsVo diagnosticsVo = BeanCopyUtils.copyBean(disease, DocDiagnosticsVo.class);
+            // 查找对应的doctor对象
+            Doctor matchingDoctor = doctorList.stream().filter(doctor -> did.equals(doctor.getId())).findFirst().orElse(null);
+            if (matchingDoctor != null) {
+                diagnosticsVo.setDepartment(matchingDoctor.getDepartment());
+            }
+            diagnosticsList.add(diagnosticsVo);
+        }
+
+
+        return  ResponseResult.okResult(diagnosticsList);
+    }
 
 }

@@ -19,4 +19,6 @@ public interface DiseaseService extends IService<Disease> {
     //ResponseResult adddisease(String pid, String diseasename, Data data, String did);
 
     ResponseResult diseaserevise(String pidId, String diseaseName);
+
+    ResponseResult diagnostics(Integer pageNum, Integer pageSize, String patientId);
 }

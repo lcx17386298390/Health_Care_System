@@ -52,6 +52,16 @@
           订单处理
         </router-link>
       </li>
+        <li class="nav-item">
+            <router-link to="/doc/docconsultation" class="nav-link text" aria-current="page" id="v-pills-regis-tab"
+                         data-toggle="pill" role="tab" aria-controls="v-pills-messages" aria-selected="true"
+                         :class="{ active: $route.path === '/doc/docconsultation' }">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:to="#consultation"></use>
+                </svg>
+                在线咨询
+            </router-link>
+        </li>
       <li>
         <router-link to="/doc/docSelf" class="nav-link text" id="v-pills-docSelf-tab" data-toggle="pill" role="tab"
           aria-controls="v-pills-messages" aria-selected="false" :class="{ active: $route.path === '/doc/docSelf' }">
