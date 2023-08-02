@@ -36,6 +36,8 @@ public class PrescriptionController {
             String drugs){
         return prescriptionService.addPrescription(diseaseName,pname,dname,diseaseDesc,drugs);
     }
+
+//    修改处方单
     @RequestMapping("/previse")
     public ResponseResult previse(
                                     String prescriptionId,
