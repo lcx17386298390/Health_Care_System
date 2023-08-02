@@ -28,6 +28,8 @@ import drug0 from '../views/doctors/drug0/index.vue'
 import his from '../views/doctors/history/index.vue'
 import docSelf from '../views/doctors/docSelf/index.vue'
 import seeDrug from '../views/doctors/seeDrug/index.vue'
+import docconsultation from '../views/doctors/side/docconsultation.vue'
+
 import doctorLogin from "@/views/doctors/doctorLogin.vue";
 
 //admin
@@ -99,6 +101,7 @@ const routes = [
       { path: 'his', name: 'his', component: his },
       { path: 'docSelf', name: 'docSelf', component: docSelf },
       { path:'see-drug',name:'seeDrug',component:seeDrug},
+      { path: 'docconsultation', name: 'docconsultation', component: docconsultation },
     ]
   },
   {
