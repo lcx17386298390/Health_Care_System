@@ -59,7 +59,7 @@
                 </div>
                 <div class="card-footer text-center py-3">
                   <div class="small">
-                    <router-link to="/register"
+                    <router-link to="/doc-register"
                       >新用户? 注册一个账号!</router-link
                     >
                   </div>

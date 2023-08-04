@@ -29,7 +29,7 @@ import his from '../views/doctors/history/index.vue'
 import docSelf from '../views/doctors/docSelf/index.vue'
 import seeDrug from '../views/doctors/seeDrug/index.vue'
 import docconsultation from '../views/doctors/side/docconsultation.vue'
-
+import doctorRegister from "@/views/doctors/doctorRegister.vue";
 import doctorLogin from "@/views/doctors/doctorLogin.vue";
 
 //admin
@@ -64,6 +64,11 @@ const routes = [
     redirect: '/home',
     name: 'Homeview',
     component: HomeView
+  },
+  {
+    path: '/doc-register',
+    name:'doctorRegister',
+    component: doctorRegister
   },
   {
     path: '/home',

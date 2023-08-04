@@ -53,7 +53,7 @@
               <el-input v-if="inputVisible" class="input-new-tag" v-model="zsdrug" ref="input" size="medium"
                 @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm"></el-input>
               <el-button v-else class="button-new-tag" size="small" @click="showInput">
-                添加药名
+                添加药品及剂量
               </el-button>
             </el-form-item>
 

@@ -22,4 +22,6 @@ public interface PrescriptionService extends IService<Prescription> {
                                    String drugs);
 
     ResponseResult previse(String prescriptionId,String diseaseName, String diseaseDesc, String drugs);
+
+    ResponseResult getPrescriptionByName(String pname);
 }

@@ -2,7 +2,7 @@
   <div class="prescription">
 
     <h3>处方单</h3>
-    <span>姓名：---</span><span>医师：---</span>
+    <span>姓名：{{username}}</span><span>医师：{{docname}}</span>
     <br>
     临床诊断：
     <div class="zhenduan">
@@ -17,57 +17,53 @@
     </div>
 
     <hr>
-    <h2>R:</h2>
-    <el-table :data="tableData" height="300" border style="width: 100%">
-    <el-table-column prop="id" label="药品ID" width="180"></el-table-column>
-    <el-table-column prop="name" label="药品名称" width="180"></el-table-column>
-    <el-table-column prop="price" label="价格"> </el-table-column>
-    </el-table>
+
+    <h2>药品:</h2>
+  药品名称:{{drugs}}
 
   </div>
 </template>
 
 <script>
+import axios from "axios"
 export default {
 
   data() {
     return {
       showFullText: false,
-      diagnosis: "这是一个非常长的临床诊断，超过两行文字。这是一个非常长的临床诊断，超过两行文字。这是一个非常长的临床诊断，超过两行文字。",
+      diagnosis: "",
       truncatedDiagnosis: "",
-      tableData: [{
-          id: '111',
-          name: '布洛芬',
-          price: '99.9'
-        }, {
-          id: '222',
-          name: '阿莫西林',
-          price: '88.8'
-        }, {
-          id: '333',
-          name: '消食片',
-          price: '77.7'
-        }, {
-          id: '444',
-          name: '含笑半步颠',
-          price: '66.6'
-        }, {
-          id: '555',
-          name: '菠菜',
-          price: '55'
-        }, {
-          id: '666',
-          name: '透骨青',
-          price: '44'
-        }, {
-          id: '777',
-          name: '哈哈哈',
-          price: '22'
-        }]
-      
+      drugs: '',
+      username:JSON.parse(sessionStorage.getItem("user")).username,
+      docname:""
     };
   },
-  mounted() {
+  methods:{
+    getPrescription(){
+      axios({
+        url: 'http://localhost:8003/doctor/getPrescriptionByName',
+        method: 'post',
+        params:{
+          pname:this.username
+        }
+      }).then(resp => {
+        if(resp.data.code === 200){
+          //console.log(resp.data.data.drugs)
+          this.diagnosis = resp.data.data.diseaseDesc
+          this.docname = resp.data.data.dname
+          this.drugs = resp.data.data.drugs
+          //console.log(this.drugs.name)
+        }else{
+          this.$message.error({
+            message: resp.data.msg,
+            type: 'error',
+          })
+        }
+      })
+    }
+  },
+  created() {
+    this.getPrescription();
     if (this.diagnosis.length > 35) {
       this.truncatedDiagnosis = this.diagnosis.slice(0, 35) + '...';
     } else {

@@ -121,4 +121,14 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
         }
     }
 
+    @Override
+    public ResponseResult getPrescriptionByName(String pname) {
+        LambdaQueryWrapper<Prescription> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Prescription::getPname,pname);
+        Prescription prescription = prescriptionMapper.selectOne(queryWrapper);
+        if(prescription != null){
+            return ResponseResult.okResult(prescription);
+        }
+        return ResponseResult.errorResult(AppHttpCodeEnum.PRESCRIPTION_NOT_NULL);
+    }
 }

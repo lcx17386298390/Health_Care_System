@@ -46,6 +46,8 @@ public class PrescriptionController {
         return prescriptionService.previse(prescriptionId,diseaseName,diseaseDesc,drugs);
     }
 
-
-
+    @RequestMapping("/getPrescriptionByName")
+    public ResponseResult getPrescriptionByName(String pname){
+        return prescriptionService.getPrescriptionByName(pname);
+    }
 }
